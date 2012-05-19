@@ -1,9 +1,9 @@
 {
-    'name':     'MicrowaveJS'
-  , 'version':  '0.0.1'
-  , 'dependencies': {
-      'express': '2.5.9'
-    , 'js-yaml': '0.3.7'
-    , 'sitemap': '0.6.0'
+    "name":     "MicrowaveJS"
+  , "version":  "0.0.1"
+  , "dependencies": {
+      "express": "2.5.9"
+    , "js-yaml": "0.3.7"
+    , "sitemap": "0.6.0"
   }
 }
