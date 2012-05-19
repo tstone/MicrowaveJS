@@ -13,6 +13,14 @@ function slugify(s) {
   return s.trim().toLowerCase().replace(/[^-a-z0-9,&\s]+/ig, '').replace(/\s/g, '-');
 }
 
+var sliceContents = function(contents) {
+    var i = contents.indexOf('*/');
+    return {
+        header: contents.substr(2, i - 2).trim(),
+        body: contents.substr(i + 2).trim()
+    }
+};
+
 /* ----------------------------------
     parseHeader
     Read the meta data (YAML) at the top of a file
@@ -26,9 +34,9 @@ var parseHeader = function(file, name) {
 
     // Check for configuration data
     if (contents.substr(0, 2) === '/*') {
-        var m = (new RegExp('^/\\*([\\s\\S]+)\\*/')).exec(contents);
-        if (m) {
-            var config = yaml.load(m[1].trim());
+        var rawConfig = sliceContents(contents);
+        if (rawConfig.header) {
+            var config = yaml.load(rawConfig.header);
             header.title = config.title;
             header.tags = config.tags;
             header.date = Date.parse(config.date);
