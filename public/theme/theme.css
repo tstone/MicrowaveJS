@@ -1,5 +1,52 @@
 /*
  *  Stock Light theme for Microwave.js
+ *  https://github.com/tstone/MicrowaveJS
+ *
+ *  Inspired by Vignelli theme by Robbie Manson
+ *  http://www.robbiemanson.com/resources/vignelli-minimal-tumblr-theme/
  */
 
+/* ==|== blog styles ======================================================== */
+
+html, body { height: 100%; }
+body { font-family: 'Open Sans', sans-serif; letter-spacing: -0.05em; }
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.075em; }
+h1 a, h2 a, h3 a, h4 a { text-decoration: none; }
+a { color: #444; }
+a:visited { color: #333; }
+a:hover { color: #D53C2E; }
+
+/* Header */
+header { border-bottom: solid 1px #eee; padding: 20px 0; }
+header h1 { color: #D53C2E; text-transform: lowercase; width: 20%; float: left; font-size: 16px; margin: 0; }
+header h1 a { color: #D53C2E; }
+header h1 a:visited { color: #D53C2E; }
+header .desc { margin-left: 20%; font-size: 13px; display: block; line-height: 20px; }
+
+/* Body */
+.wrapper { width: 960px; margin: 0 auto; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; }
 .post pre { margin-left: 15px; }
+ul.tags { padding: 0; margin: 8px 0; }
+ul.tags li { display: inline-block; border: solid 1px #f8f8f8; padding: 2px 4px; font-size: 11px; margin-right: 4px; color: #ccc; }
+
+/* Footer */
+footer { margin-left: 20%; height: 15px; position: absolute; bottom: 10px; left: 0; }
+
+/* Index Page */
+body.index article { margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;  }
+body.index article h2 { margin-bottom: 0; }
+body.index article .date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
+body.index article ul.tags { float: right; margin: -15px 0 0 0; }
+body.index article a.comments { font-size: 11px; display: block; color: #bbb; }
+
+/* Post Page */
+body.post .post { margin: 0 20%; position: relative; font-size: 0.9em; }
+body.post .post .date { display: block; position: absolute; top: 10px; left: -20%; font-size: 12px; color: #999; }
+body.post .post .tags { position: absolute; top: 25px; left: -20%; margin-left: -1px; width: 15%; }
+body.post .post .tags li { margin-bottom: 4px; }
+body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; text-align: left; }
+body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; }
+
+/* ==|== media queries ====================================================== */
+
+

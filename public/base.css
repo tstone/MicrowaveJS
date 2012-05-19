@@ -141,10 +141,12 @@ td { vertical-align: top; }
 
 /* ==|== blog styles ======================================================== */
 
+code { padding: 2px 3px; }
+footer { font-size: 11px; }
+
 .posts { list-style-type: none; padding: 0; }
 .posts li { list-style-type: none; margin-bottom: 10px; }
 .posts .title { display: block; font-size: 28px; }
-code { padding: 2px 3px; }
 
 
 

@@ -19,15 +19,16 @@ exports.routes = function(app, postKeyTable, postList) {
             var pageRight = offsetEnd < postList.length;
 
             res.render('index', {
-                pagetitle: settings.title,
-                analytics: settings.analytics,
+                blogtitle: settings.title,
+                blogdesc: settings.desc,
+                head: head,
                 disqusname: settings.disqusname,
                 page: page,
                 prev: pageLeft ? '/page/' + page : '',
                 next: pageRight ? '/page/' + (page+2) : '',
                 prevText: settings.prev,
                 nextText: settings.next,
-                head: head,
+                pagination: pageLeft && pageRight,
                 comments: settings.comments,
                 posts: posts.map(function(x){
                     return {
@@ -50,9 +51,13 @@ exports.routes = function(app, postKeyTable, postList) {
                 var slug = slugify(header.title);
                 res.render('post',{
                     head: head,
+                    blogtitle: settings.title,
+                    blogdesc: settings.desc,
                     title: header.title,
                     slug: slug,
                     body: body,
+                    date: header.date,
+                    tags: header.tags,
                     url: '/post/' + slug,
                     disqusname: app.settings.disqusname,
                     comments: typeof header.comments === 'boolean' ? header.comments : settings.comments

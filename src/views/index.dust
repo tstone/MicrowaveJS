@@ -1,28 +1,41 @@
 <!doctype html>
 <html>
 <head>
-    <title>{pagetitle}</title>
+    <title>{blogtitle}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/public/base.css" />
     <link rel="stylesheet" href="/public/theme/theme.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
     {head|s}
 </head>
-<body>
+<body class="index">
 
-    <ul class="posts">
-    {#posts}
-        <li>
-            <a class="title" href="{url}">{title}</a>
+    <div class="wrapper">
+        <header>
+            <h1>{blogtitle}</h1>
+            <span class="desc">{blogdesc}</span>
+        </header>
+
+        {#posts}
+        <article>
+            <h2><a href="{url}">{title}</a></h2>
             <span class="date">{date}</span>
+            <ul class="tags">
+                {#tags}<li>{.}{/tags}
+            </ul>
             {#comments}<a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>{/comments}
-        </li>
-    {/posts}
-    </ul>
+        </article>
+        {/posts}
 
-    <div class="pagination">
-        {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
-        {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
+        {#pagination}
+        <nav class="pagination">
+            {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
+            {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
+        </nav>
+        {/pagination}
+
+        <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
     </div>
 
     {#comments}
@@ -38,6 +51,5 @@
         }());
     </script>
     {/comments}
-
 </body>
 </html>

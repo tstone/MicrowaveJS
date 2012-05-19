@@ -1,22 +1,41 @@
 <!doctype html>
 <html>
 <head>
-    <title>{pagetitle}</title>
+    <title>{blogtitle}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/public/base.css" />
     <link rel="stylesheet" href="/public/theme/theme.css" />
     <link rel="stylesheet" href="/public/theme/prettify-theme.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
     {head|s}
 </head>
-<body>
-    <h1>{title}</h1>
-    <div class="post">
-        {body|s}
+<body class="post">
+
+    <div class="wrapper">
+        <header>
+            <h1><a href="/">{blogtitle}</a></h1>
+            <span class="desc">{blogdesc}</span>
+        </header>
+
+        <nav>
+            <a href="/">« Return to Index</a>
+        </nav>
+
+        <div class="post">
+            <h1>{title}</h1>
+            <span class="date">{date}</span>
+            <ul class="tags">
+                {#tags}<li>{.}{/tags}
+            </ul>
+            {body|s}
+            <div id="disqus_thread"></div>
+        </div>
+
+        <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
     </div>
 
     {#comments}
-    <div id="disqus_thread"></div>
     <script type="text/javascript">
         var disqus_shortname = '{disqusname}';
         var disqus_identifier = '{slug}';

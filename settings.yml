@@ -2,8 +2,9 @@
 # All-blog Settings
 host:   http://localhost:3000
 posts:  /posts
-title:  MicrowaveJS Blog
 count:  50
+title:  MicrowaveJS Blog
+desc:   An example MicrowaveJS blog that you'll want to read again and again!
 
 # DISQUS Settings
 comments:    true
