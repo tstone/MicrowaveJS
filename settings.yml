@@ -6,6 +6,7 @@ title:  MicrowaveJS Blog
 count:  50
 
 # DISQUS Settings
+comments:    true
 disqusname:  testblog
 
 # Display Settings

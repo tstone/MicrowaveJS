@@ -28,6 +28,7 @@ exports.routes = function(app, postKeyTable, postList) {
                 prevText: settings.prev,
                 nextText: settings.next,
                 head: head,
+                comments: settings.comments,
                 posts: posts.map(function(x){
                     return {
                         title: x.title,
@@ -53,7 +54,8 @@ exports.routes = function(app, postKeyTable, postList) {
                     slug: slug,
                     body: body,
                     url: '/post/' + slug,
-                    disqusname: app.settings.disqusname
+                    disqusname: app.settings.disqusname,
+                    comments: typeof header.comments === 'boolean' ? header.comments : settings.comments
                 });
             });
         } else {

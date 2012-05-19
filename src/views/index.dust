@@ -15,7 +15,7 @@
         <li>
             <a class="title" href="{url}">{title}</a>
             <span class="date">{date}</span>
-            <a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>
+            {#comments}<a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>{/comments}
         </li>
     {/posts}
     </ul>
@@ -25,6 +25,7 @@
         {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
     </div>
 
+    {#comments}
     <script type="text/javascript">
         var disqus_shortname = '{disqusname}';
 
@@ -36,6 +37,7 @@
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
     </script>
+    {/comments}
 
 </body>
 </html>
