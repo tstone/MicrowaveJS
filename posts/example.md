@@ -6,7 +6,9 @@ tags:   [simple, easy, sample]
 
 This is the primary body of my post...
 
-    // Including source code
-    function() { return 0; }
+```
+// Including source code
+function() { return 0; }
+```
 
 The end.

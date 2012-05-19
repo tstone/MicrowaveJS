@@ -8,6 +8,8 @@ var express     = require('express')
 
 scanner.scan(settings, function(postKeyTable, postList) {
 
+    console.log(postKeyTable);
+
     app.get('/sitemap.xml', function(req, res){
         var host = settings.host;
         var sm = sitemap.createSitemap({
@@ -27,8 +29,14 @@ scanner.scan(settings, function(postKeyTable, postList) {
     });
 
     app.get('/*', function(req, res){
-        console.log(req.url);
-        res.send('');
+        var post = postKeyTable[req.url.substr(1)];
+        if (post) {
+            scanner.renderContent(post, function(content){
+                res.send(content);
+            });
+        } else {
+            // 404
+        }
     });
 
     app.get('/', function(req, res){

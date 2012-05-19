@@ -3,6 +3,7 @@ require('./vendor/date')
 var path        = require('path')
   , fs          = require('fs')
   , yaml        = require('js-yaml')
+  , markdown    = require('YamYam')
   , scanner     = {}
   ;
 
@@ -65,8 +66,22 @@ var parseHeader = function(file, name) {
 };
 
 var parseContent = function(file, callback) {
-    // TODO
+    fs.readFile(file, 'ascii', function(err, raw){
+        var body = sliceContents(raw.trim()).body;
+        callback(body);
+    })
 };
+
+var renderContent = function(file, callback) {
+    parseContent(file, function(content) {
+        if (file.substr(file.length - 3) === '.md') {
+            var html = markdown.parse(content);
+            callback(html);
+        } else {
+            callback(content);
+        }
+    });
+}
 
 
 /* ----------------------------------
@@ -96,4 +111,5 @@ var scan = function(settings, callback) {
 
 // Exports
 exports.parseContent = parseContent;
+exports.renderContent = renderContent;
 exports.scan = scan;
