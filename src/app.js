@@ -3,43 +3,20 @@ var express     = require('express')
   , app         = express.createServer()
   , settings    = require('./settings')
   , scanner     = require('./scanner')
-  , sitemap     = require('sitemap')
+  , tmpl        = require('./vendor/mustache')
+  , path        = require('path')
   ;
 
-scanner.scan(settings, function(postKeyTable, postList) {
+// Configure
+app.settings = settings;
+app.configure(function(){
+    app.use(app.router);
+    app.set('views', path.join(__dirname, '/views'));
+    app.set('view options', { layout: false });
+    app.register('.html', tmpl);
+});
 
-    app.get('/sitemap.xml', function(req, res){
-        var host = settings.host;
-        var sm = sitemap.createSitemap({
-            hostname: host,
-            urls: postList.map(function(p){
-                return { url: '/' + p.slug };
-            })
-        });
-        sm.toXML(function(xml){
-            res.header('Content-Type', 'application/xml');
-            res.send(xml);
-        });
-    });
-
-    app.get('/page/:num', function(req, res){
-
-    });
-
-    app.get('/*', function(req, res){
-        var post = postKeyTable[req.url.substr(1)];
-        if (post) {
-            scanner.renderContent(post, function(content){
-                res.send(content);
-            });
-        } else {
-            // 404
-        }
-    });
-
-    app.get('/', function(req, res){
-        // List all posts
-    });
-
+// Scan and start
+scanner.scan(app, settings, require('./routes').routes, function() {
     app.listen(process.env.PORT || 3000);
-})
+});

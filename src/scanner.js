@@ -88,7 +88,7 @@ var renderContent = function(file, callback) {
     Read the posts directory and build the cache
     of available posts
    ---------------------------------- */
-var scan = function(settings, callback) {
+var scan = function(app, settings, routes, callback) {
 
     var postKeyTable = {}
       , postList = []
@@ -103,6 +103,7 @@ var scan = function(settings, callback) {
             postKeyTable[header.slug] = filePath;
         });
 
+        routes(app, postKeyTable, postList, postDir);
         callback(postKeyTable, postList, postDir);
     });
 };
