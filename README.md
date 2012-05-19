@@ -56,7 +56,13 @@ tags:   [simple, easy, sample]
 */
 ```
 
-Values in this header will override any information pulled from the file.  The date can be written in any way you like.
+Values in this header will override any information pulled from the file.
+
+The date can be written in any way you like, including the following formats:
+
+- MMMM dd, yyyy
+- MM/DD/YYYY
+- etc.
 
 Settings
 --------
