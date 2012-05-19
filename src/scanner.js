@@ -99,6 +99,11 @@ var scan = function(app, settings, routes, callback) {
             postKeyTable[header.slug] = filePath;
         });
 
+        // Sort list
+        postList.sort(function(a, b){
+            return b.date > a.date;
+        });
+
         routes(app, postKeyTable, postList, postDir);
         callback(postKeyTable, postList, postDir);
     });

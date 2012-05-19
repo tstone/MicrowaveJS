@@ -14,7 +14,7 @@ exports.routes = function(app, postKeyTable, postList) {
                     return {
                         title: x.title,
                         tags: x.tags,
-                        date: x.date.toString('MMMM d, yyyy h:mm tt'),
+                        date: x.date.toString('MMMM d, yyyy'),
                         url: '/post/' + x.slug
                     };
                 })
