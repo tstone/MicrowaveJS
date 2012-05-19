@@ -8,14 +8,7 @@
     <link rel="stylesheet" href="/public/theme/theme.css" />
 </head>
 <body>
-    <ul class="posts">
-    {{#posts}}
-        <li>
-            <a class="title" href="{{url}}">{{title}}</a>
-            <span class="date">{{date}}</span>
-            {{body}}
-        </li>
-    {{/posts}}
-    </ul>
+    {+html_body}
+    {/html_body}
 </body>
 </html>

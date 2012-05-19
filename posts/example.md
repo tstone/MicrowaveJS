@@ -11,6 +11,4 @@ This is the primary body of my post...
 function() { return 0; }
 ```
 
-<h3>You can also use HTML here too.</h3>
-
 The end.

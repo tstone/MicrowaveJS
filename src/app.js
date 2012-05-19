@@ -3,18 +3,18 @@ var express     = require('express')
   , app         = express.createServer()
   , settings    = require('./settings')
   , scanner     = require('./scanner')
-  , tmpl        = require('./vendor/mustache')
+  , consolidate = require('consolidate')
   , path        = require('path')
   ;
 
-// Configure
+// Configure Express
+app.engine('dust', consolidate.dust);
 app.settings = settings;
 app.configure(function(){
-    app.use(app.router);
     app.use('/public', express.static(path.join(__dirname, '../public')));
+    app.set('view engine', 'dust');
     app.set('views', path.join(__dirname, '/views'));
-    app.set('view options', { layout: false });
-    app.register('.html', tmpl);
+    app.use(app.router);
 });
 
 // Scan and start

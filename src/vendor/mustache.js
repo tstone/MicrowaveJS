@@ -16,6 +16,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
 
   // This is here for backwards compatibility with 0.4.x.
   exports.to_html = function (template, view, partials, send) {
+    console.log('to_html');
     var result = render(template, view, partials);
 
     if (typeof send === "function") {
@@ -216,6 +217,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
    *              contain only a {{tag}}. Defaults to `false`
    */
   function parse(template, options) {
+    console.log('parse inner');
     options = options || {};
 
     var tags = options.tags || exports.tags,
@@ -477,6 +479,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
     // argument coercion, setup some variables, and handle any errors
     // encountered while executing it.
     return function (view, partials) {
+      console.log('_compile', partials);
       partials = partials || {};
 
       var stack = [view]; // context stack
@@ -509,6 +512,8 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
    *              the first time it is parsed
    */
   function compile(template, options) {
+    console.log('STEP 1', compile.caller);
+    console.log('STEP 2', compile.caller.caller);
     options = options || {};
 
     // Use a pre-compiled version from the cache if we have one.
@@ -530,6 +535,7 @@ var Mustache = (typeof module !== "undefined" && module.exports) || {};
    * compiled function.
    */
   function render(template, view, partials) {
+    console.log('render');
     return compile(template)(view, partials);
   }
 
