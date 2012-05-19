@@ -86,6 +86,7 @@ var renderContent = function(file, callback) {
             // Drop in Prettify Hints
             html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
             html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
+            html = html.replace(/\s<\/code>/gi, '</code>');
             callback(html, header);
         } else {
             callback(body, header);
