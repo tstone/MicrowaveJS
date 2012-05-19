@@ -3,7 +3,7 @@ require('./vendor/date')
 var path        = require('path')
   , fs          = require('fs')
   , yaml        = require('js-yaml')
-  , markdown    = require('YamYam')
+  , markdown    = require('markdown').markdown
   , slugify     = require('./lib').slugify
   , scanner     = {}
   ;
@@ -69,7 +69,8 @@ var parseContent = function(file, callback) {
 var renderContent = function(file, callback) {
     parseContent(file, function(body, header) {
         if (file.substr(file.length - 3) === '.md') {
-            var html = markdown.parse(body);
+            //var html = markdown.parse(body);
+            var html = markdown.toHTML(body);
             // TODO: Convert stackoverflow style inline `code`
             callback(html, header);
         } else {

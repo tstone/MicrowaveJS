@@ -7,8 +7,11 @@ tags:   [simple, easy, sample]
 This is the primary body of my post...
 
 ```
-// Including source code
-function() { return 0; }
+// Tripple tick
 ```
+
+    // Indented block
+
+This is an example of `inline code`.
 
 The end.

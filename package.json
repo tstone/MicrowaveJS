@@ -10,7 +10,7 @@
     , "dustjs-linkedin": "0.4.0"
     , "js-yaml": "0.3.7"
     , "sitemap": "0.6.0"
-    , "YamYam": "0.2.5"
+    , "markdown": "0.3.1"
     , "consolidate": "0.3.0"
   }
 }
