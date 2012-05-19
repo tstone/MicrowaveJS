@@ -7,11 +7,22 @@ var sitemap     = require('sitemap')
 exports.routes = function(app, postKeyTable, postList) {
     var settings = app.settings
       , indexRoute = function(req, res, page) {
+            // Setup pagination
+            page = parseInt(page);
+            var offset = settings.count * page;
+            var offsetEnd = offset + settings.count;
+            var posts = postList.slice(offset, offsetEnd);
+            var pageLeft = offset > 0;
+            var pageRight = offsetEnd < postList.length;
+
             res.render('index', {
                 pagetitle: settings.title,
                 analytics: settings.analytics,
                 disqusname: settings.disqusname,
-                posts: postList.map(function(x){
+                page: page,
+                prev: pageLeft ? '/page/' + page : '',
+                next: pageRight ? '/page/' + (page+2) : '',
+                posts: posts.map(function(x){
                     return {
                         title: x.title,
                         tags: x.tags,
@@ -44,7 +55,7 @@ exports.routes = function(app, postKeyTable, postList) {
     });
 
     app.get('/page/:num', function(req, res){
-        indexRoute(req, res, req.params['num']);
+        indexRoute(req, res, parseInt(req.params['num']) - 1);
     });
 
     app.get('/sitemap.xml', function(req, res){

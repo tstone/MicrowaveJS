@@ -10,6 +10,11 @@
 {/posts}
 </ul>
 
+<div class="pagination">
+    {#prev}<a class="prev" href="{prev}">Previous</a>{/prev}
+    {#next}<a class="next" href="{next}">Next</a>{/next}
+</div>
+
 <script type="text/javascript">
     var disqus_shortname = '{disqusname}';
 

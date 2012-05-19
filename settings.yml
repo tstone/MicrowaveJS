@@ -3,6 +3,7 @@
 host:   http://localhost:3000
 posts:  /posts
 title:  MicrowaveJS Blog
+count:  2
 
 # DISQUS Settings
 disqusname:  testblog
