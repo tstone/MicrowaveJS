@@ -1,4 +1,5 @@
 var sitemap     = require('sitemap')
+  , scanner     = require('./scanner')
   , date        = require('./vendor/date')
 
 exports.routes = function(app, postKeyTable, postList) {
@@ -9,7 +10,12 @@ exports.routes = function(app, postKeyTable, postList) {
                     'pagetitle': settings.title,
                     'analytics': settings.analytics,
                     'posts': postList.map(function(x){
-                        return { title: x.title, tags: x.tags, date: x.date.toString('MMMM d, yyyy h:mm tt') };
+                        return {
+                            title: x.title,
+                            tags: x.tags,
+                            date: x.date.toString('MMMM d, yyyy h:mm tt'),
+                            url: '/post/' + x.slug
+                        };
                     })
                 }
             });
