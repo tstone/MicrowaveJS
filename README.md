@@ -5,7 +5,7 @@ There are a lot of differnet ways out there to have a blog.  Here's what I wante
 
 - I wanted to write code for blog posts in my own editor, being able to use things like tab, brace highlighting, etc.
 - I didn't want to write blog posts in HTML.  I wanted it to be simple, like answering a question on Stack Overflow.
-- I want things to be simple.  I shouldn't have to fuss around for 5 minutes just to get a blog post online
+- I want the syntax and setup to be fast and easy.  I shouldn't have to fuss around for 5 minutes just to get a blog post online
 
 **So I built microwave.js.**
 
