@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="/public/base.css" />
     <link rel="stylesheet" href="/public/theme/theme.css" />
+    {head|s}
 </head>
 <body>
 

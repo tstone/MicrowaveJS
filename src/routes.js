@@ -1,11 +1,14 @@
 var sitemap     = require('sitemap')
   , scanner     = require('./scanner')
+  , fs          = require('fs')
+  , path        = require('path')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
   ;
 
 exports.routes = function(app, postKeyTable, postList) {
     var settings = app.settings
+      , head = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
       , indexRoute = function(req, res, page) {
             // Setup pagination
             page = parseInt(page);
@@ -24,6 +27,7 @@ exports.routes = function(app, postKeyTable, postList) {
                 next: pageRight ? '/page/' + (page+2) : '',
                 prevText: settings.prev,
                 nextText: settings.next,
+                head: head,
                 posts: posts.map(function(x){
                     return {
                         title: x.title,
@@ -44,6 +48,7 @@ exports.routes = function(app, postKeyTable, postList) {
             scanner.renderContent(post, function(body, header){
                 var slug = slugify(header.title);
                 res.render('post',{
+                    head: head,
                     title: header.title,
                     slug: slug,
                     body: body,
