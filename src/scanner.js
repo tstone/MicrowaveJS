@@ -4,15 +4,10 @@ var path        = require('path')
   , fs          = require('fs')
   , yaml        = require('js-yaml')
   , markdown    = require('YamYam')
+  , slugify     = require('./lib').slugify
   , scanner     = {}
   ;
 
-/* ----------------------------------
-    slugify
-   ---------------------------------- */
-function slugify(s) {
-  return s.trim().toLowerCase().replace(/[^-a-z0-9,&\s]+/ig, '').replace(/\s/g, '-');
-}
 
 var sliceContents = function(contents) {
     var i = contents.indexOf('*/');
@@ -66,18 +61,19 @@ var parseHeader = function(file, name) {
 
 var parseContent = function(file, callback) {
     fs.readFile(file, 'ascii', function(err, raw){
-        var body = sliceContents(raw.trim()).body;
-        callback(body);
+        var post = sliceContents(raw.trim());
+        callback(post.body, yaml.load(post.header));
     })
 };
 
 var renderContent = function(file, callback) {
-    parseContent(file, function(content) {
+    parseContent(file, function(body, header) {
         if (file.substr(file.length - 3) === '.md') {
-            var html = markdown.parse(content);
-            callback(html);
+            var html = markdown.parse(body);
+            // TODO: Convert stackoverflow style inline `code`
+            callback(html, header);
         } else {
-            callback(content);
+            callback(body, header);
         }
     });
 }

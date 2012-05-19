@@ -1,7 +1,7 @@
 var sitemap     = require('sitemap')
   , scanner     = require('./scanner')
   , date        = require('./vendor/date')
-  , tmpl        = require('./tmpl')
+  , slugify     = require('./lib').slugify
   ;
 
 exports.routes = function(app, postKeyTable, postList) {
@@ -26,8 +26,15 @@ exports.routes = function(app, postKeyTable, postList) {
           , post = postKeyTable[url];
 
         if (post) {
-            scanner.renderContent(post, function(content){
-                res.send(content);
+            scanner.renderContent(post, function(body, header){
+                var slug = slugify(header.title);
+                res.render('post',{
+                    title: header.title,
+                    slug: slug,
+                    body: body,
+                    url: '/post/' + slug,
+                    disqusname: app.settings.disqusname
+                });
             });
         } else {
             // TODO: 404

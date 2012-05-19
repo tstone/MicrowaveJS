@@ -1,5 +1,8 @@
+
+# All-blog Settings
 host:   http://localhost:3000
 posts:  /posts
-langs:  [javascript, html, css]
-count:  10
 title:  MicrowaveJS Blog
+
+# DISQUS Settings
+disqusname:  testbloglocalhost

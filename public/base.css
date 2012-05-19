@@ -145,8 +145,7 @@ td { vertical-align: top; }
 .posts { list-style-type: none; }
 .posts li { list-style-type: none; margin-bottom: 10px; }
 .posts .title { display: block; font-size: 28px; }
-
-
+pre.inline { display: inline-block; padding: 2px 3px; }
 
 
 
