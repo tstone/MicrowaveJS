@@ -92,13 +92,12 @@ var scan = function(settings, callback) {
 
     var postKeyTable = {}
       , postList = []
-      , postDir = path.join(__dirname, settings.posts);
+      , postDir = path.join(__dirname, '../', settings.posts);
 
     fs.readdir(postDir, function(err, files){
         files.forEach(function(f){
-            var filePath = path.join(__dirname, settings.posts, f)
+            var filePath = path.join(__dirname, '../', settings.posts, f)
               , header = parseHeader(filePath, f);
-
             if (postKeyTable[header.slug]){ console.warn('An entry for slug "' + header.slug + '" already exists!'); }
             postList.push(header);
             postKeyTable[header.slug] = filePath;

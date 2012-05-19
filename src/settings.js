@@ -3,7 +3,7 @@ var path        = require('path')
   , yaml        = require('js-yaml')
   ;
 
-var settingsPath = path.join(__dirname,'settings.yml');
+var settingsPath = path.join(__dirname,'../settings.yml');
 var rawYaml = fs.readFileSync(settingsPath, 'ascii');
 
 module.exports = rawYaml ? yaml.load(rawYaml) : {};

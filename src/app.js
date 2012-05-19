@@ -1,8 +1,8 @@
 
 var express     = require('express')
   , app         = express.createServer()
-  , settings    = require('./src/settings')
-  , scanner     = require('./src/scanner')
+  , settings    = require('./settings')
+  , scanner     = require('./scanner')
   , sitemap     = require('sitemap')
   ;
 
