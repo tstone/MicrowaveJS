@@ -69,9 +69,9 @@ var parseContent = function(file, callback) {
 var renderContent = function(file, callback) {
     parseContent(file, function(body, header) {
         if (file.substr(file.length - 3) === '.md') {
-            //var html = markdown.parse(body);
             var html = markdown.toHTML(body);
-            // TODO: Convert stackoverflow style inline `code`
+            // Drop in Prettify Hints
+            html = html.replace(/<code/gi, '<code class="prettyprint" tabIndex="0"');
             callback(html, header);
         } else {
             callback(body, header);
