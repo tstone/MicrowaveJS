@@ -64,6 +64,8 @@ The date can be written in any way you like, including the following formats:
 - MM/DD/YYYY
 - etc.
 
+It's pretty smart.
+
 Settings
 --------
 
