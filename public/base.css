@@ -70,8 +70,7 @@ dfn { font-style: italic; }
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
 ins { background: #ff9; color: #000; text-decoration: none; }
 mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
-pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
-pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+pre, code, kbd, samp { font-family: monospace, serif; _font-family: Consolas, 'courier new', monospace; font-size: 0.9em; }
 q { quotes: none; }
 q:before, q:after { content: ""; content: none; }
 small { font-size: 85%; }
@@ -145,7 +144,7 @@ td { vertical-align: top; }
 .posts { list-style-type: none; padding: 0; }
 .posts li { list-style-type: none; margin-bottom: 10px; }
 .posts .title { display: block; font-size: 28px; }
-pre.inline { display: inline-block; padding: 2px 3px; }
+code { padding: 2px 3px; }
 
 
 

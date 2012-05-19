@@ -3,11 +3,11 @@ require('./vendor/date')
 var path        = require('path')
   , fs          = require('fs')
   , yaml        = require('js-yaml')
-  , markdown    = require('markdown').markdown
+  , showdown    = require('./vendor/showdown')
+  , markdown    = new showdown.converter()
   , slugify     = require('./lib').slugify
   , scanner     = {}
   ;
-
 
 var sliceContents = function(contents) {
     var i = contents.indexOf('*/');
@@ -69,9 +69,23 @@ var parseContent = function(file, callback) {
 var renderContent = function(file, callback) {
     parseContent(file, function(body, header) {
         if (file.substr(file.length - 3) === '.md') {
-            var html = markdown.toHTML(body);
+            // Convert github style code into regular markdown
+            if (body.indexOf('```') > -1) {
+                var githubCodeBlockPattern = new RegExp('```([\\s\\S]+)```', 'g');
+                var m = githubCodeBlockPattern.exec(body);
+                while (m) {
+                    var lines = m[1].split('\n');
+                    body = body.replace(m[0], lines.reduce(function(acc, x){
+                        return acc + '\n    ' + x;
+                    }, ''));
+                    m = githubCodeBlockPattern.exec(body);
+                }
+            }
+            // Html -> Markdown
+            var html = markdown.makeHtml(body);
             // Drop in Prettify Hints
-            html = html.replace(/<code/gi, '<code class="prettyprint" tabIndex="0"');
+            html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
+            html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
             callback(html, header);
         } else {
             callback(body, header);

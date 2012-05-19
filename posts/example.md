@@ -7,12 +7,25 @@ comments:  true
 
 This is the primary body of my post...
 
-```
-// Tripple tick
-```
+    import math
+    class Class:
+        """ docstring about this Class """
+        def __init__(self, arg):
+            self.f = arg + math.cos(arg + arg)
+            s = 'Hello World!' # one line comment
+            url = escape("highlighted text")
 
-    // Indented block
+    @property
+    def id(self):
+        return random()
 
 This is an example of `inline code`.
+
+This is an example of...
+
+```
+Tripple blocked
+line 2
+```
 
 The end.
