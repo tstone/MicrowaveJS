@@ -28,7 +28,6 @@ var sliceContents = function(contents) {
     ---------------------------------- */
 var parseHeader = function(file, name) {
     var header = {
-        title: '',
         tags: []
     };
     var contents = fs.readFileSync(file, 'ascii').trim();

@@ -8,8 +8,6 @@ var express     = require('express')
 
 scanner.scan(settings, function(postKeyTable, postList) {
 
-    console.log(postKeyTable);
-
     app.get('/sitemap.xml', function(req, res){
         var host = settings.host;
         var sm = sitemap.createSitemap({
