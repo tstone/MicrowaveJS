@@ -11,6 +11,7 @@ var express     = require('express')
 app.settings = settings;
 app.configure(function(){
     app.use(app.router);
+    app.use('/public', express.static(path.join(__dirname, '../public')));
     app.set('views', path.join(__dirname, '/views'));
     app.set('view options', { layout: false });
     app.register('.html', tmpl);

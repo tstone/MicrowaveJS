@@ -33,18 +33,20 @@ exports.routes = function(app, postKeyTable, postList) {
         indexRoute(req, res, req.params['num']);
     });
 
-    app.get('/*', function(req, res){
-        if (req.url === '/') {
-            indexRoute(req, res, '0');
+    app.get('/post/*', function(req, res){
+        var url = req.url.substr(6)
+          , post = postKeyTable[url];
+
+        if (post) {
+            scanner.renderContent(post, function(content){
+                res.send(content);
+            });
         } else {
-            var post = postKeyTable[req.url.substr(1)];
-            if (post) {
-                scanner.renderContent(post, function(content){
-                    res.send(content);
-                });
-            } else {
-                // TODO: 404
-            }
+            // TODO: 404
         }
+    });
+
+    app.get('/', function(req, res){
+        indexRoute(req, res, '0');
     });
 };
