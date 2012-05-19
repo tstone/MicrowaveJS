@@ -7,3 +7,7 @@ count:  2
 
 # DISQUS Settings
 disqusname:  testblog
+
+# Display Settings
+next:  Newer Posts
+prev:  Older Posts

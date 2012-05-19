@@ -11,8 +11,8 @@
 </ul>
 
 <div class="pagination">
-    {#prev}<a class="prev" href="{prev}">Previous</a>{/prev}
-    {#next}<a class="next" href="{next}">Next</a>{/next}
+    {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
+    {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
 </div>
 
 <script type="text/javascript">

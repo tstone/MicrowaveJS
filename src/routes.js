@@ -22,6 +22,8 @@ exports.routes = function(app, postKeyTable, postList) {
                 page: page,
                 prev: pageLeft ? '/page/' + page : '',
                 next: pageRight ? '/page/' + (page+2) : '',
+                prevText: settings.prev,
+                nextText: settings.next,
                 posts: posts.map(function(x){
                     return {
                         title: x.title,
