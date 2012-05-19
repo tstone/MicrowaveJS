@@ -8,14 +8,16 @@ exports.routes = function(app, postKeyTable, postList) {
     var settings = app.settings
       , indexRoute = function(req, res, page) {
             res.render('index', {
-                'pagetitle': settings.title,
-                'analytics': settings.analytics,
-                'posts': postList.map(function(x){
+                pagetitle: settings.title,
+                analytics: settings.analytics,
+                disqusname: settings.disqusname,
+                posts: postList.map(function(x){
                     return {
                         title: x.title,
                         tags: x.tags,
                         date: x.date.toString('MMMM d, yyyy'),
-                        url: '/post/' + x.slug
+                        url: '/post/' + x.slug,
+                        slug: x.slug
                     };
                 })
             });
