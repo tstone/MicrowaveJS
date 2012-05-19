@@ -1,0 +1,91 @@
+require('./vendor/date')
+
+var path        = require('path')
+  , fs          = require('fs')
+  , yaml        = require('js-yaml')
+  , scanner     = {}
+  ;
+
+/* ----------------------------------
+    slugify
+   ---------------------------------- */
+function slugify(s) {
+  return s.trim().toLowerCase().replace(/[^-a-z0-9,&\s]+/ig, '').replace(/\s/g, '-');
+}
+
+/* ----------------------------------
+    parseHeader
+    Read the meta data (YAML) at the top of a file
+    ---------------------------------- */
+var parseHeader = function(file, name) {
+    var header = {
+        title: '',
+        tags: []
+    };
+    var contents = fs.readFileSync(file, 'ascii').trim();
+
+    // Check for configuration data
+    if (contents.substr(0, 2) === '/*') {
+        var m = (new RegExp('^/\\*([\\s\\S]+)\\*/')).exec(contents);
+        if (m) {
+            var config = yaml.load(m[1].trim());
+            header.title = config.title;
+            header.tags = config.tags;
+            header.date = Date.parse(config.date);
+        }
+    }
+
+    // Fill in date if it's lacking
+    if (typeof header.date === 'undefined') {
+        var stats = fs.lstatSync(file);
+        header.date = stats.ctime;
+    }
+
+    // Fill in title if it's lacking
+    if (typeof header.title === 'undefined') {
+        if (name.indexOf('.') > -1) {
+            header.title = name.substr(0, name.lastIndexOf('.'));
+        } else {
+            header.title = name;
+        }
+    }
+
+    // Generate slug
+    header.slug = slugify(header.title);
+
+    return header;
+};
+
+var parseContent = function(file, callback) {
+    // TODO
+};
+
+
+/* ----------------------------------
+    scan
+    Read the posts directory and build the cache
+    of available posts
+   ---------------------------------- */
+var scan = function(settings, callback) {
+
+    var postKeyTable = {}
+      , postList = []
+      , postDir = path.join(__dirname, settings.posts);
+
+    fs.readdir(postDir, function(err, files){
+        files.forEach(function(f){
+            var filePath = path.join(__dirname, settings.posts, f)
+              , header = parseHeader(filePath, f);
+
+            if (postKeyTable[header.slug]){ console.warn('An entry for slug "' + header.slug + '" already exists!'); }
+            postList.push(header);
+            postKeyTable[header.slug] = filePath;
+        });
+
+        callback(postKeyTable, postList, postDir);
+    });
+};
+
+// Exports
+exports.parseContent = parseContent;
+exports.scan = scan;
