@@ -56,7 +56,7 @@ tags:   [simple, easy, sample]
 */
 ```
 
-Values in this header will override any information pulled from the file.
+Values in this header will override any information pulled from the file.  All values are in YAML format and optional.
 
 The date can be written in any way you like, including the following formats:
 
