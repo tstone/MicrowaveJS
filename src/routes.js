@@ -52,7 +52,9 @@ exports.routes = function(app, postKeyTable, postList) {
                 });
             });
         } else {
-            // TODO: 404
+            res.render('404', {
+                url: url
+            });
         }
     });
 
