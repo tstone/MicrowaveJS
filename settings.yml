@@ -1,7 +1,5 @@
 host:   http://localhost:3000
 posts:  /posts
-theme:  light
 langs:  [javascript, html, css]
 count:  10
 title:  MicrowaveJS Blog
-analytics: UA-XXXXX-X
