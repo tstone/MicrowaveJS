@@ -23,7 +23,8 @@ Microwave has no editor interface.  Instead you write your blog posts in your ow
 Installation
 ------------
 
-#### 1. Follow the instructions for installing the Heroku toolbelt here
+#### 1. Follow the instructions for installing the Heroku toolbelt here:
+https://toolbelt.heroku.com/
 
 #### 2. Create a new folder to hold your blog, then change directory into that folder
 
