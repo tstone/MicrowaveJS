@@ -42,3 +42,60 @@ $ git clone git://github.com/tstone/MicrowaveJS.git
 #### 4. Edit settings.yml as you'd like.  See below for details.
 
 You're done.
+
+Writing a Blog Post
+-------------------
+
+Microwave will automatically scan any files that are in the posts folder and assume they are blog posts.  By default, the name of the file and creation date will be assumed to be the title and post time of the blog post.  These values, along with others, however can be controlled by adding a small header to the top of each file:
+
+```/*
+title:  Example Markdown Post
+date:   May 18, 2012
+tags:   [simple, easy, sample]
+*/```
+
+Values in this header will override any information pulled from the file.  The date can be written in any way you like.
+
+Settings
+--------
+
+##### host
+This is the root URL of your blog.  Be sure to change this before deploying.
+
+##### posts
+The folder for where the posts live.  This is relative to where your blog is on disk.
+
+##### title
+The title of your blog.
+
+##### count
+How many blog posts to show on the index page
+
+##### disqusname
+The DISQUS shortname for your blog.
+
+#### next
+The text that will be displayed for pagination when people want to see newer blog posts
+
+##### prev
+The text that will be displayed for pagination when people want to see older blog posts
+
+Theme
+-----
+
+There isn't any direct theme supporting in microwave.js, but the theme specific CSS has been called out into it's own file.
+
+A real light and dark theme will be provided sometime in the future.  For now, you're on your own.
+
+Syntax Highlighting Theme
+-------------------------
+
+Syntax highlighting has it's own theme, prettify-theme.css.  This is located in the /public/theme folder.  A gallery of pre-built syntax themes is here:
+http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html
+
+Simply download the new theme and replace the prettify-theme.css file.
+
+
+Markdown
+--------
+Markdown language reference: http://daringfireball.net/projects/markdown/syntax
