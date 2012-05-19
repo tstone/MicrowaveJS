@@ -1,28 +1,40 @@
-{>"src/views/layouts/main.dust"/}
+<!doctype html>
+<html>
+<head>
+    <title>{pagetitle}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/public/base.css" />
+    <link rel="stylesheet" href="/public/theme/theme.css" />
+</head>
+<body>
 
-<ul class="posts">
-{#posts}
-    <li>
-        <a class="title" href="{url}">{title}</a>
-        <span class="date">{date}</span>
-        <a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>
-    </li>
-{/posts}
-</ul>
+    <ul class="posts">
+    {#posts}
+        <li>
+            <a class="title" href="{url}">{title}</a>
+            <span class="date">{date}</span>
+            <a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>
+        </li>
+    {/posts}
+    </ul>
 
-<div class="pagination">
-    {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
-    {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
-</div>
+    <div class="pagination">
+        {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
+        {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
+    </div>
 
-<script type="text/javascript">
-    var disqus_shortname = '{disqusname}';
+    <script type="text/javascript">
+        var disqus_shortname = '{disqusname}';
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+
+</body>
+</html>
