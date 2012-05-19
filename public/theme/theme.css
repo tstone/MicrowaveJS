@@ -40,7 +40,8 @@ body.index article ul.tags { float: right; margin: -15px 0 0 0; }
 body.index article a.comments { font-size: 11px; display: block; color: #bbb; }
 
 /* Post Page */
-body.post .post { margin: 0 20%; position: relative; font-size: 0.9em; }
+body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
+body.post .post pre { line-height: 18px; }
 body.post .post .date { display: block; position: absolute; top: 10px; left: -20%; font-size: 12px; color: #999; }
 body.post .post .tags { position: absolute; top: 25px; left: -20%; margin-left: -1px; width: 15%; }
 body.post .post .tags li { margin-bottom: 4px; }
@@ -48,5 +49,3 @@ body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; t
 body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; }
 
 /* ==|== media queries ====================================================== */
-
-
