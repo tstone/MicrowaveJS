@@ -2,3 +2,4 @@ host:   http://localhost:3000
 posts:  /posts
 theme:  light
 langs:  [javascript, html, css]
+count:  10
