@@ -48,11 +48,13 @@ Writing a Blog Post
 
 Microwave will automatically scan any files that are in the posts folder and assume they are blog posts.  By default, the name of the file and creation date will be assumed to be the title and post time of the blog post.  These values, along with others, however can be controlled by adding a small header to the top of each file:
 
-```/*
+```
+/*
 title:  Example Markdown Post
 date:   May 18, 2012
 tags:   [simple, easy, sample]
-*/```
+*/
+```
 
 Values in this header will override any information pulled from the file.  The date can be written in any way you like.
 
