@@ -20,6 +20,10 @@ Out of the box it supports the following features:
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
 
+Microwave.js is now powering my blog if you'd like to see a live version running: http://www.typeof.co
+
+At present the code should not be considered production ready.  There is still quite a bit of testing and polish to be done on it.
+
 Installation
 ------------
 
