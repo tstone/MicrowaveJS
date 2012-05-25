@@ -106,7 +106,7 @@ exports.routes = function(app, postKeyTable, postList) {
         var sm = sitemap.createSitemap({
             hostname: host,
             urls: postList.map(function(p){
-                return { url: '/post/' + p.slug };
+                return { url: settings.host + '/post/' + p.slug };
             })
         });
         sm.toXML(function(xml){
