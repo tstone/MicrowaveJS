@@ -6,6 +6,7 @@ var path        = require('path')
   , showdown    = require('./vendor/showdown')
   , markdown    = new showdown.converter()
   , slugify     = require('./lib').slugify
+  , titleize    = require('./lib').titleize
   , scanner     = {}
   ;
 
@@ -47,7 +48,7 @@ var parseHeader = function(file, name) {
     // Fill in title if it's lacking
     if (typeof header.title === 'undefined') {
         if (name.indexOf('.') > -1) {
-            header.title = name.substr(0, name.lastIndexOf('.'));
+            header.title = titleize(name.substr(0, name.lastIndexOf('.')));
         } else {
             header.title = name;
         }
