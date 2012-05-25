@@ -117,7 +117,7 @@ var scan = function(app, settings, routes, callback) {
 
         // Sort list
         postList.sort(function(a, b){
-            return b.date > a.date;
+            return b.date - a.date;
         });
 
         routes(app, postKeyTable, postList, postDir);
