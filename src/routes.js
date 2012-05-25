@@ -23,6 +23,8 @@ exports.routes = function(app, postKeyTable, postList) {
                 blogtitle: settings.title,
                 blogdesc: settings.desc,
                 head: head,
+                analytics: settings.analytics,
+                analyticsdomain: settings.analyticsdomain || '',
                 disqusname: settings.disqusname,
                 page: page,
                 prev: pageLeft ? '/page/' + page : '',
@@ -52,6 +54,8 @@ exports.routes = function(app, postKeyTable, postList) {
                 var slug = slugify(header.title);
                 res.render('post',{
                     head: head,
+                    analytics: settings.analytics,
+                    analyticsdomain: settings.analyticsdomain || '',
                     blogtitle: settings.title,
                     blogdesc: settings.desc,
                     title: header.title,

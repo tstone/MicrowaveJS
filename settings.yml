@@ -7,10 +7,15 @@ title:  MicrowaveJS Blog
 desc:   An example MicrowaveJS blog that you'll want to read again and again!
 author: Blog Author
 
+# Display Settings
+next:  Newer Posts
+prev:  Older Posts
+
 # DISQUS Settings
 comments:    true
 disqusname:  testblog
 
-# Display Settings
-next:  Newer Posts
-prev:  Older Posts
+# Google Analytics Settings
+analytics:        UA-XXXXXXXX-X
+analyticsdomain:  localhost:3000
+
