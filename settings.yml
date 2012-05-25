@@ -5,6 +5,7 @@ posts:  /posts
 count:  50
 title:  MicrowaveJS Blog
 desc:   An example MicrowaveJS blog that you'll want to read again and again!
+author: Blog Author
 
 # DISQUS Settings
 comments:    true

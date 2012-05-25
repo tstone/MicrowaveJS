@@ -4,6 +4,7 @@ var sitemap     = require('sitemap')
   , path        = require('path')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
+  , RSS         = require('rss')
   ;
 
 exports.routes = function(app, postKeyTable, postList) {
@@ -72,6 +73,32 @@ exports.routes = function(app, postKeyTable, postList) {
 
     app.get('/page/:num', function(req, res){
         indexRoute(req, res, parseInt(req.params['num']) - 1);
+    });
+
+    app.get('/rss', function(req, res){
+        var feedConf = {
+            title: settings.title,
+            feed_url: settings.host + '/rss',
+            site_url: settings.host
+        };
+
+        if (settings.desc) { feedConf.description = settings.desc; }
+        if (settings.author) { feedConf.author = settings.author; }
+
+        var feed = new RSS(feedConf);
+
+        postList.forEach(function(post){
+            feed.item({
+                title: post.title,
+                url: settings.host + '/post/' + post.slug,
+                guid: post.slug,
+                author: settings.author || '',
+                date: post.date.toString()
+            });
+        });
+
+        res.header('Content-Type', 'application/rss+xml');
+        res.send(feed.xml());
     });
 
     app.get('/sitemap.xml', function(req, res){
