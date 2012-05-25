@@ -17,6 +17,8 @@ Out of the box it supports the following features:
 - DISQUS integration on index and posts
 - Automatic code prettification
 - Pre-configured for Heroku
+- Automatic Sitemap.xml
+- RSS feed (/rss)
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
 
@@ -68,7 +70,6 @@ The date can be written in any way you like, including the following formats:
 - MM/DD/YYYY
 - etc.
 
-It's pretty smart.
 
 Settings
 --------
