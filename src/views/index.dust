@@ -13,7 +13,7 @@
 
     <div class="wrapper">
         <header>
-            <h1>{blogtitle}</h1>
+            <h1><a href="/">{blogtitle}</a></h1>
             <span class="desc">{blogdesc}</span>
             <a class="rss" href="/rss">RSS</a>
         </header>
@@ -23,7 +23,7 @@
             <h2><a href="{url}">{title}</a></h2>
             <span class="date">{date}</span>
             <ul class="tags">
-                {#tags}<li>{.}{/tags}
+                {#tags}<li><a href="/tagged/{.|uc}">{.}</a></li>{/tags}
             </ul>
             {#comments}<a class="comments" href="{url}#disqus_thread" data-disqus-identifier="{slug}"></a>{/comments}
         </article>

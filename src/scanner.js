@@ -33,7 +33,7 @@ var parseHeader = function(file, name) {
         if (rawConfig.header) {
             var config = yaml.load(rawConfig.header);
             header.title = config.title;
-            header.tags = config.tags;
+            header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
             header.date = Date.parse(config.date);
         }
     }
@@ -104,13 +104,15 @@ var scan = function(app, settings, routes, callback) {
 
     var postKeyTable = {}
       , postList = []
-      , postDir = path.join(__dirname, '../', settings.posts);
+      , postDir = path.join(__dirname, '../', settings.posts)
+      ;
 
     fs.readdir(postDir, function(err, files){
         files.forEach(function(f){
             var filePath = path.join(__dirname, '../', settings.posts, f)
               , header = parseHeader(filePath, f);
             if (postKeyTable[header.slug]){ console.warn('An entry for slug "' + header.slug + '" already exists!'); }
+            // Setup internal "tables"
             postList.push(header);
             postKeyTable[header.slug] = filePath;
         });

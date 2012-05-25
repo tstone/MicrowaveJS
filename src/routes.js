@@ -75,6 +75,37 @@ exports.routes = function(app, postKeyTable, postList) {
         indexRoute(req, res, parseInt(req.params['num']) - 1);
     });
 
+    app.get('/tagged/:tag', function(req, res){
+        var tag = req.params['tag'].toLowerCase()
+          , results = []
+          ;
+        // Search posts
+        postList.forEach(function(p){
+            if (p.tags.indexOf(tag) !== -1) {
+                results.push(p);
+            }
+        });
+        // Render
+        res.render('index', {
+            blogtitle: settings.title,
+            blogdesc: 'Posts tagged "' + tag + '"',
+            comments: settings.comments,
+            disqusname: settings.disqusname,
+            head: head,
+            page: 0,
+            pagination: false,
+            posts: results.map(function(x){
+                return {
+                    title: x.title,
+                    tags: x.tags,
+                    date: x.date.toString('MMMM d, yyyy'),
+                    url: '/post/' + x.slug,
+                    slug: x.slug
+                };
+            })
+        });
+    });
+
     app.get('/rss', function(req, res){
         var feedConf = {
             title: settings.title,
