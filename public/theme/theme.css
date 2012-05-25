@@ -20,8 +20,11 @@ a:hover { color: #D53C2E; }
 header { border-bottom: solid 1px #eee; padding: 20px 0; }
 header h1 { color: #D53C2E; text-transform: lowercase; width: 20%; float: left; font-size: 16px; margin: 0; }
 header h1 a { color: #D53C2E; }
+header h1 a:hover { text-decoration: underline; }
 header h1 a:visited { color: #D53C2E; }
 header .desc { margin-left: 20%; font-size: 13px; display: block; line-height: 20px; }
+header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 11px; position: absolute; top: 25px; right: 1px; }
+header a.rss:hover { text-decoration: underline; }
 
 /* Body */
 .wrapper { width: 960px; margin: 0 auto; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; }
@@ -41,6 +44,7 @@ body.index article a.comments { font-size: 11px; display: block; color: #bbb; }
 
 /* Post Page */
 body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
+body.post .post h1 { line-height: 38px; }
 body.post .post pre { line-height: 18px; }
 body.post .post .date { display: block; position: absolute; top: 10px; left: -20%; font-size: 11px; color: #999; }
 body.post .post .tags { position: absolute; top: 25px; left: -20%; margin-left: -1px; width: 15%; }

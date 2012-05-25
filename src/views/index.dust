@@ -15,6 +15,7 @@
         <header>
             <h1>{blogtitle}</h1>
             <span class="desc">{blogdesc}</span>
+            <a class="rss" href="/rss">RSS</a>
         </header>
 
         {#posts}
