@@ -5,7 +5,7 @@ There are a lot of differnet ways out there to have a blog.  Here's what I wante
 
 - I wanted to write code for blog posts in my own editor, being able to use things like tab, brace highlighting, etc.
 - I didn't want to write blog posts in HTML.  I wanted it to be simple, like answering a question on Stack Overflow.
-- I want things to be simple.  I shouldn't have to fuss around for 5 minutes just to get a blog post online
+- I want the syntax and setup to be fast and easy.  I shouldn't have to fuss around for 5 minutes just to get a blog post online
 
 **So I built microwave.js.**
 
@@ -19,6 +19,10 @@ Out of the box it supports the following features:
 - Pre-configured for Heroku
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
+
+Microwave.js is now powering my blog if you'd like to see a live version running: http://www.typeof.co
+
+At present the code should not be considered production ready.  There is still quite a bit of testing and polish to be done on it.
 
 Installation
 ------------
