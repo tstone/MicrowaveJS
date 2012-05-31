@@ -20,6 +20,7 @@ exports.routes = function(app, postTable, postList) {
             defaultVal(context, 'comments', settings.comments)
             defaultVal(context, 'disqusname', settings.disqusname)
             defaultVal(context, 'head', head)
+            defaultVal(context, 'host', settings.host)
             res.render(template, context);
         }
       , index = function(req, res, page) {
@@ -73,6 +74,7 @@ exports.routes = function(app, postTable, postList) {
                 tags: post.tags,
                 url: '/post/' + slug,
                 disqusname: app.settings.disqusname,
+                host: app.settings.host,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments
             });
         } else {
