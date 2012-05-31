@@ -65,6 +65,7 @@ exports.routes = function(app, postKeyTable, postList) {
                     tags: header.tags,
                     url: '/post/' + slug,
                     disqusname: app.settings.disqusname,
+                    host: app.settings.host,
                     comments: typeof header.comments === 'boolean' ? header.comments : settings.comments
                 });
             });
