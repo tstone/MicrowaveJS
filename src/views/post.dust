@@ -39,7 +39,7 @@
     <script type="text/javascript">
         var disqus_shortname = '{disqusname}';
         var disqus_identifier = '{slug}';
-        var disqus_url = '{host}{url}';
+        var disqus_url = '{url}';
         var disqus_title = '{title}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
