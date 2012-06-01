@@ -21,12 +21,13 @@ Out of the box it supports the following features:
 - Automatic Sitemap.xml
 - RSS feed
 - Easy Google Analytics integration
+- "Schedule" posts (ie. just give them a date in the future)
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
 
 Microwave.js is now powering my blog if you'd like to see a live version running: http://www.typeof.co
 
-At present the code should not be considered production ready.  There is still quite a bit of testing and polish to be done on it.
+At present the code could be considered alpha or beta.  A lot of it is present, but changes are still being made.
 
 Installation
 ------------
@@ -47,9 +48,22 @@ $ cd myblog
 $ git clone git://github.com/tstone/MicrowaveJS.git
 ````
 
-#### 4. Edit settings.yml as you'd like.  See below for details.
+#### 4. Edit settings.yml as you'd like.
+
+See below for details of settings.
+
+#### 5. Write a blog post.
+
+Create a new file in the /posts folder
+
+#### 6. Push to your heroku app
+
+```
+$ git push heroku master
+```
 
 You're done.
+
 
 Writing a Blog Post
 -------------------
