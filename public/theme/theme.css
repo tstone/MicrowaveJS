@@ -41,7 +41,7 @@ body.index article { margin: 20px 20% 0 20%; position: relative; padding-bottom:
 body.index article h2 { margin-bottom: 0; }
 body.index article .date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
 body.index article ul.tags { float: right; margin: -15px 0 0 0; }
-body.index article a.comments { font-size: 11px; display: block; color: #bbb; }
+body.index article a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
 
 /* Post Page */
 body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
