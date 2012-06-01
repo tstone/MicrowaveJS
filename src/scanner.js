@@ -7,8 +7,8 @@ var path        = require('path')
   , markdown    = new showdown.converter()
   , slugify     = require('./lib').slugify
   , titleize    = require('./lib').titleize
-  , scanner     = {}
   ;
+
 
 //
 // :: Parse Header -> Turn YAML into a meaningful structure

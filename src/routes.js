@@ -5,34 +5,38 @@ var sitemap     = require('sitemap')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
   , RSS         = require('rss')
+  , head        = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
+  , defaultVal  = function(dict, key, value) { if (typeof dict[key] === 'undefined') { dict[key] = value; } }
   ;
 
 exports.routes = function(app, postTable, postList) {
     var settings = app.settings
-      , head = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
-      , indexRoute = function(req, res, page) {
+      , commonRender = function(res, template, context) {
+            // Add-in common values if not present
+            defaultVal(context, 'analytics', settings.analytics || '')
+            defaultVal(context, 'analyticsdomain', settings.analyticsdomain || '')
+            defaultVal(context, 'blogdesc', settings.desc || '')
+            defaultVal(context, 'blogtitle', settings.title || 'MicrowaveJS Blog')
+            defaultVal(context, 'comments', settings.comments)
+            defaultVal(context, 'disqusname', settings.disqusname)
+            defaultVal(context, 'head', head)
+            res.render(template, context);
+        }
+      , index = function(req, res, page) {
             // Setup pagination
-            page = parseInt(page);
             var offset = settings.count * page;
             var offsetEnd = offset + settings.count;
             var posts = postList.slice(offset, offsetEnd);
             var pageLeft = offset > 0;
             var pageRight = offsetEnd < postList.length;
 
-            res.render('index', {
-                blogtitle: settings.title,
-                blogdesc: settings.desc,
-                head: head,
-                analytics: settings.analytics,
-                analyticsdomain: settings.analyticsdomain || '',
-                disqusname: settings.disqusname,
+            // Render
+            commonRender(res, 'index', {
                 page: page,
                 prev: pageLeft ? '/page/' + page : '',
                 next: pageRight ? '/page/' + (page+2) : '',
                 prevText: settings.prev,
                 nextText: settings.next,
-                pagination: pageLeft && pageRight,
-                comments: settings.comments,
                 posts: posts.map(function(x) {
                     var post = postTable[x.slug];
                     return {
@@ -44,14 +48,19 @@ exports.routes = function(app, postTable, postList) {
                     };
                 })
             });
-        };
+        }
+      ;
+
+
+    //
+    // GET /post/:slug
 
     app.get('/post/*', function(req, res){
         var slug = req.url.substr(6)
           , post = postTable[slug];
 
         if (post) {
-            res.render('post',{
+            res.render('post', {
                 head: head,
                 analytics: settings.analytics,
                 analyticsdomain: settings.analyticsdomain || '',
@@ -73,9 +82,9 @@ exports.routes = function(app, postTable, postList) {
         }
     });
 
-    app.get('/page/:num', function(req, res){
-        indexRoute(req, res, parseInt(req.params['num']) - 1);
-    });
+
+    //
+    // GET /tagged/:tag
 
     app.get('/tagged/:tag', function(req, res){
         var tag = req.params['tag'].toLowerCase()
@@ -109,6 +118,10 @@ exports.routes = function(app, postTable, postList) {
         });
     });
 
+
+    //
+    // GET /rss
+
     app.get('/rss', function(req, res){
         var feedConf = {
             title: settings.title,
@@ -136,6 +149,10 @@ exports.routes = function(app, postTable, postList) {
         res.send(feed.xml());
     });
 
+
+    //
+    // GET /sitemap.xml
+
     app.get('/sitemap.xml', function(req, res){
         var host = settings.host;
         var sm = sitemap.createSitemap({
@@ -150,7 +167,19 @@ exports.routes = function(app, postTable, postList) {
         });
     });
 
+
+    //
+    // GET /page/:num
+
+    app.get('/page/:num', function(req, res){
+        index(req, res, parseInt(req.params['num']) - 1);
+    });
+
+
+    //
+    // GET /
+
     app.get('/', function(req, res){
-        indexRoute(req, res, '0');
+        index(req, res, 0);
     });
 };
