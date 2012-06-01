@@ -13,6 +13,7 @@ Out of the box it supports the following features:
 
 - Posts are written in your own editor, then pushed to Heroku via git
 - Posts are written in markdown, supporting both code blocks and inline code
+- Publish at a future date
 - Uses YAML for configuration, making it super simple
 - DISQUS integration on index and posts
 - Automatic code prettification
@@ -68,9 +69,13 @@ Values in this header will override any information pulled from the file.  All v
 The date can be written in any way you like, including the following formats:
 
 - `MMMM dd, yyyy`
+- `MMMM dd, yyyy HH:mm`
 - `MM/DD/YYYY`
 - etc.
 
+#### Publish in the future
+
+Just set the date of your post to a future date/time and your post will only show up on/after that date.
 
 Settings
 --------
