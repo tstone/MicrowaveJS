@@ -18,7 +18,7 @@ Out of the box it supports the following features:
 - Automatic code prettification
 - Pre-configured for Heroku
 - Automatic Sitemap.xml
-- RSS feed (/rss)
+- RSS feed
 - Easy Google Analytics integration
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
@@ -67,8 +67,8 @@ Values in this header will override any information pulled from the file.  All v
 
 The date can be written in any way you like, including the following formats:
 
-- MMMM dd, yyyy
-- MM/DD/YYYY
+- `MMMM dd, yyyy`
+- `MM/DD/YYYY`
 - etc.
 
 
@@ -84,11 +84,26 @@ The folder for where the posts live.  This is relative to where your blog is on 
 ##### title
 The title of your blog.
 
-##### count
-How many blog posts to show on the index page
+##### desc
+A description of your blog.
+
+##### author
+Your name
 
 ##### disqusname
 The DISQUS shortname for your blog.
+
+##### comments
+true or false if you want to enable comments
+
+##### analytics
+Your Google Analytics account.  If present Google Analytics will be enabled.
+
+##### analyticsdomain
+The domain you have configured your analytics account for.  This is setup in GA itself.
+
+##### count
+How many blog posts to show on the index page
 
 #### next
 The text that will be displayed for pagination when people want to see newer blog posts
@@ -96,12 +111,25 @@ The text that will be displayed for pagination when people want to see newer blo
 ##### prev
 The text that will be displayed for pagination when people want to see older blog posts
 
+##### posttimeformat
+A datetime format string of how you'd like your dates to appear.  Any Date.js format is valid.  [Format Reference](http://code.google.com/p/datejs/wiki/FormatSpecifiers)
+
+Examples:
+- `M/d/yy` => 8/22/82
+- `MMMM d, yyyy` => January 17, 2012
+- `dddd` => Monday
+- `ddd :: M.d.yy` => Mon :: 5.7.12
+
 Theme
 -----
 
-There isn't any direct theme supporting in microwave.js, but the theme specific CSS has been called out into it's own file.
+MicrowaveJS comes bundled with one theme at the moment.  Look inside the /public/theme folder if you want to mess with it.
 
-A real light and dark theme will be provided sometime in the future.  For now, you're on your own.
+A theme is composed of three files:
+
+- head.html -- HTML to be included in the `<head>` of the page.  Use this for font-face CSS files, etc.
+- theme.css -- The actual CSS of the theme
+- prettify-theme.css -- The CSS to style syntax highlighted code.  Some themes are available [here](http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html);
 
 Syntax Highlighting Theme
 -------------------------

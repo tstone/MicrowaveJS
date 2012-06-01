@@ -34,14 +34,14 @@ ul.tags li { display: inline-block; border: solid 1px #eee; padding: 2px 4px; fo
 ul.tags li a { color: #ccc; text-decoration: none; }
 
 /* Footer */
-footer { margin-left: 20%; height: 15px; position: absolute; bottom: 10px; left: 0; }
+footer { height: 15px; position: absolute; bottom: 10px; right: 0; text-align: right; }
 
 /* Index Page */
 body.index article { margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;  }
 body.index article h2 { margin-bottom: 0; }
 body.index article .date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
 body.index article ul.tags { float: right; margin: -15px 0 0 0; }
-body.index article a.comments { font-size: 11px; display: block; color: #bbb; }
+body.index article a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
 
 /* Post Page */
 body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
@@ -52,5 +52,8 @@ body.post .post .tags { position: absolute; top: 25px; left: -20%; margin-left: 
 body.post .post .tags li { margin-bottom: 4px; }
 body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; text-align: right; font-size: 11px; }
 body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; }
+
+/* Error Pages */
+body.error .error { margin: 0 20%; }
 
 /* ==|== media queries ====================================================== */

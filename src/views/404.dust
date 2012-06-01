@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <title>{blogtitle}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/public/base.css" />
+    <link rel="stylesheet" href="/public/theme/theme.css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js"></script>
+    {head|s}
+</head>
+<body class="error">
+
+    <div class="wrapper">
+        <header>
+            <h1><a href="/">{blogtitle}</a></h1>
+            <span class="desc">{blogdesc}</span>
+            <a class="rss" href="/rss">RSS</a>
+        </header>
+
+        <div class="error">
+            <h1>404</h1>
+            <h2>Blog post not found.</h2>
+        </div>
+
+        <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
+    </div>
+
+    {#analytics}
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '{analytics}']);
+          {#analyticsdomain}_gaq.push(['_setDomainName', '{analyticsdomain}']);{/analyticsdomain}
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
+    {/analytics}
+</body>
+</html>

@@ -7,50 +7,40 @@ var path        = require('path')
   , markdown    = new showdown.converter()
   , slugify     = require('./lib').slugify
   , titleize    = require('./lib').titleize
-  , scanner     = {}
-  , settings    = require('./settings')
   ;
 
-var sliceContents = function(contents) {
-    var i = contents.indexOf('*/');
-	var header = (i > 0) ? contents.substr(2, i - 2).trim() : "";
-	var index = (i > 0) ? i + 2 : 0;
-    return {
-        header: header,
-        body: contents.substr(index).trim()
-    }
-};
 
-/* ----------------------------------
-    parseHeader
-    Read the meta data (YAML) at the top of a file
-    ---------------------------------- */
-var parseHeader = function(file) {
+//
+// :: Parse Header -> Turn YAML into a meaningful structure
+
+var parseHeader = function(raw, path) {
+    // Init empty stub
     var header = {
         tags: []
     };
-    var contents = fs.readFileSync(file, 'ascii').trim();
 
-    // Check for configuration data
-    if (contents.substr(0, 2) === '/*') {
-        var rawConfig = sliceContents(contents);
-        if (rawConfig.header) {
-            var config = yaml.load(rawConfig.header);
-            header.title = config.title;
-            header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
-            header.date = Date.parse(config.date);
-        }
+    // Check for YAML configuration data
+    if (typeof raw === 'string' && raw.length > 0) {
+        var config = yaml.load(raw);
+        header.title = config.title;
+        header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
+        header.date = Date.parse(config.date);
     }
 
     // Fill in date if it's lacking
     if (typeof header.date === 'undefined') {
-        var stats = fs.lstatSync(file);
+        var stats = fs.statSync(path);
         header.date = stats.ctime;
     }
 
     // Fill in title if it's lacking
     if (typeof header.title === 'undefined') {
-    	header.title = titleize(fileNameFromPath(file));
+        var name = path.substr(path.lastIndexOf('\\') + 1);
+        if (name.indexOf('.') > -1) {
+            header.title = titleize(name.substr(0, name.lastIndexOf('.')));
+        } else {
+            header.title = name;
+        }
     }
 
     // Generate slug
@@ -59,71 +49,76 @@ var parseHeader = function(file) {
     return header;
 };
 
-var createYAMLHeader = function(path){
-	var header = parseHeader(path);
-	var date = (new Date(header.date)).toString(settings.posttimeformat);
-	var str = 'title: ' + header.title;
-		str += '\n\rdate: ' + date;
-		str += '\n\rtags: []';
-	return str;
-};
 
-var fileNameFromPath = function(path){
-	var name = path;
-	if(name.lastIndexOf('/') > 0){
-		name = name.split('/').pop();
-	}	
-	name = name.substr(0, name.lastIndexOf('.'));
-	return name;
-};
+//
+// :: Render Body -> Format blog post in proper HTML
 
-var parseContent = function(file, callback) {
-    fs.readFile(file, 'ascii', function(err, raw){
-        var post = sliceContents(raw.trim());
-		if( post.header.length === 0 ){ //there is no header
-			post.header = createYAMLHeader(file);
-		}
-        callback(post.body, yaml.load(post.header));
-    })
-};
+var renderBody = function(raw, format) {
+    var addPrettifyHints = function(html) {
+        html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
+        html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
+        html = html.replace(/\s<\/code>/gi, '</code>');
+        return html;
+    };
 
-var renderContent = function(file, callback) {
-    parseContent(file, function(body, header) {
-        if (file.substr(file.length - 3) === '.md') {
-            // Convert github style code into regular markdown
-            if (body.indexOf('```') > -1) {
-                var githubCodeBlockPattern = new RegExp('```([\\s\\S]+)```', 'g');
-                var m = githubCodeBlockPattern.exec(body);
-                while (m) {
-                    var lines = m[1].split('\n');
-                    body = body.replace(m[0], lines.reduce(function(acc, x){
-                        return acc + '\n    ' + x;
-                    }, ''));
-                    m = githubCodeBlockPattern.exec(body);
-                }
+    if (format === 'md' || format === 'markdown') {             // Markdown
+        // Convert github style code into regular markdown
+        if (raw.indexOf('```') > -1) {
+            var githubCodeBlockPattern = new RegExp('```([\\s\\S]+)```', 'g');
+            var m = githubCodeBlockPattern.exec(raw);
+            while (m) {
+                var lines = m[1].split('\n');
+                raw = raw.replace(m[0], lines.reduce(function(acc, x){
+                    return acc + '\n    ' + x;
+                }, ''));
+                m = githubCodeBlockPattern.exec(raw);
             }
-            // Html -> Markdown
-            var html = markdown.makeHtml(body);
-            // Drop in Prettify Hints
-            html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
-            html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
-            html = html.replace(/\s<\/code>/gi, '</code>');
-            callback(html, header);
-        } else {
-            callback(body, header);
         }
-    });
+        // Html -> Markdown
+        var html = markdown.makeHtml(raw);
+        return addPrettifyHints(html);
+    } else if (format === 'html' || format === 'htm') {         // HTML
+        return addPrettifyHints(raw);
+    } else {                                                    // Plain / other
+        return raw;
+    }
 }
 
 
-/* ----------------------------------
-    scan
-    Read the posts directory and build the cache
-    of available posts
-   ---------------------------------- */
+//
+// :: Parse Blog Post File -> Given a file path, turn it into a meaningful structure
+
+var parseBlogPostFile = function(path) {
+    // Read the file off of disk and slice it by it's config
+    var raw = fs.readFileSync(path, 'ascii')
+      , headerTerminator = raw.indexOf('*/')
+      , rawHeader = ''
+      , rawBody = ''
+      ;
+
+    if (headerTerminator > 0) {
+        rawHeader = raw.substr(2, headerTerminator - 2).trim();
+        rawBody = raw.substr(headerTerminator + 2).trim();
+    } else {
+        rawBody = raw;
+    }
+
+    // Parse the header and render the body
+    var post = parseHeader(rawHeader, path)
+      , format = path.substr(path.lastIndexOf('.') + 1)
+      ;
+
+    post.body = renderBody(rawBody, format);
+    return post;
+};
+
+
+//
+// :: Scan -> Search the given directory for files, assumed to be blog posts
+
 var scan = function(app, settings, routes, callback) {
 
-    var postKeyTable = {}
+    var postTable = {}
       , postList = []
       , postDir = path.join(__dirname, '../', settings.posts)
       ;
@@ -131,11 +126,19 @@ var scan = function(app, settings, routes, callback) {
     fs.readdir(postDir, function(err, files){
         files.forEach(function(f){
             var filePath = path.join(__dirname, '../', settings.posts, f)
-              , header = parseHeader(filePath, f);
-            if (postKeyTable[header.slug]){ console.warn('An entry for slug "' + header.slug + '" already exists!'); }
-            // Setup internal "tables"
-            postList.push(header);
-            postKeyTable[header.slug] = filePath;
+              , post = parseBlogPostFile(filePath, f);
+            if (postTable[post.slug]){
+                console.warn('An entry for slug "' + post.slug + '" already exists!');
+            } else {
+                // Data is stored in two formats
+                // First, a "full details" table, in which posts are indexed by their slug
+                postTable[post.slug] = post;
+                // Seconed, an ordered list with only the minimal amount of information
+                postList.push({
+                    slug: post.slug,
+                    date: post.date
+                });
+            }
         });
 
         // Sort list
@@ -143,12 +146,10 @@ var scan = function(app, settings, routes, callback) {
             return b.date - a.date;
         });
 
-        routes(app, postKeyTable, postList, postDir);
-        callback(postKeyTable, postList, postDir);
+        routes(app, postTable, postList);
+        callback(app, postTable, postList);
     });
 };
 
 // Exports
-exports.parseContent = parseContent;
-exports.renderContent = renderContent;
 exports.scan = scan;
