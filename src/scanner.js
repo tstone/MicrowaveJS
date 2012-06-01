@@ -8,13 +8,16 @@ var path        = require('path')
   , slugify     = require('./lib').slugify
   , titleize    = require('./lib').titleize
   , scanner     = {}
+  , settings    = require('./settings')
   ;
 
 var sliceContents = function(contents) {
     var i = contents.indexOf('*/');
+	var header = (i > 0) ? contents.substr(2, i - 2).trim() : "";
+	var index = (i > 0) ? i + 2 : 0;
     return {
-        header: contents.substr(2, i - 2).trim(),
-        body: contents.substr(i + 2).trim()
+        header: header,
+        body: contents.substr(index).trim()
     }
 };
 
@@ -22,7 +25,7 @@ var sliceContents = function(contents) {
     parseHeader
     Read the meta data (YAML) at the top of a file
     ---------------------------------- */
-var parseHeader = function(file, name) {
+var parseHeader = function(file) {
     var header = {
         tags: []
     };
@@ -47,11 +50,7 @@ var parseHeader = function(file, name) {
 
     // Fill in title if it's lacking
     if (typeof header.title === 'undefined') {
-        if (name.indexOf('.') > -1) {
-            header.title = titleize(name.substr(0, name.lastIndexOf('.')));
-        } else {
-            header.title = name;
-        }
+    	header.title = titleize(fileNameFromPath(file));
     }
 
     // Generate slug
@@ -60,9 +59,30 @@ var parseHeader = function(file, name) {
     return header;
 };
 
+var createYAMLHeader = function(path){
+	var header = parseHeader(path);
+	var date = (new Date(header.date)).toString(settings.posttimeformat);
+	var str = 'title: ' + header.title;
+		str += '\n\rdate: ' + date;
+		str += '\n\rtags: []';
+	return str;
+};
+
+var fileNameFromPath = function(path){
+	var name = path;
+	if(name.lastIndexOf('/') > 0){
+		name = name.split('/').pop();
+	}	
+	name = name.substr(0, name.lastIndexOf('.'));
+	return name;
+};
+
 var parseContent = function(file, callback) {
     fs.readFile(file, 'ascii', function(err, raw){
         var post = sliceContents(raw.trim());
+		if( post.header.length === 0 ){ //there is no header
+			post.header = createYAMLHeader(file);
+		}
         callback(post.body, yaml.load(post.header));
     })
 };
