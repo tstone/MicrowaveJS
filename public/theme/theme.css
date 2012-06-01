@@ -34,6 +34,8 @@ header a.rss:hover { text-decoration: underline; }
 ul.tags { padding: 0; margin: 8px 0; }
 ul.tags li { display: inline-block; border: solid 1px #eee; padding: 3px 5px; font-size: 11px; margin-right: 4px; color: #ccc; line-height: 14px; }
 ul.tags li a { color: #ccc; text-decoration: none; }
+aside.left { position: absolute; top: 90px; left: 0; width: 18%; }
+aside.right { position: absolute; top: 90px; right: 0; width: 18%; }
 nav.pagination { margin: 30px 20%; min-height: 30px; }
 nav.pagination a { text-decoration: none; color: #777; }
 nav.pagination a .websymbols { font-size: 12px; line-height: 16px; position: relative; top: -2px; color: #D53C2E; }
@@ -54,15 +56,17 @@ body.index article a.comments { font-size: 11px; display: block; color: #bbb; mi
 body.index article a.comments[href^="http"]:after { display: none; }
 
 /* Post Page */
-body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
-body.post .post h1 { line-height: 38px; }
-body.post .post pre { line-height: 18px; }
-body.post .post .date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
-body.post .post .tags { position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%; }
-body.post .post .tags li { margin-bottom: 4px; }
+body.post article { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
+body.post article h1 { line-height: 38px; }
+body.post article pre { line-height: 18px; }
+body.post article .date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
+body.post article .tags { position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%; }
+body.post article .tags li { margin-bottom: 4px; }
 body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; text-align: right; font-size: 20px; margin-right: 0; }
 body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; color: #999; display: inline-block; margin-left: 2px; }
 body.post .wrapper nav a:hover { color: #D53C2E; }
+body.post aside.left { padding-top: 10%; }
+body.post aside.right { padding-top: 60px; }
 
 /* Error Pages */
 body.error .error { margin: 0 20%; }

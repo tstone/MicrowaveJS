@@ -18,10 +18,14 @@
             <a class="rss" href="/rss"><span class="websymbols">B</span>RSS</a>
         </header>
 
+        <aside class="left">{leftsidebar}</aside>
+
         <div class="error">
             <h1>404</h1>
             <h2>Blog post not found.</h2>
         </div>
+
+        <aside class="right">{rightsidebar}</aside>
 
         <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
     </div>
