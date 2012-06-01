@@ -26,7 +26,7 @@ Microwave has no editor interface.  Instead you write your blog posts in your ow
 
 Microwave.js is now powering my blog if you'd like to see a live version running: http://www.typeof.co
 
-At present the code should not be considered production ready.  There is still quite a bit of testing and polish to be done on it.
+At present the code could be considered alpha or beta.  A lot of it is present, but changes are still being made.
 
 Installation
 ------------
