@@ -61,21 +61,14 @@ exports.routes = function(app, postTable, postList) {
           , post = postTable[slug];
 
         if (post) {
-            res.render('post', {
-                head: head,
-                analytics: settings.analytics,
-                analyticsdomain: settings.analyticsdomain || '',
-                blogtitle: settings.title,
-                blogdesc: settings.desc,
-                title: post.title,
-                slug: slug,
+            commonRender(res, 'post', {
                 body: post.body,
+                comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
+                slug: slug,
                 tags: post.tags,
-                url: app.settings.host + '/post/' + slug,
-                disqusname: app.settings.disqusname,
-                host: app.settings.host,
-                comments: typeof post.comments === 'boolean' ? post.comments : settings.comments
+                title: post.title,
+                url: settings.host + '/post/' + slug
             });
         } else {
             res.render('404', {
@@ -100,12 +93,7 @@ exports.routes = function(app, postTable, postList) {
             }
         });
         // Render
-        res.render('index', {
-            blogtitle: settings.title,
-            blogdesc: 'Posts tagged "' + tag + '"',
-            comments: settings.comments,
-            disqusname: settings.disqusname,
-            head: head,
+        commonRender(res, 'index', {
             page: 0,
             pagination: false,
             posts: results.map(function(x){
