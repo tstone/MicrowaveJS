@@ -25,7 +25,7 @@ header h1 a:hover { text-decoration: underline; }
 header h1 a:visited { color: #D53C2E; }
 header .desc { margin-left: 20%; font-size: 13px; display: block; line-height: 26px; }
 header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 12px; position: absolute; top: 25px; right: 1px; }
-header a.rss .websymbols { text-transform: none; font-size: 11px; margin-left: 3px; float: right; }
+header a.rss .websymbols { text-transform: none; font-size: 10px; margin-left: 3px; float: right; }
 header a.rss:hover { text-decoration: underline; }
 
 /* Body */
@@ -37,6 +37,7 @@ ul.tags li a { color: #ccc; text-decoration: none; }
 
 /* Footer */
 footer { height: 15px; position: absolute; bottom: 10px; right: 0; text-align: right; }
+footer a[href^="http"]:after { font-size: 8px; }
 
 /* Index Page */
 body.index article { margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;  }
