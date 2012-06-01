@@ -120,6 +120,11 @@ Examples:
 - `dddd` => Monday
 - `ddd :: M.d.yy` => Mon :: 5.7.12
 
+Sidebars
+--------
+
+Super easy.  Edit either `left-sidebar.html` or `right-sidebar.html` depending on where you want to stick the things everyone will ignore anyways.  The sidebars are automatically added to every page.
+
 Theme
 -----
 
@@ -143,3 +148,16 @@ Simply download the new theme and replace the prettify-theme.css file.
 Markdown
 --------
 Markdown language reference: http://daringfireball.net/projects/markdown/syntax
+
+
+Updating MicrowaveJS
+--------------------
+
+You've already got a blog out there and running but you want to get the latest version of MicrowaveJS?
+
+```
+$ git pull origin master
+$ git push heroku master
+````
+
+You're done.

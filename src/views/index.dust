@@ -18,6 +18,8 @@
             <a class="rss" href="/rss"><span class="websymbols">B</span>RSS</a>
         </header>
 
+        <aside class="left">{leftsidebar}</aside>
+
         {#posts}
         <article>
             <h2><a href="{url}">{title}</a></h2>
@@ -31,10 +33,12 @@
 
         {#pagination}
         <nav class="pagination">
-            {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
-            {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
+            {#next}<a class="next" href="{next}"><span class="websymbols">&lt;</span>{nextText|s}</a>{/next}
+            {#prev}<a class="prev" href="{prev}">{prevText|s}<span class="websymbols">&gt;</span></a>{/prev}
         </nav>
         {/pagination}
+
+        <aside class="right">{rightsidebar}</aside>
 
         <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
     </div>

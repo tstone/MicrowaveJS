@@ -6,6 +6,8 @@ var sitemap     = require('sitemap')
   , slugify     = require('./lib').slugify
   , RSS         = require('rss')
   , head        = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
+  , leftSidebar = fs.readFileSync(path.join(__dirname, '../left-sidebar.html'))
+  , rightSidebar= fs.readFileSync(path.join(__dirname, '../right-sidebar.html'))
   , defaultVal  = function(dict, key, value) { if (typeof dict[key] === 'undefined') { dict[key] = value; } }
   , published	= require('./lib').filters.published
   ;
@@ -14,14 +16,16 @@ exports.routes = function(app, postTable, postList) {
     var settings = app.settings
       , commonRender = function(res, template, context) {
             // Add-in common values if not present
-            defaultVal(context, 'analytics', settings.analytics || '')
-            defaultVal(context, 'analyticsdomain', settings.analyticsdomain || '')
-            defaultVal(context, 'blogdesc', settings.desc || '')
-            defaultVal(context, 'blogtitle', settings.title || 'MicrowaveJS Blog')
-            defaultVal(context, 'comments', settings.comments)
-            defaultVal(context, 'disqusname', settings.disqusname)
-            defaultVal(context, 'head', head)
-            defaultVal(context, 'host', settings.host)
+            defaultVal(context, 'analytics', settings.analytics || '');
+            defaultVal(context, 'analyticsdomain', settings.analyticsdomain || '');
+            defaultVal(context, 'blogdesc', settings.desc || '');
+            defaultVal(context, 'blogtitle', settings.title || 'MicrowaveJS Blog');
+            defaultVal(context, 'comments', settings.comments);
+            defaultVal(context, 'disqusname', settings.disqusname);
+            defaultVal(context, 'head', head);
+            defaultVal(context, 'host', settings.host);
+            defaultVal(context, 'leftsidebar', leftSidebar);
+            defaultVal(context, 'rightsidebar', rightSidebar);
             res.render(template, context);
         }
       , index = function(req, res, page) {
@@ -36,8 +40,8 @@ exports.routes = function(app, postTable, postList) {
             commonRender(res, 'index', {
                 page: page,
                 pagination: pageLeft || pageRight,
-                prev: pageLeft ? '/page/' + page : '',
-                next: pageRight ? '/page/' + (page+2) : '',
+                prev: pageRight ? '/page/' + (page+2) : '',
+                next: pageLeft ? '/page/' + page : '',
                 prevText: settings.prev,
                 nextText: settings.next,
                 posts: posts.map(function(x) {

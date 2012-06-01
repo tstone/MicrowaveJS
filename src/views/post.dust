@@ -19,13 +19,15 @@
             <a class="rss" href="/rss"><span class="websymbols">B</span>RSS</a>
         </header>
 
+        <aside class="left">{leftsidebar}</aside>
+
         <nav class="post">
             {#prevPost}<a href="{url}" class="prev-post" title="{title} - {date}">(</a>{/prevPost}
             <a href="/" title="Return to Index">:</a>
             {#nextPost}<a href="{url}" class="next-post" title="{title} - {date}">)</a>{/nextPost}
         </nav>
 
-        <div class="post">
+        <article class="post">
             <h1>{title}</h1>
             <span class="date">{date}</span>
             <ul class="tags">
@@ -33,7 +35,9 @@
             </ul>
             {body|s}
             <div id="disqus_thread"></div>
-        </div>
+        </article>
+
+        <aside class="right">{rightsidebar}</aside>
 
         <footer>Powered by <a target="_blank" href="https://github.com/tstone/MicrowaveJS">MicrowaveJS</a></footer>
     </div>
