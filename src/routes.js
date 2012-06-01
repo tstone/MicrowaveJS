@@ -59,6 +59,7 @@ exports.routes = function(app, postTable, postList) {
 
     app.get('/post/*', function(req, res){
         var slug = req.url.substr(6)
+          , url = settings.host + '/post/' + slug
           , post = postTable[slug];
 
         if (post) {
@@ -69,12 +70,13 @@ exports.routes = function(app, postTable, postList) {
                 slug: slug,
                 tags: post.tags,
                 title: post.title,
-                url: settings.host + '/post/' + slug
-            });
-        } else {
-            res.render('404', {
                 url: url
             });
+        } else {
+            res.statusCode = 404;
+            commonRender(res, '404', {
+                url: url
+            })
         }
     });
 
@@ -173,4 +175,5 @@ exports.routes = function(app, postTable, postList) {
     app.get('/', function(req, res){
         index(req, res, 0);
     });
+
 };
