@@ -34,8 +34,8 @@ header a.rss:hover { text-decoration: underline; }
 ul.tags { padding: 0; margin: 8px 0; }
 ul.tags li { display: inline-block; border: solid 1px #eee; padding: 3px 5px; font-size: 11px; margin-right: 4px; color: #ccc; line-height: 14px; }
 ul.tags li a { color: #ccc; text-decoration: none; }
-aside.left { position: absolute; top: 90px; left: 0; width: 18%; }
-aside.right { position: absolute; top: 90px; right: 0; width: 18%; }
+aside.left { position: absolute; top: 90px; left: 0; width: 16%; }
+aside.right { position: absolute; top: 90px; right: 0; width: 16%; }
 nav.pagination { margin: 30px 20%; min-height: 30px; }
 nav.pagination a { text-decoration: none; color: #777; }
 nav.pagination a .websymbols { font-size: 12px; line-height: 16px; position: relative; top: -2px; color: #D53C2E; }
