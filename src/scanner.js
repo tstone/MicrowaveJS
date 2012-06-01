@@ -35,12 +35,11 @@ var parseHeader = function(raw, path) {
 
     // Fill in title if it's lacking
     if (typeof header.title === 'undefined') {
-        var name = path.substr(path.lastIndexOf('\\') + 1);
+        var name = fileNameFromPath(path);
         if (name.indexOf('.') > -1) {
-            header.title = titleize(name.substr(0, name.lastIndexOf('.')));
-        } else {
-            header.title = name;
+            name = name.substr(0, name.lastIndexOf('.'));
         }
+		header.title = titleize(name);
     }
 
     // Generate slug
@@ -110,6 +109,18 @@ var parseBlogPostFile = function(path) {
 
     post.body = renderBody(rawBody, format);
     return post;
+};
+
+
+//
+// :: File Name From Path -> Get the file name from the full path minus the extension
+var fileNameFromPath = function(path){
+	var name = path;
+	if(name.lastIndexOf('/') > 0){
+		name = name.split('/').pop();
+	}	
+	name = name.substr(0, name.lastIndexOf('.'));
+	return name;
 };
 
 
