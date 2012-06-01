@@ -123,7 +123,7 @@ Examples:
 Sidebars
 --------
 
-Super easy.  Edit either left-sidebar.html or right-sidebar.html depending on where you want to stick the things everyone will ignore anyways.  The sidebars are automatically added to every page.
+Super easy.  Edit either `left-sidebar.html` or `right-sidebar.html` depending on where you want to stick the things everyone will ignore anyways.  The sidebars are automatically added to every page.
 
 Theme
 -----
