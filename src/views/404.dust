@@ -15,7 +15,7 @@
         <header>
             <h1><a href="/">{blogtitle}</a></h1>
             <span class="desc">{blogdesc}</span>
-            <a class="rss" href="/rss">RSS</a>
+            <a class="rss" href="/rss"><span class="websymbols">B</span>RSS</a>
         </header>
 
         <div class="error">

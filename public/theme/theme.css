@@ -23,7 +23,8 @@ header h1 a { color: #D53C2E; }
 header h1 a:hover { text-decoration: underline; }
 header h1 a:visited { color: #D53C2E; }
 header .desc { margin-left: 20%; font-size: 13px; display: block; line-height: 26px; }
-header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 11px; position: absolute; top: 25px; right: 1px; }
+header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 12px; position: absolute; top: 25px; right: 1px; }
+header a.rss .websymbols { text-transform: none; font-size: 11px; margin-left: 3px; float: right; }
 header a.rss:hover { text-decoration: underline; }
 
 /* Body */
