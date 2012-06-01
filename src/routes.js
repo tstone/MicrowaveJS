@@ -43,7 +43,7 @@ exports.routes = function(app, postTable, postList) {
                     return {
                         title: post.title,
                         tags: post.tags,
-                        date: post.date.toString('MMMM d, yyyy'),
+                        date: post.date.toString(settings.posttimeformat),
                         url: '/post/' + post.slug,
                         slug: post.slug
                     };
@@ -70,7 +70,7 @@ exports.routes = function(app, postTable, postList) {
                 title: post.title,
                 slug: slug,
                 body: post.body,
-                date: post.date.toString('MMMM d, yyyy'),
+                date: post.date.toString(settings.posttimeformat),
                 tags: post.tags,
                 url: app.settings.host + '/post/' + slug,
                 disqusname: app.settings.disqusname,
@@ -112,7 +112,7 @@ exports.routes = function(app, postTable, postList) {
                 return {
                     title: x.title,
                     tags: x.tags,
-                    date: x.date.toString('MMMM d, yyyy'),
+                    date: x.date.toString(settings.posttimeformat),
                     url: '/post/' + x.slug,
                     slug: x.slug
                 };
