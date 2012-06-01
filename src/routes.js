@@ -9,6 +9,7 @@ var sitemap     = require('sitemap')
   , leftSidebar = fs.readFileSync(path.join(__dirname, '../left-sidebar.html'))
   , rightSidebar= fs.readFileSync(path.join(__dirname, '../right-sidebar.html'))
   , defaultVal  = function(dict, key, value) { if (typeof dict[key] === 'undefined') { dict[key] = value; } }
+  , published	= require('./lib').filters.published
   ;
 
 exports.routes = function(app, postTable, postList) {
@@ -31,7 +32,7 @@ exports.routes = function(app, postTable, postList) {
             // Setup pagination
             var offset = settings.count * page;
             var offsetEnd = offset + settings.count;
-            var posts = postList.slice(offset, offsetEnd);
+            var posts = published(postList).slice(offset, offsetEnd);
             var pageLeft = offset > 0;
             var pageRight = offsetEnd < postList.length;
 
@@ -74,11 +75,11 @@ exports.routes = function(app, postTable, postList) {
           ;
 
         // Find the next and previous post (if there is one)
-        var postIndex = postList.reduce(function(acc, x, i){
+        var postIndex = published(postList).reduce(function(acc, x, i){
             if (x.slug === slug) { return i; } return acc;
         }, -1);
-        var prevPost = postIndex > 0 ? postTable[postList[postIndex - 1].slug] : undefined;
-        var nextPost = postIndex < (postList.length - 1) ? postTable[postList[postIndex + 1].slug] : undefined;
+        var prevPost = postIndex > 0 ? postTable[published(postList)[postIndex - 1].slug] : undefined;
+        var nextPost = postIndex < (published(postList).length - 1) ? postTable[published(postList)[postIndex + 1].slug] : undefined;
         if (prevPost) { prevPost = convertPost(prevPost); }
         if (nextPost) { nextPost = convertPost(nextPost); }
 
@@ -113,7 +114,7 @@ exports.routes = function(app, postTable, postList) {
           , results = []
           ;
         // Search posts
-        postList.forEach(function(p){
+        published(postList).forEach(function(p){
             var post = postTable[p.slug];
             if (post.tags.indexOf(tag) !== -1) {
                 results.push(post);
@@ -151,7 +152,7 @@ exports.routes = function(app, postTable, postList) {
 
         var feed = new RSS(feedConf);
 
-        postList.forEach(function(p){
+        published(postList).forEach(function(p){
             var post = postTable[p.slug];
             feed.item({
                 title: post.title,
@@ -174,7 +175,7 @@ exports.routes = function(app, postTable, postList) {
         var host = settings.host;
         var sm = sitemap.createSitemap({
             hostname: host,
-            urls: postList.map(function(p) {
+            urls: published(postList).map(function(p) {
                 return { url: settings.host + '/post/' + p.slug };
             })
         });

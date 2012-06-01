@@ -19,3 +19,14 @@ exports.titleize = function(s) {
 
     return title.trim();
 };
+
+// filterPosts
+// filters to be applied to posts array for
+exports.filters = {
+	// return posts that have publish dates in the past
+	published: function(posts){
+		return posts.filter(function(x){ 
+			return x.date < (new Date());
+		});
+	}
+};
