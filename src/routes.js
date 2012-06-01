@@ -62,7 +62,7 @@ exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
                     title: header.title,
                     slug: slug,
                     body: body,
-                    date: header.date.toString('MMMM dd, yyyy'),
+                    date: header.date.toString('MMMM d, yyyy'),
                     tags: header.tags,
                     url: '/post/' + slug,
                     disqusname: app.settings.disqusname,
