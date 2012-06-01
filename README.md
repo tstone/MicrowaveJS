@@ -114,10 +114,10 @@ The text that will be displayed for pagination when people want to see older blo
 ##### posttimeformat
 A datetime format string of how you'd like your dates to appear.  Any Date.js format is valid.  [Reference](http://code.google.com/p/datejs/wiki/FormatSpecifiers)
 Examples:
-- M/d/yy -> 8/22/82
-- MMMM d, yyyy -> January 17, 2012
-- dddd -> "Monday"
-- ddd :: M.d.yy -> Mon :: 5.7.12
+- `M/d/yy` -> 8/22/82
+- `MMMM d, yyyy` -> January 17, 2012
+- `dddd` -> "Monday"
+- `ddd :: M.d.yy` -> Mon :: 5.7.12
 
 Theme
 -----
