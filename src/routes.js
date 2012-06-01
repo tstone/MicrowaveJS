@@ -44,7 +44,7 @@ exports.routes = function(app, postTable, postList) {
                         title: post.title,
                         tags: post.tags,
                         date: post.date.toString(settings.posttimeformat),
-                        url: '/post/' + post.slug,
+                        url: settings.host + '/post/' + post.slug,
                         slug: post.slug
                     };
                 })
