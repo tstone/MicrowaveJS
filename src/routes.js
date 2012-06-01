@@ -60,13 +60,31 @@ exports.routes = function(app, postTable, postList) {
     app.get('/post/*', function(req, res){
         var slug = req.url.substr(6)
           , url = settings.host + '/post/' + slug
-          , post = postTable[slug];
+          , post = postTable[slug]
+          , convertPost = function(post) { return {
+                date: post.date.toString(settings.posttimeformat),
+                title: post.title,
+                url: settings.host + '/post/' + post.slug
+            }}
+          ;
 
+        // Find the next and previous post (if there is one)
+        var postIndex = postList.reduce(function(acc, x, i){
+            if (x.slug === slug) { return i; } return acc;
+        }, -1);
+        var prevPost = postIndex > 0 ? postTable[postList[postIndex - 1].slug] : undefined;
+        var nextPost = postIndex < (postList.length - 1) ? postTable[postList[postIndex + 1].slug] : undefined;
+        if (prevPost) { prevPost = convertPost(prevPost); }
+        if (nextPost) { nextPost = convertPost(nextPost); }
+
+        // Render
         if (post) {
             commonRender(res, 'post', {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
+                nextPost: nextPost,
+                prevPost: prevPost,
                 slug: slug,
                 tags: post.tags,
                 title: post.title,

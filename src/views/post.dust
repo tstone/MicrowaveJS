@@ -18,8 +18,10 @@
             <span class="desc">{blogdesc}</span>
         </header>
 
-        <nav>
-            <a href="/">« Return to Index</a>
+        <nav class="post">
+            {#prevPost}<a href="{url}" class="prev-post" title="{title} - {date}">(</a>{/prevPost}
+            <a href="/" title="Return to Index">:</a>
+            {#nextPost}<a href="{url}" class="next-post" title="{title} - {date}">)</a>{/nextPost}
         </nav>
 
         <div class="post">

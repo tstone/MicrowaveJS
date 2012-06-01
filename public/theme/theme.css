@@ -47,11 +47,12 @@ body.index article a.comments { font-size: 11px; display: block; color: #bbb; mi
 body.post .post { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
 body.post .post h1 { line-height: 38px; }
 body.post .post pre { line-height: 18px; }
-body.post .post .date { display: block; position: absolute; top: 10px; left: -20%; font-size: 11px; color: #999; }
-body.post .post .tags { position: absolute; top: 25px; left: -20%; margin-left: -1px; width: 15%; }
+body.post .post .date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
+body.post .post .tags { position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%; }
 body.post .post .tags li { margin-bottom: 4px; }
-body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; text-align: right; font-size: 11px; }
-body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; }
+body.post .wrapper nav { position: absolute; top: 101px; right: 0; width: 20%; text-align: right; font-size: 20px; margin-right: 0; }
+body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; color: #999; display: inline-block; margin-left: 2px; }
+body.post .wrapper nav a:hover { color: #D53C2E; }
 
 /* Error Pages */
 body.error .error { margin: 0 20%; }
