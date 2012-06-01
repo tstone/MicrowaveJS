@@ -18,7 +18,7 @@ Out of the box it supports the following features:
 - Automatic code prettification
 - Pre-configured for Heroku
 - Automatic Sitemap.xml
-- RSS feed (/rss)
+- RSS feed
 - Easy Google Analytics integration
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
