@@ -13,6 +13,7 @@ body { font-family: 'Open Sans', sans-serif; letter-spacing: -0.05em; }
 h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.075em; }
 h1 a, h2 a, h3 a, h4 a { text-decoration: none; }
 a { color: #444; }
+a[href^="http"]:after { display: inline-block; margin-left: 2px; content: "D"; font-family: 'WebSymbolsRegular'; font-size: 10px; }
 a:visited { color: #333; }
 a:hover { color: #D53C2E; }
 

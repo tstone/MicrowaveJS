@@ -42,11 +42,12 @@ exports.routes = function(app, postTable, postList) {
                 posts: posts.map(function(x) {
                     var post = postTable[x.slug];
                     return {
-                        title: post.title,
-                        tags: post.tags,
                         date: post.date.toString(settings.posttimeformat),
-                        url: settings.host + '/post/' + post.slug,
-                        slug: post.slug
+                        disqusurl: settings.host + '/post/' + post.slug,
+                        slug: post.slug,
+                        tags: post.tags,
+                        title: post.title,
+                        url: '/post/' + post.slug
                     };
                 })
             });
@@ -59,12 +60,12 @@ exports.routes = function(app, postTable, postList) {
 
     app.get('/post/*', function(req, res){
         var slug = req.url.substr(6)
-          , url = settings.host + '/post/' + slug
+          , url = '/post/' + slug
           , post = postTable[slug]
           , convertPost = function(post) { return {
                 date: post.date.toString(settings.posttimeformat),
                 title: post.title,
-                url: settings.host + '/post/' + post.slug
+                url: '/post/' + post.slug
             }}
           ;
 
@@ -83,6 +84,7 @@ exports.routes = function(app, postTable, postList) {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
+                disqusurl: settings.host + url,
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,
