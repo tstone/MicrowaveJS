@@ -47,9 +47,20 @@ $ cd myblog
 $ git clone git://github.com/tstone/MicrowaveJS.git
 ````
 
-#### 4. Edit settings.yml as you'd like.  See below for details.
+#### 4. Edit settings.yml as you'd like.
+
+See below for details of settings.
+
+#### 5. Write a blog post.
+
+Create a new file in the /posts folder
+
+#### 6. Push to your heroku app
+
+`$ git push heroku master`
 
 You're done.
+
 
 Writing a Blog Post
 -------------------
