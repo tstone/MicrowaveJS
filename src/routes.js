@@ -7,7 +7,7 @@ var sitemap     = require('sitemap')
   , RSS         = require('rss')
   ;
 
-exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
+exports.routes = function(app, postTable, postList) {
     var settings = app.settings
       , head = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
       , indexRoute = function(req, res, page) {
@@ -33,41 +33,38 @@ exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
                 nextText: settings.next,
                 pagination: pageLeft && pageRight,
                 comments: settings.comments,
-                posts: posts.map(function(x){
+                posts: posts.map(function(x) {
+                    var post = postTable[x.slug];
                     return {
-                        title: x.title,
-                        tags: x.tags,
-                        date: x.date.toString('MMMM d, yyyy'),
-                        url: '/post/' + x.slug,
-                        slug: x.slug
+                        title: post.title,
+                        tags: post.tags,
+                        date: post.date.toString('MMMM d, yyyy'),
+                        url: '/post/' + post.slug,
+                        slug: post.slug
                     };
                 })
             });
         };
 
     app.get('/post/*', function(req, res){
-        var url = req.url.substr(6)
-          , post = postKeyTable[url];
+        var slug = req.url.substr(6)
+          , post = postTable[slug];
 
         if (post) {
-            var header = postHeaderTable[url];
-            scanner.renderContent(post, function(body){
-                var slug = slugify(header.title);
-                res.render('post',{
-                    head: head,
-                    analytics: settings.analytics,
-                    analyticsdomain: settings.analyticsdomain || '',
-                    blogtitle: settings.title,
-                    blogdesc: settings.desc,
-                    title: header.title,
-                    slug: slug,
-                    body: body,
-                    date: header.date.toString('MMMM d, yyyy'),
-                    tags: header.tags,
-                    url: '/post/' + slug,
-                    disqusname: app.settings.disqusname,
-                    comments: typeof header.comments === 'boolean' ? header.comments : settings.comments
-                });
+            res.render('post',{
+                head: head,
+                analytics: settings.analytics,
+                analyticsdomain: settings.analyticsdomain || '',
+                blogtitle: settings.title,
+                blogdesc: settings.desc,
+                title: post.title,
+                slug: slug,
+                body: post.body,
+                date: post.date.toString('MMMM d, yyyy'),
+                tags: post.tags,
+                url: '/post/' + slug,
+                disqusname: app.settings.disqusname,
+                comments: typeof post.comments === 'boolean' ? post.comments : settings.comments
             });
         } else {
             res.render('404', {
@@ -86,8 +83,9 @@ exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
           ;
         // Search posts
         postList.forEach(function(p){
-            if (p.tags.indexOf(tag) !== -1) {
-                results.push(p);
+            var post = postTable[p.slug];
+            if (post.tags.indexOf(tag) !== -1) {
+                results.push(post);
             }
         });
         // Render
@@ -123,7 +121,8 @@ exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
 
         var feed = new RSS(feedConf);
 
-        postList.forEach(function(post){
+        postList.forEach(function(p){
+            var post = postTable[p.slug];
             feed.item({
                 title: post.title,
                 url: settings.host + '/post/' + post.slug,
@@ -141,7 +140,7 @@ exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
         var host = settings.host;
         var sm = sitemap.createSitemap({
             hostname: host,
-            urls: postList.map(function(p){
+            urls: postList.map(function(p) {
                 return { url: settings.host + '/post/' + p.slug };
             })
         });
