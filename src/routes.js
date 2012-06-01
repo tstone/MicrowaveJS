@@ -7,7 +7,7 @@ var sitemap     = require('sitemap')
   , RSS         = require('rss')
   ;
 
-exports.routes = function(app, postKeyTable, postList) {
+exports.routes = function(app, postKeyTable, postList, postHeaderTable) {
     var settings = app.settings
       , head = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
       , indexRoute = function(req, res, page) {
@@ -50,7 +50,8 @@ exports.routes = function(app, postKeyTable, postList) {
           , post = postKeyTable[url];
 
         if (post) {
-            scanner.renderContent(post, function(body, header){
+            var header = postHeaderTable[url];
+            scanner.renderContent(post, function(body){
                 var slug = slugify(header.title);
                 res.render('post',{
                     head: head,
@@ -61,7 +62,7 @@ exports.routes = function(app, postKeyTable, postList) {
                     title: header.title,
                     slug: slug,
                     body: body,
-                    date: header.date,
+                    date: header.date.toString('MMMM dd, yyyy'),
                     tags: header.tags,
                     url: '/post/' + slug,
                     disqusname: app.settings.disqusname,

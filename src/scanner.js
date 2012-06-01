@@ -41,7 +41,7 @@ var parseHeader = function(file, name) {
 
     // Fill in date if it's lacking
     if (typeof header.date === 'undefined') {
-        var stats = fs.lstatSync(file);
+        var stats = fs.statSync(file);
         header.date = stats.ctime;
     }
 
@@ -63,12 +63,12 @@ var parseHeader = function(file, name) {
 var parseContent = function(file, callback) {
     fs.readFile(file, 'ascii', function(err, raw){
         var post = sliceContents(raw.trim());
-        callback(post.body, yaml.load(post.header));
+        callback(post.body);
     })
 };
 
 var renderContent = function(file, callback) {
-    parseContent(file, function(body, header) {
+    parseContent(file, function(body) {
         if (file.substr(file.length - 3) === '.md') {
             // Convert github style code into regular markdown
             if (body.indexOf('```') > -1) {
@@ -88,9 +88,9 @@ var renderContent = function(file, callback) {
             html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
             html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
             html = html.replace(/\s<\/code>/gi, '</code>');
-            callback(html, header);
+            callback(html);
         } else {
-            callback(body, header);
+            callback(body);
         }
     });
 }
@@ -105,6 +105,7 @@ var scan = function(app, settings, routes, callback) {
 
     var postKeyTable = {}
       , postList = []
+      , postHeaderTable = {}
       , postDir = path.join(__dirname, '../', settings.posts)
       ;
 
@@ -115,6 +116,7 @@ var scan = function(app, settings, routes, callback) {
             if (postKeyTable[header.slug]){ console.warn('An entry for slug "' + header.slug + '" already exists!'); }
             // Setup internal "tables"
             postList.push(header);
+            postHeaderTable[header.slug] = header;
             postKeyTable[header.slug] = filePath;
         });
 
@@ -123,8 +125,8 @@ var scan = function(app, settings, routes, callback) {
             return b.date - a.date;
         });
 
-        routes(app, postKeyTable, postList, postDir);
-        callback(postKeyTable, postList, postDir);
+        routes(app, postKeyTable, postList, postHeaderTable, postDir);
+        callback(postKeyTable, postList, postHeaderTable, postDir);
     });
 };
 
