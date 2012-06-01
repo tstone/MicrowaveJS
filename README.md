@@ -84,17 +84,40 @@ The folder for where the posts live.  This is relative to where your blog is on 
 ##### title
 The title of your blog.
 
-##### count
-How many blog posts to show on the index page
+##### desc
+A description of your blog.
+
+##### author
+Your name
 
 ##### disqusname
 The DISQUS shortname for your blog.
+
+##### comments
+true or false if you want to enable comments
+
+##### analytics
+Your Google Analytics account.  If present Google Analytics will be enabled.
+
+##### analyticsdomain
+The domain you have configured your analytics account for.  This is setup in GA itself.
+
+##### count
+How many blog posts to show on the index page
 
 #### next
 The text that will be displayed for pagination when people want to see newer blog posts
 
 ##### prev
 The text that will be displayed for pagination when people want to see older blog posts
+
+##### posttimeformat
+A datetime format string of how you'd like your dates to appear.  Any Date.js format is valid.  [Reference](http://code.google.com/p/datejs/wiki/FormatSpecifiers)
+Examples:
+- M/d/yy -> 8/22/82
+- MMMM d, yyyy -> January 17, 2012
+- dddd -> "Monday"
+- ddd :: M.d.yy -> Mon :: 5.7.12
 
 Theme
 -----
