@@ -31,8 +31,8 @@
 
         {#pagination}
         <nav class="pagination">
-            {#prev}<a class="prev" href="{prev}">{prevText|s}</a>{/prev}
-            {#next}<a class="next" href="{next}">{nextText|s}</a>{/next}
+            {#next}<a class="next" href="{next}"><span class="websymbols">&lt;</span>{nextText|s}</a>{/next}
+            {#prev}<a class="prev" href="{prev}">{prevText|s}<span class="websymbols">&gt;</span></a>{/prev}
         </nav>
         {/pagination}
 

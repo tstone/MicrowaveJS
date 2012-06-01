@@ -35,8 +35,8 @@ exports.routes = function(app, postTable, postList) {
             commonRender(res, 'index', {
                 page: page,
                 pagination: pageLeft || pageRight,
-                prev: pageLeft ? '/page/' + page : '',
-                next: pageRight ? '/page/' + (page+2) : '',
+                prev: pageRight ? '/page/' + (page+2) : '',
+                next: pageLeft ? '/page/' + page : '',
                 prevText: settings.prev,
                 nextText: settings.next,
                 posts: posts.map(function(x) {
