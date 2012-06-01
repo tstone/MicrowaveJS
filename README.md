@@ -57,7 +57,9 @@ Create a new file in the /posts folder
 
 #### 6. Push to your heroku app
 
-`$ git push heroku master`
+```
+$ git push heroku master
+```
 
 You're done.
 
