@@ -81,7 +81,7 @@ var renderBody = function(raw, format) {
     } else {                                                    // Plain / other
         return raw;
     }
-}
+};
 
 
 //
@@ -118,7 +118,7 @@ var fileNameFromPath = function(path){
 	var name = path;
 	if(name.lastIndexOf('/') > 0){
 		name = name.split('/').pop();
-	}	
+	}
 	name = name.substr(0, name.lastIndexOf('.'));
 	return name;
 };

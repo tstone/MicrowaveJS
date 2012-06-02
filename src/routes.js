@@ -71,7 +71,8 @@ exports.routes = function(app, postTable, postList) {
                 date: post.date.toString(settings.posttimeformat),
                 title: post.title,
                 url: '/post/' + post.slug
-            }}
+                };
+            }
           ;
 
         // Find the next and previous post (if there is one)
@@ -101,7 +102,7 @@ exports.routes = function(app, postTable, postList) {
             res.statusCode = 404;
             commonRender(res, '404', {
                 url: url
-            })
+            });
         }
     });
 
@@ -190,7 +191,7 @@ exports.routes = function(app, postTable, postList) {
     // GET /page/:num
 
     app.get('/page/:num', function(req, res){
-        index(req, res, parseInt(req.params['num']) - 1);
+        index(req, res, parseInt(req.params['num'], 10) - 1);
     });
 
 
