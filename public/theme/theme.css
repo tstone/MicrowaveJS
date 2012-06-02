@@ -90,16 +90,16 @@ body.error .error { margin: 0 20%; }
 
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
-	.wrapper { width: 100%; padding: 0 10px; }
+	.wrapper { width: 100%; padding: 0 15px; }
 	header h1 { float: none; width: auto; }
 	header .desc { margin-left: 0; }
 	header a.rss { top: 12px; right: 10px; }
 	body.index article { margin: 20px 0 0 0; }
 	body.post article { margin: 0; }
-	body.post article h1 { margin: 30px 0 0 0; }
+	body.post article h1 { margin: 15px 0 0 0; }
 	body.post article .date { position: static; }
-	body.post article .tags { position: static; margin: 0 0 20px 0; width: auto; }
-	body.post nav.post { position: static; font-size: 35px; }
-	body.post .wrapper nav.post { text-align: left; }
+	body.post article .tags { position: static; margin: 10px 0 10px 0; width: auto; }
+	body.post nav.post { position: static; font-size: 35px; width: auto; }
+	body.post .wrapper nav.post { text-align: center; }
 	aside.left, aside.right { display: none; }
 }
