@@ -59,7 +59,6 @@ exports.routes = function(app, postTable, postList) {
         }
       ;
 
-
     //
     // GET /post/:slug
 

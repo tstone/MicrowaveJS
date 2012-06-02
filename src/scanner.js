@@ -22,6 +22,14 @@ var parseHeader = function(raw, path) {
     // Check for YAML configuration data
     if (typeof raw === 'string' && raw.length > 0) {
         var config = yaml.load(raw);
+        
+        // Convert config to lowercase
+        for (var prop in config) {
+            if (config.hasOwnProperty(prop)) {
+                config[prop.toLowerCase()] = config[prop];
+            }
+        }
+
         header.title = config.title;
         header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
