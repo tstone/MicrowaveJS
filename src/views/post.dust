@@ -4,6 +4,8 @@
     <title>{blogtitle}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="{host}{url}"/>
+
     <link rel="stylesheet" href="/public/base.css" />
     <link rel="stylesheet" href="/public/theme/theme.css" />
     <link rel="stylesheet" href="/public/theme/prettify-theme.css" />
