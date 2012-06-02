@@ -8,11 +8,10 @@ var express     = require('express')
   ;
 
 // Configure Express
-app.engine('dust', consolidate.dust);
 app.settings = settings;
-app.configure(function(){
+app.configure(function() {
     app.use('/public', express.static(path.join(__dirname, '../public')));
-    app.set('view engine', 'dust');
+    app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
 });

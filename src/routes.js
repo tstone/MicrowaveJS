@@ -1,31 +1,49 @@
 var sitemap     = require('sitemap')
   , scanner     = require('./scanner')
+  , dust        = require('dustjs-linkedin')
   , fs          = require('fs')
   , path        = require('path')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
   , RSS         = require('rss')
-  , head        = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
-  , leftSidebar = fs.readFileSync(path.join(__dirname, '../left-sidebar.html'))
-  , rightSidebar= fs.readFileSync(path.join(__dirname, '../right-sidebar.html'))
+  //, layout      = fs.readFileSync(path.join(__dirname, './views/_layout.dust')).toString()
   , defaultVal  = function(dict, key, value) { if (typeof dict[key] === 'undefined') { dict[key] = value; } }
   , published	= require('./lib').filters.published
+  , templates   = {}
   ;
+
+//
+// :: Assemble layout
+/*
+(function() {
+    var head        = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
+      , leftSidebar = fs.readFileSync(path.join(__dirname, '../left-sidebar.html'))
+      , rightSidebar= fs.readFileSync(path.join(__dirname, '../right-sidebar.html'))
+      ;
+
+    layout = layout.replace(/\{>>head\}/i, head);
+    layout = layout.replace(/\{>>leftsidebar\}/i, leftSidebar);
+    layout = layout.replace(/\{>>rightsidebar\}/i, rightSidebar);
+}());
+*/
+
+//
+// :: Define route handlers
 
 exports.routes = function(app, postTable, postList) {
     var settings = app.settings
       , commonRender = function(res, template, context) {
             // Add-in common values if not present
             defaultVal(context, 'analytics', settings.analytics || '');
-            defaultVal(context, 'analyticsdomain', settings.analyticsdomain || '');
-            defaultVal(context, 'blogdesc', settings.desc || '');
-            defaultVal(context, 'blogtitle', settings.title || 'MicrowaveJS Blog');
+            defaultVal(context, 'analyticsDomain', settings.analyticsdomain || '');
+            defaultVal(context, 'blogDesc', settings.desc || '');
+            defaultVal(context, 'blogTitle', settings.title || 'MicrowaveJS Blog');
+            defaultVal(context, 'bodyClass', template);
             defaultVal(context, 'comments', settings.comments);
-            defaultVal(context, 'disqusname', settings.disqusname);
-            defaultVal(context, 'head', head);
+            defaultVal(context, 'disqusName', settings.disqusname);
             defaultVal(context, 'host', settings.host);
-            defaultVal(context, 'leftsidebar', leftSidebar);
-            defaultVal(context, 'rightsidebar', rightSidebar);
+
+            // Render
             res.render(template, context);
         }
       , index = function(req, res, page) {
@@ -48,7 +66,7 @@ exports.routes = function(app, postTable, postList) {
                     var post = postTable[x.slug];
                     return {
                         date: post.date.toString(settings.posttimeformat),
-                        disqusurl: settings.host + '/post/' + post.slug,
+                        disqusUrl: settings.host + '/post/' + post.slug,
                         slug: post.slug,
                         tags: post.tags,
                         title: post.title,
@@ -89,7 +107,7 @@ exports.routes = function(app, postTable, postList) {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
-                disqusurl: settings.host + url,
+                disqusUrl: settings.host + url,
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,
