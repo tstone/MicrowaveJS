@@ -61,6 +61,8 @@ body.post article { margin: 0 20%; position: relative; font-size: 14px; line-hei
 body.post article h1 { line-height: 38px; }
 body.post article pre { line-height: 18px; }
 body.post article img { width: 100%; }
+body.post article h2 { margin-top: 40px; }
+body.post article h3 { margin-top: 30px; }
 body.post article .date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
 body.post article .tags { position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%; }
 body.post article .tags li { margin-bottom: 4px; }
