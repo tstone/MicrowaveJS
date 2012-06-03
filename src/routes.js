@@ -2,7 +2,6 @@
 var sitemap     = require('sitemap')
   , middleware  = require('./route-middleware')
   , scanner     = require('./scanner')
-  , dust        = require('dustjs-linkedin')
   , fs          = require('fs')
   , path        = require('path')
   , date        = require('./vendor/date')
