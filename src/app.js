@@ -14,6 +14,17 @@ app.configure(function() {
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
+    
+    // Values available to every template
+    app.locals({
+        analytics:        settings.analytics || '',
+        analyticsDomain:  settings.analyticsdomain || '',
+        blogDesc:         settings.desc || '',
+        blogTitle:        settings.title || 'MicrowaveJS Blog',
+        comments:         settings.comments,
+        disqusName:       settings.disqusname,
+        host:             settings.host
+    });
 });
 
 // Scan and start
