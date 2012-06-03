@@ -6,26 +6,10 @@ var sitemap     = require('sitemap')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
   , RSS         = require('rss')
-  //, layout      = fs.readFileSync(path.join(__dirname, './views/_layout.dust')).toString()
   , defaultVal  = function(dict, key, value) { if (typeof dict[key] === 'undefined') { dict[key] = value; } }
   , published	= require('./lib').filters.published
   , templates   = {}
   ;
-
-//
-// :: Assemble layout
-/*
-(function() {
-    var head        = fs.readFileSync(path.join(__dirname, '../public/theme/head.html'))
-      , leftSidebar = fs.readFileSync(path.join(__dirname, '../left-sidebar.html'))
-      , rightSidebar= fs.readFileSync(path.join(__dirname, '../right-sidebar.html'))
-      ;
-
-    layout = layout.replace(/\{>>head\}/i, head);
-    layout = layout.replace(/\{>>leftsidebar\}/i, leftSidebar);
-    layout = layout.replace(/\{>>rightsidebar\}/i, rightSidebar);
-}());
-*/
 
 //
 // :: Define route handlers
