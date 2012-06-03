@@ -20,7 +20,7 @@ exports.routes = function(app, postTable, postList) {
 
 
     //
-    // GET /post/:slug
+    // GET :: /post/:slug
 
     app.get('/post/*', middleware.content, function(req, res){
         var slug = req.url.substr(6)
@@ -67,7 +67,7 @@ exports.routes = function(app, postTable, postList) {
 
 
     //
-    // GET /tagged/:tag
+    // GET :: /tagged/:tag
 
     app.get('/tagged/:tag', middleware.content, function(req, res){
         var tag = req.params['tag'].toLowerCase()
@@ -98,7 +98,7 @@ exports.routes = function(app, postTable, postList) {
 
 
     //
-    // GET /rss
+    // GET :: /rss
 
     app.get('/rss', function(req, res){
         var feedConf = {
@@ -129,7 +129,7 @@ exports.routes = function(app, postTable, postList) {
 
 
     //
-    // GET /sitemap.xml
+    // GET :: /sitemap.xml
 
     app.get('/sitemap.xml', function(req, res){
         var host = settings.host;
@@ -147,7 +147,7 @@ exports.routes = function(app, postTable, postList) {
 
 
     //
-    // GET / -OR- /page/:num
+    // GET :: / -OR- /page/:num
 
     app.get('/|/page/:num', middleware.content, function(req, res){
         var page = req.param['nun'] ? parseInt(req.params['num'], 10) - 1 : 0;
@@ -181,5 +181,4 @@ exports.routes = function(app, postTable, postList) {
             })
         });
     });
-
 };
