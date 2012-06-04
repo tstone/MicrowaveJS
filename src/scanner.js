@@ -22,6 +22,14 @@ var parseHeader = function(raw, path) {
     // Check for YAML configuration data
     if (typeof raw === 'string' && raw.length > 0) {
         var config = yaml.load(raw);
+        
+        // Convert config to lowercase
+        for (var prop in config) {
+            if (config.hasOwnProperty(prop)) {
+                config[prop.toLowerCase()] = config[prop];
+            }
+        }
+
         header.title = config.title;
         header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
@@ -81,7 +89,7 @@ var renderBody = function(raw, format) {
     } else {                                                    // Plain / other
         return raw;
     }
-}
+};
 
 
 //
@@ -118,7 +126,7 @@ var fileNameFromPath = function(path){
 	var name = path;
 	if(name.lastIndexOf('/') > 0){
 		name = name.split('/').pop();
-	}	
+	}
 	name = name.substr(0, name.lastIndexOf('.'));
 	return name;
 };

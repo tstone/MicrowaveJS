@@ -7,7 +7,7 @@
     }
   , "dependencies": {
       "express": "3.0.x"
-    , "dustjs-linkedin": "0.4.0"
+    , "jade": "0.x.x"
     , "js-yaml": "0.3.7"
     , "sitemap": "0.6.0"
     , "consolidate": "0.3.0"

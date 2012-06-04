@@ -1,7 +1,7 @@
 /*
 title:  Example Markdown Post
-date:   May 18, 2012
-tags:   [simple, easy, sample]
+Date:   May 18, 2012
+TAGS:   [simple, easy, sample]
 comments:  true
 */
 

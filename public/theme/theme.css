@@ -8,6 +8,7 @@
 
 /* ==|== blog styles ======================================================== */
 
+* { box-sizing: border-box; }
 html, body { height: 100%; }
 body { font-family: 'Open Sans', sans-serif; letter-spacing: -0.05em; }
 h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.075em; }
@@ -60,6 +61,9 @@ body.index article a.comments[href^="http"]:after { display: none; }
 body.post article { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
 body.post article h1 { line-height: 38px; }
 body.post article pre { line-height: 18px; }
+body.post article img { width: 100%; }
+body.post article h2 { margin-top: 40px; }
+body.post article h3 { margin-top: 30px; }
 body.post article .date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
 body.post article .tags { position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%; }
 body.post article .tags li { margin-bottom: 4px; }
@@ -72,4 +76,30 @@ body.post aside.right { top: 150px; }
 /* Error Pages */
 body.error .error { margin: 0 20%; }
 
+
 /* ==|== media queries ====================================================== */
+/* Note: Sizes from Skeleton CSS Framwork - https://github.com/dhgamache/Skeleton/blob/master/stylesheets/layout.css */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.wrapper { width: 768px; }
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+	.wrapper { width: 100%; padding: 0 15px; }
+	header h1 { float: none; width: auto; }
+	header .desc { margin-left: 0; }
+	header a.rss { top: 12px; right: 10px; }
+	body.index article { margin: 20px 0 0 0; }
+	body.post article { margin: 0; }
+	body.post article h1 { margin: 15px 0 0 0; }
+	body.post article .date { position: static; }
+	body.post article .tags { position: static; margin: 10px 0 10px 0; width: auto; }
+	body.post nav.post { position: static; font-size: 35px; width: auto; }
+	body.post .wrapper nav.post { text-align: center; }
+	aside.left, aside.right { display: none; }
+}
