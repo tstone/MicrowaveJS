@@ -47,6 +47,8 @@ var parseHeader = function(raw, path) {
         if (name.indexOf('.') > -1) {
             name = name.substr(0, name.lastIndexOf('.'));
         }
+        var seperator = (name.lastIndexOf('\\') > -1) ? '\\' : '/';
+        name = name.substr(name.lastIndexOf(seperator) + 1, name.length);
 		header.title = titleize(name);
     }
 
