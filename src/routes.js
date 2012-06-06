@@ -7,14 +7,13 @@ var sitemap     = require('sitemap')
   , date        = require('./vendor/date')
   , slugify     = require('./lib').slugify
   , RSS         = require('rss')
-  , published	= require('./lib').filters.published
   , templates   = {}
   ;
 
 //
 // :: Define route handlers
 
-exports.routes = function(app, postTable, postList) {
+exports.routes = function(app, getPostTable, getPostList) {
     var settings = app.settings;
 
 
@@ -24,6 +23,8 @@ exports.routes = function(app, postTable, postList) {
     app.get('/post/*', middleware.content, function(req, res){
         var slug = req.url.substr(6)
           , url = '/post/' + slug
+          , postList = getPostList()
+          , postTable = getPostTable()
           , post = postTable[slug]
           , convertPost = function(post) { return {
                 date: post.date.toString(settings.posttimeformat),
@@ -34,11 +35,11 @@ exports.routes = function(app, postTable, postList) {
           ;
 
         // Find the next and previous post (if there is one)
-        var postIndex = published(postList).reduce(function(acc, x, i){
+        var postIndex = postList.reduce(function(acc, x, i){
             if (x.slug === slug) { return i; } return acc;
         }, -1);
-        var prevPost = postIndex > 0 ? postTable[published(postList)[postIndex - 1].slug] : undefined;
-        var nextPost = postIndex < (published(postList).length - 1) ? postTable[published(postList)[postIndex + 1].slug] : undefined;
+        var prevPost = postIndex > 0 ? postTable[postList[postIndex - 1].slug] : undefined;
+        var nextPost = postIndex < (postList.length - 1) ? postTable[postList[postIndex + 1].slug] : undefined;
         if (prevPost) { prevPost = convertPost(prevPost); }
         if (nextPost) { nextPost = convertPost(nextPost); }
 
@@ -72,13 +73,15 @@ exports.routes = function(app, postTable, postList) {
         var tag = req.params['tag'].toLowerCase()
           , results = []
           ;
+        
         // Search posts
-        published(postList).forEach(function(p){
-            var post = postTable[p.slug];
+        getPostList().forEach(function(p){
+            var post = getPostTable()[p.slug];
             if (post.tags.indexOf(tag) !== -1) {
                 results.push(post);
             }
         });
+        
         // Render
         res.render('index', {
             page: 0,
@@ -109,9 +112,11 @@ exports.routes = function(app, postTable, postList) {
         if (settings.desc) { feedConf.description = settings.desc; }
         if (settings.author) { feedConf.author = settings.author; }
 
-        var feed = new RSS(feedConf);
+        var feed = new RSS(feedConf)
+          , postTable = getPostTable()
+          ;
 
-        published(postList).forEach(function(p){
+        getPostList().forEach(function(p){
             var post = postTable[p.slug];
             feed.item({
                 title: post.title,
@@ -131,13 +136,16 @@ exports.routes = function(app, postTable, postList) {
     // GET :: /sitemap.xml
 
     app.get('/sitemap.xml', function(req, res){
-        var host = settings.host;
+        var host = settings.host
+          , postList = getPostList()
+          ;
         var sm = sitemap.createSitemap({
             hostname: host,
-            urls: published(postList).map(function(p) {
+            urls: postList.map(function(p) {
                 return { url: settings.host + '/post/' + p.slug };
             })
         });
+        // Too RSS
         sm.toXML(function(xml){
             res.header('Content-Type', 'application/xml');
             res.send(xml);
@@ -154,9 +162,10 @@ exports.routes = function(app, postTable, postList) {
         // Setup pagination
         var offset = settings.count * page
           , offsetEnd = offset + settings.count
-          , posts = published(postList).slice(offset, offsetEnd)
+          , postTable = getPostTable()
+          , posts = getPostList().slice(offset, offsetEnd)
           , pageLeft = offset > 0
-          , pageRight = offsetEnd < postList.length
+          , pageRight = offsetEnd < getPostList().length
           ;
 
         // Render

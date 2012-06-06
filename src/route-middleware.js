@@ -16,7 +16,7 @@ middleware.locals = exports.locals = function(req, res, next) {
 	next();
 };
 
-// Comming Soon!
+
 middleware.pjax = exports.pjax = function(req, res, next) {
 	// Inspect header for Pjax signature
 	if (req.header('X_PJAX"')) {
@@ -25,7 +25,8 @@ middleware.pjax = exports.pjax = function(req, res, next) {
 
 	// Redefine render
 	var render = res.render;
-	res.render = function(view, options, fn) {		
+	res.render = function(view, options, fn) {
+		
 		if (req.pjax) {
 			options.layout = false;
 		}
@@ -41,5 +42,5 @@ middleware.pjax = exports.pjax = function(req, res, next) {
 
 exports.content = [
 	middleware.locals
-//, middleware.pjax
+	// middleware.pjax
 ];

@@ -6,7 +6,8 @@
       , "npm": "1.0.x"
     }
   , "dependencies": {
-      "express": "3.0.x"
+      //"express": "3.0.x"
+      "express": "2.x.x"
     , "jade": "0.x.x"
     , "js-yaml": "0.3.7"
     , "sitemap": "0.6.0"

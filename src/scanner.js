@@ -141,25 +141,34 @@ var fileNameFromPath = function(path){
 var scan = function(app, settings, routes, callback) {
 
     var postTable = {}
+      , futurePostTable = {}
       , postList = []
+      , futurePostList = []
       , postDir = path.join(__dirname, '../', settings.posts)
       ;
 
     fs.readdir(postDir, function(err, files){
+        var now = Date.now();        
         files.forEach(function(f){
             var filePath = path.join(__dirname, '../', settings.posts, f)
               , post = parseBlogPostFile(filePath, f);
             if (postTable[post.slug]){
                 console.warn('An entry for slug "' + post.slug + '" already exists!');
             } else {
-                // Data is stored in two formats
-                // First, a "full details" table, in which posts are indexed by their slug
-                postTable[post.slug] = post;
-                // Seconed, an ordered list with only the minimal amount of information
-                postList.push({
-                    slug: post.slug,
-                    date: post.date
-                });
+                // Store post in in-memory lookup structures
+                if (post.date > now) {
+                    futurePostTable[post.slug] = post;
+                    futurePostList.push({
+                        slug: post.slug,
+                        date: post.date
+                    });
+                } else {
+                    postTable[post.slug] = post;
+                    postList.push({
+                        slug: post.slug,
+                        date: post.date
+                    });
+                }
             }
         });
 
@@ -168,8 +177,37 @@ var scan = function(app, settings, routes, callback) {
             return b.date - a.date;
         });
 
-        routes(app, postTable, postList);
-        callback(app, postTable, postList);
+        // Methods to get the post data
+        var getPostList = function() {
+            // Re-check the date against right now
+            var now = Date.now();
+            var indexes = [];
+            futurePostList = futurePostList.map(function(x, i){
+                if (x && x.date <= now) {
+                    // Put at beginning of regular post list
+                    postList.unshift(x);
+                    indexes.push(i);
+                } else {
+                    return x;
+                }
+            });
+
+            return postList;
+        };
+
+        var getPostTable = function() {
+            var now = Date.now();
+            for (var slug in futurePostTable) {
+                if (futurePostTable[slug].date <= now) {
+                    postTable[slug] = futurePostTable[slug];
+                }
+            }
+
+            return postTable;
+        };
+
+        routes(app, getPostTable, getPostList);
+        callback(app, getPostTable, getPostList);
     });
 };
 
