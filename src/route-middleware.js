@@ -6,6 +6,7 @@ var middleware = {};
 // :: Single Route Middleware(s)
 
 middleware.locals = exports.locals = function(req, res, next) {
+
 	// Redefine render
 	var render = res.render;
 	res.render = function(view, options, fn) {

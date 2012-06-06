@@ -163,9 +163,10 @@ exports.routes = function(app, getPostTable, getPostList) {
         var offset = settings.count * page
           , offsetEnd = offset + settings.count
           , postTable = getPostTable()
-          , posts = getPostList().slice(offset, offsetEnd)
+          , postList = getPostList()
+          , posts = postList.slice(offset, offsetEnd)
           , pageLeft = offset > 0
-          , pageRight = offsetEnd < getPostList().length
+          , pageRight = offsetEnd < postList.length
           ;
 
         // Render
