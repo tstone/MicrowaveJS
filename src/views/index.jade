@@ -20,9 +20,11 @@ block body
             if (next)
                 a.next(href=next)
                     span.websymbols &lt;
+                    | #{nextText}
             if (prev)
                 a.prev(href=prev)
-                    span.websymbols &gt;
+                    | #{prevText}
+                    span.websymbols &gt;                    
 
 block scripts
     if (comments)
