@@ -3,6 +3,7 @@ title:  Example Markdown Post
 Date:   May 18, 2012
 TAGS:   [simple, easy, sample]
 comments:  true
+slug:   totally-custom-slug
 */
 
 This is the primary body of my post...

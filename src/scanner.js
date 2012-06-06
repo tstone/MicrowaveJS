@@ -34,6 +34,7 @@ var parseHeader = function(raw, path) {
         header.title = config.title;
         header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
+        header.slug = config.slug;
     }
 
     // Fill in date if it's lacking
@@ -54,7 +55,9 @@ var parseHeader = function(raw, path) {
     }
 
     // Generate slug
-    header.slug = slugify(header.title);
+    if (typeof header.slug === 'undefined') {
+        header.slug = slugify(header.title);
+    }
 
     return header;
 };
