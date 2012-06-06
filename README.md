@@ -130,14 +130,14 @@ The text that will be displayed for pagination when people want to see older blo
 ##### posttimeformat
 A datetime format string of how you'd like your dates to appear.  Any Date.js format is valid.  [Format Reference](http://code.google.com/p/datejs/wiki/FormatSpecifiers)
 
-##### forcehost
-If set to true (default), when a request comes in that is not on the value configured for `host`, the user will be `301 Moved Permanently`'ed to the same URL requested but on the preferred domain.  This is the [recommended setup](https://devcenter.heroku.com/articles/avoiding-naked-domains-dns-arecords) by Heroku.
-
 Examples:
 - `M/d/yy` => 8/22/82
 - `MMMM d, yyyy` => January 17, 2012
 - `dddd` => Monday
 - `ddd :: M.d.yy` => Mon :: 5.7.12
+
+##### forcehost
+If set to true (default), when a request comes in that is not on the value configured for `host`, the user will be `301 Moved Permanently`'ed to the same URL requested but on the preferred domain.  This is the [recommended setup](https://devcenter.heroku.com/articles/avoiding-naked-domains-dns-arecords) by Heroku.
 
 Sidebars
 --------
