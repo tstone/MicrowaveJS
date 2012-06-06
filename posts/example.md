@@ -29,4 +29,18 @@ Tripple blocked
 line 2
 ```
 
+And then some?
+
+The following 3 code blocks have their language manually specified.
+
+    Lang: bsh
+    $ cat ~/.bashrc | xclip
+
+Here's what inline `lang: xml <xml>` looks like.
+
+```
+LANG: js
+function andJavascript() { }
+```
+
 The end.

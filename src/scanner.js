@@ -67,9 +67,44 @@ var parseHeader = function(raw, path) {
 // :: Render Body -> Format blog post in proper HTML
 
 var renderBody = function(raw, format) {
+    
     var addPrettifyHints = function(html) {
-        html = html.replace(/<pre><code>/gi, '<pre class="prettyprint linenums" tabIndex="0"><code data-inner="1">');
-        html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
+        
+        // Replace <pre><code> or <code> and look for lang: []
+        var prePattern = new RegExp('(<pre>)?<code>(?:lang:[\\s]*([a-z]+)[\\S\\r\\n]*)?', 'gi');
+        var m = prePattern.exec(html);
+        while (m) {
+            // Sort out groups
+            var pre = undefined
+              , lang = undefined;
+            if (m[1] === '<pre>') { pre = m[1]; lang = m[2]; }
+            else if (m[1]) { lang = m[1]; }
+
+            // Build new HTML
+            var tag = ''
+              , suffix = '>'
+              , classes = 'prettyprint';
+
+            if (pre) {
+                tag = 'pre';
+                suffix = ' tabIndex="0"><code data-inner="">';
+                classes += ' linenums';
+            } else {
+                tag = 'code';
+            }
+            if (lang) {
+                classes += ' lang-' + lang;
+            }
+            
+            //html = html.replace(m[0], '<pre class="prettyprint linenums lang-' + m[1].toLowerCase() + '" tabIndex="0"><code data-inner="1">');
+            html = html.replace(m[0], '<' + tag + ' class="' + classes + '"' + suffix);
+            m = prePattern.exec(html);
+        }
+
+        // Replace <code> only and look for lang: []
+        // html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
+
+        // Trim trailing whitespace automatically
         html = html.replace(/\s<\/code>/gi, '</code>');
         return html;
     };
@@ -92,7 +127,7 @@ var renderBody = function(raw, format) {
         // Html -> Markdown
         var html = markdown.makeHtml(raw);
         return addPrettifyHints(html);
-        
+
     } else if (format === 'html' || format === 'htm') {         // HTML
         return addPrettifyHints(raw);
     } else {                                                    // Plain / other
