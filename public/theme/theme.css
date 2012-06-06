@@ -76,6 +76,16 @@ body.post aside.right { top: 150px; }
 /* Error Pages */
 body.error .error { margin: 0 20%; }
 
+/* disqus overwrites */
+body.post #dsq-content #dsq-messagesx-toolbar-icon { height: auto; width: auto; }
+body.post #dsq-content .dsq-toolbar-label { line-height: 15px; }
+#disqus_thread { margin-top: 2em; padding-bottom: 2em; }
+.dsq-brlink { display: none; }
+.dsq-moderate-options,
+#dsq-content .dsq-show-tools.dsq-show-tools-finished .dsq-post-tools,
+#dsq-content .dsq-attach-media .dsq-attach-media-border iframe { box-sizing: content-box; }
+body.post article #disqus_thread img { width: auto; }
+
 
 /* ==|== media queries ====================================================== */
 /* Note: Sizes from Skeleton CSS Framwork - https://github.com/dhgamache/Skeleton/blob/master/stylesheets/layout.css */
