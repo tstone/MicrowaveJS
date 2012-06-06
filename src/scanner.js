@@ -75,21 +75,24 @@ var renderBody = function(raw, format) {
     };
 
     if (format === 'md' || format === 'markdown') {             // Markdown
+        
         // Convert github style code into regular markdown
-        if (raw.indexOf('```') > -1) {
-            var githubCodeBlockPattern = new RegExp('```([\\s\\S]+)```', 'g');
-            var m = githubCodeBlockPattern.exec(raw);
-            while (m) {
-                var lines = m[1].split('\n');
-                raw = raw.replace(m[0], lines.reduce(function(acc, x){
-                    return acc + '\n    ' + x;
-                }, ''));
-                m = githubCodeBlockPattern.exec(raw);
-            }
+        var i = raw.indexOf('```');
+        while (i > -1) {
+            var start = i + 4
+              , end = raw.indexOf('```', start) - 1
+              , code = raw.substr(start, end - start).trim()
+              , newCode = code.split('\n').reduce(function(acc, x){
+                    return acc + '\n    ' + x.trim();
+                }, '')
+              , raw = raw.substr(0, i - 1) + newCode + raw.substr(end + 5)
+              , i = raw.indexOf('```');
         }
+
         // Html -> Markdown
         var html = markdown.makeHtml(raw);
         return addPrettifyHints(html);
+        
     } else if (format === 'html' || format === 'htm') {         // HTML
         return addPrettifyHints(raw);
     } else {                                                    // Plain / other
@@ -151,7 +154,7 @@ var scan = function(app, settings, routes, callback) {
       ;
 
     fs.readdir(postDir, function(err, files){
-        var now = Date.now();        
+        var now = Date.now();
         files.forEach(function(f){
             var filePath = path.join(__dirname, '../', settings.posts, f)
               , post = parseBlogPostFile(filePath, f);
