@@ -188,11 +188,12 @@ Just set the date of your post to a future date/time and your post will only sho
 #### Advanced Post Headers
 
 `slug` -- Manually configure what the post slug should be.
+
 `comments` -- "true" or "false" to enable or disable comments
 
 
 ### Manually Specifying a Highlighting Language
 
-Start your code snippet with `lang: [language]`.  "Lang" is case insensative.  The following languages are supported:
+Start your code snippet with `lang: [language]`.  "Lang" is case insensative.  See the example.md blog post for sample syntax for all 3 code insertion formats.  The following languages are supported:
 
 `bsh, c, cc, cpp, cs, csh, cyc, cv, htm, html, java, js, m, mxml, perl, pl, pm, py, rb, sh, xhtml, xml, xsl`
