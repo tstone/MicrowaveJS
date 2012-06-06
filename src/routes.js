@@ -48,7 +48,7 @@ exports.routes = function(app, postTable, postList) {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
-                disqusUrl: settings.host + url,
+                disqusurl: settings.host + url,
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,

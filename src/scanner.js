@@ -30,6 +30,7 @@ var parseHeader = function(raw, path) {
             }
         }
 
+        header.comments = config.comments;
         header.title = config.title;
         header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
