@@ -181,44 +181,18 @@ You're done.
 Getting Fancy
 ============
 
-Publish in the Future
----------------------
+### Publish in the Future
 
 Just set the date of your post to a future date/time and your post will only show up on/after that date.
 
-Advanced Post Headers
----------------------
+#### Advanced Post Headers
 
 `slug` -- Manually configure what the post slug should be.
 `comments` -- "true" or "false" to enable or disable comments
 
 
-Manually Specifying a Highlighting Language
--------------------------------------------
+### Manually Specifying a Highlighting Language
 
 Start your code snippet with `lang: [language]`.  "Lang" is case insensative.  The following languages are supported:
 
-- bsh
-- c
-- cc
-- cpp
-- cs
-- csh
-- cyc
-- cv
-- htm
-- html
-- java
-- js
-- m
-- mxml
-- perl
-- pl
-- pm
-- py
-- rb
-- sh
-- xhtml
-- xml
-- xsl
-
+`bsh, c, cc, cpp, cs, csh, cyc, cv, htm, html, java, js, m, mxml, perl, pl, pm, py, rb, sh, xhtml, xml, xsl`
