@@ -85,6 +85,8 @@ body.post #dsq-content .dsq-toolbar-label { line-height: 15px; }
 #dsq-content .dsq-show-tools.dsq-show-tools-finished .dsq-post-tools,
 #dsq-content .dsq-attach-media .dsq-attach-media-border iframe { box-sizing: content-box; }
 body.post article #disqus_thread img { width: auto; }
+#dsq-popup-message a[href^="http"]:after,
+#disqus_thread a[href^="http"]:after { display: none; }
 
 
 /* ==|== media queries ====================================================== */
