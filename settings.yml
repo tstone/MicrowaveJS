@@ -6,6 +6,7 @@ count:  12
 title:  MicrowaveJS Blog
 desc:   An example MicrowaveJS blog that you'll want to read again and again!
 author: Blog Author
+forcehost: true
 
 # Display Settings
 next:  Newer Posts

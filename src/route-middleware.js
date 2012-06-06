@@ -5,6 +5,16 @@ var middleware = {};
 //
 // :: Single Route Middleware(s)
 
+middleware.forcehost = exports.forcehost = function(req, res, next) {
+	var settings = req.app.settings;
+	if (settings.forcehost && req.headers.host !== settings.domain) {
+		res.writeHead(301, { 'Location': settings.host + req.originalUrl });
+		res.end();
+	} else {
+		next();
+	}
+};
+
 middleware.locals = exports.locals = function(req, res, next) {
 
 	// Redefine render
@@ -42,6 +52,7 @@ middleware.pjax = exports.pjax = function(req, res, next) {
 // :: Route Middleware Groups
 
 exports.content = [
+	middleware.forcehost,
 	middleware.locals
 	// middleware.pjax
 ];

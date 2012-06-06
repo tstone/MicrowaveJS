@@ -102,7 +102,7 @@ exports.routes = function(app, getPostTable, getPostList) {
     //
     // GET :: /rss
 
-    app.get('/rss', function(req, res){
+    app.get('/rss', middleware.forcehost, function(req, res){
         var feedConf = {
             title: settings.title,
             feed_url: settings.host + '/rss',
@@ -135,7 +135,7 @@ exports.routes = function(app, getPostTable, getPostList) {
     //
     // GET :: /sitemap.xml
 
-    app.get('/sitemap.xml', function(req, res){
+    app.get('/sitemap.xml', middleware.forcehost, function(req, res){
         var host = settings.host
           , postList = getPostList()
           ;

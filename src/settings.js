@@ -16,5 +16,8 @@ exports.getSettings = function() {
 		}
 	}
 
+	// Add on a couple of convenience properties
+	settings.domain = settings.host.replace(/http[s]?:\/\//i, '');
+
 	return settings;
 };
