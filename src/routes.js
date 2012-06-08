@@ -112,7 +112,7 @@ exports.routes = function(app, getPostTable, getPostList) {
         // Search
         getPostList().forEach(function(p){
             var post = postTable[p.slug];
-            if (regex.test(post.body)) {
+            if (regex.test(post.body) || regex.test(post.title) || post.tags.indexOf(search) > -1) {
                 results.push(post);
             }
         });
