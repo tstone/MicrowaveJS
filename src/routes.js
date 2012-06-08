@@ -156,8 +156,8 @@ exports.routes = function(app, getPostTable, getPostList) {
     //
     // GET :: / -OR- /page/:num
 
-    app.get('/|/page/:num', middleware.content, function(req, res){
-        var page = req.param['nun'] ? parseInt(req.params['num'], 10) - 1 : 0;
+    app.get('/(page/:num)?', middleware.content, function(req, res){
+        var page = req.params['num'] ? parseInt(req.params['num'], 10) - 1 : 0;
         
         // Setup pagination
         var offset = settings.count * page
