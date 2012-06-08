@@ -18,6 +18,8 @@ html(lang="en")
                 h1
                     a(href="/")= blogTitle
                 span.desc= blogDesc
+                span.search
+                    input#search-box(type="text",placeholder="search this blog...")
                 a.rss(href="/rss")
                     span.websymbols B
                     | RSS
@@ -35,6 +37,7 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
+        script(src="/public/js/site.js")
         block scripts
 
         if (analytics)
