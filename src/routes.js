@@ -100,6 +100,46 @@ exports.routes = function(app, getPostTable, getPostList) {
 
 
     //
+    // GET :: /search
+
+    app.get('/search', middleware.content, function(req, res){
+        var query = req.query['q'].toLowerCase()
+          , results = []
+          ;
+        
+        // Search posts
+        getPostList().forEach(function(p){
+            var post = getPostTable()[p.slug];
+            if (post.body.toLowerCase().indexOf(query) !== -1) {
+                results.push(post);
+            }
+            else if(post.title.toLowerCase().indexOf(query) !== -1) {
+                results.push(post);
+            }
+            else if(post.tags.join(' ').indexOf(query) !== -1) {
+                results.push(post);
+            }
+        });
+        
+        // Render
+        res.render('search', {
+            page: 0,
+            pagination: false,
+            posts: results.map(function(x){
+                return {
+                    title: x.title,
+                    tags: x.tags,
+                    date: x.date.toString(settings.posttimeformat),
+                    url: '/post/' + x.slug,
+                    slug: x.slug
+                };
+            }),
+            query: req.query['q']
+        });
+    });
+
+
+    //
     // GET :: /rss
 
     app.get('/rss', middleware.forcehost, function(req, res){

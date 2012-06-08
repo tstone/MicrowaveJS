@@ -25,10 +25,28 @@ header h1 { color: #D53C2E; text-transform: lowercase; width: 20%; float: left; 
 header h1 a { color: #D53C2E; }
 header h1 a:hover { text-decoration: underline; }
 header h1 a:visited { color: #D53C2E; }
-header .desc { margin-left: 20%; font-size: 13px; display: block; line-height: 26px; }
-header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 12px; position: absolute; top: 25px; right: 1px; }
+header .desc { font-size: 13px; display: inline-block; line-height: 26px; }
+header a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 12px; position: absolute; top: 25px; right: 130px; }
 header a.rss .websymbols { text-transform: none; font-size: 10px; margin-left: 3px; float: right; }
 header a.rss:hover { text-decoration: underline; }
+
+/* Forms */
+input::-webkit-input-placeholder { color: #ddd; }
+input:-moz-placeholder { color: #ddd; }
+input:focus { outline: none; }
+.form-actions { float: left; }
+.input { float: left; }
+button { background-color: #eee; border: 1px solid #eee; border-left: none; border-bottom-right-radius: 4px; border-top-right-radius: 4px; color: #aaa; font-family: 'WebSymbolsRegular'; font-weight: bold; margin: 0; padding: 0; text-align: center; }
+button:hover { color: #999; }
+input { border-top-left-radius: 4px; border-bottom-left-radius: 4px; border: 1px solid #eee; color: #888; padding-left: 4px; width: 100%; }
+header .input { width: 97px; }
+header button { font-size: 10px; line-height: 18px; width: 24px; }
+header form { position: absolute; right: 0; top: 20px; width: 121px; }
+header input { font-size: 11px; line-height: 16px; }
+article .input { vertical-align: top; width: 150px; }
+article button { font-size: 12px; line-height: 21px; width: 24px; }
+article form { margin-top: 15px; position: static; width: 200px; }
+article input { line-height: 19px; margin-top: 1px; }
 
 /* Body */
 .wrapper { width: 960px; margin: 0 auto; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; padding-bottom: 40px; }
@@ -49,13 +67,21 @@ nav.pagination a.prev .websymbols { margin-left: 5px; }
 footer { height: 15px; position: absolute; bottom: 10px; right: 0; text-align: right; }
 footer a[href^="http"]:after { font-size: 8px; }
 
-/* Index Page */
-body.index article { margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;  }
-body.index article h2 { margin-bottom: 0; }
-body.index article .date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
-body.index article ul.tags { float: right; margin: -15px 0 0 0; }
-body.index article a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
-body.index article a.comments[href^="http"]:after { display: none; }
+/* Index and Search Pages */
+body.index article,
+body.search article { margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;  }
+body.index article h2,
+body.search article h2 { margin-bottom: 0; }
+body.index article .date,
+body.search article .date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
+body.index article ul.tags,
+body.search article ul.tags { float: right; margin: -15px 0 0 0; }
+body.index article a.comments,
+body.search article a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
+body.index article a.comments[href^="http"]:after,
+body.search article a.comments[href^="http"]:after { display: none; }
+body.search h4 { color: #ccc; margin: 15px 20% 0; }
+body.search .noresults { border-bottom: none; }
 
 /* Post Page */
 body.post article { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
@@ -104,9 +130,11 @@ body.post article #disqus_thread img { width: auto; }
 @media only screen and (max-width: 767px) {
 	.wrapper { width: 100%; padding: 0 15px; }
 	header h1 { float: none; width: auto; }
-	header .desc { margin-left: 0; }
-	header a.rss { top: 12px; right: 10px; }
-	body.index article { margin: 20px 0 0 0; }
+	header .desc { margin-left: 0; line-height: 1em; margin-top: 10px; }
+	header a.rss { right: 150px; top: 25px;  }
+	header form { right: 20px; top: 20px; }
+	body.index article,
+	body.search article { margin: 20px 0 0 0; }
 	body.post article { margin: 0; }
 	body.post article h1 { margin: 15px 0 0 0; }
 	body.post article .date { position: static; }
@@ -114,4 +142,5 @@ body.post article #disqus_thread img { width: auto; }
 	body.post nav.post { position: static; font-size: 35px; width: auto; }
 	body.post .wrapper nav.post { text-align: center; }
 	aside.left, aside.right { display: none; }
+	body.search h4 { margin-left: 0; }
 }
