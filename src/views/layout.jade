@@ -6,6 +6,7 @@ html(lang="en")
         meta(name="viewport", content="width=device-width")
         link(rel="stylesheet", href="/public/base.css")
         link(rel="stylesheet", href="/public/theme/theme.css")
+        link(rel="stylesheet", href="/public/theme/prettify-theme.css")
         script(src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js")
         
         block head
@@ -16,7 +17,7 @@ html(lang="en")
         .wrapper
             header
                 h1
-                    a(href="/")= blogTitle
+                    a(href="/", data-pjax="index/.main")= blogTitle
                 span.desc= blogDesc
                 span.search
                     input#search-box(type="text",placeholder="search this blog...")
@@ -29,7 +30,8 @@ html(lang="en")
                 include ../../left-sidebar.html
             // :: End Left Sidebar
             
-            block body
+            .main
+                block body
 
             // :: Start Right Sidebar
             aside.right
@@ -37,7 +39,9 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
+        script(src="/public/prettify.js")
         script(src="/public/js/site.js")
+        
         block scripts
 
         if (analytics)

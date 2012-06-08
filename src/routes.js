@@ -55,7 +55,8 @@ exports.routes = function(app, getPostTable, getPostList) {
                 slug: slug,
                 tags: post.tags,
                 title: post.title,
-                url: url
+                url: url,
+                layout: path.join(__dirname, '/views/layout.jade')
             });
         } else {
             res.statusCode = 404;
@@ -187,6 +188,7 @@ exports.routes = function(app, getPostTable, getPostList) {
             res.send(xml);
         });
     });
+
 
     //
     // GET :: / -OR- /page/:num

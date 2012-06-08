@@ -1,0 +1,41 @@
+
+if (indexDesc)
+    div.index-desc
+        | !{indexDesc}
+
+each post in posts
+    article
+        h2
+            a(href= post.url, data-pjax="post/.main")= post.title
+        span.date= post.date
+
+        if (post.tags)
+            ul.tags
+                each tag in post.tags
+                    li
+                        a(href="/tagged/#{tag}", data-pjax="index/.main")= tag
+        if (comments)
+            a.comments(href="#{post.disqusUrl}#disqus_thread", data-disqus-identifier=post.slug) 0 Comments
+
+if (pagination)
+    nav.pagination
+        if (next)
+            a.next(href=next, data-pjax="index/.main")
+                span.websymbols &lt;
+                | #{nextText}
+        if (prev)
+            a.prev(href=prev, data-pjax="index/.main")
+                | #{prevText}
+                span.websymbols &gt;
+
+if (comments)
+    script(type="text/javascript")
+        var disqus_shortname = '#{disqusName}';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
