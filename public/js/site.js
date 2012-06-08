@@ -8,13 +8,22 @@
     var http = {
         // http.async
         async: true,
+
+        // http.cache
+        cache: { },
+        
         // http.get
-        get: function(url, callback, errback) {
+        get: function(url, callback, errback, cache) {
+            // Check if this request has been cached before
+            if (cache && http.cache[url]) { callback(cache[url]); }
             try {
                 var xhr = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();
                 if (xhr) {
                     xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4) { callback(xhr.responseText); }
+                        if (xhr.readyState === 4) {
+                            http.cache[url] = xhr.responseText;
+                            callback(xhr.responseText);
+                        }
                     };
                     xhr.open('GET', url, http.async);
                     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -25,6 +34,7 @@
                 errback();
             }
         },
+
         // http.pjax
         pjax: function(el) {
             var body = document.getElementsByTagName('body')[0],
@@ -55,7 +65,6 @@
                     scripts.forEach(function(x){
                         var s = document.createElement('script');
                         s.text = x;
-                        console.log(x);
                         target.parentNode.insertBefore(s, target.nextSibling);
                     });
 
@@ -72,7 +81,7 @@
                 } else {
                     fallback();
                 }
-            }, fallback);
+            }, fallback, true);
         }
     };
 
