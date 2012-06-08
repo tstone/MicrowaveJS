@@ -10,7 +10,6 @@
     , "jade": "0.x.x"
     , "js-yaml": "0.3.7"
     , "sitemap": "0.6.0"
-    , "consolidate": "0.3.0"
     , "rss": "0.0.x"
   }
 }

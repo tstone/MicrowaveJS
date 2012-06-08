@@ -3,7 +3,6 @@ var express     = require('express')
   , app         = express.createServer()
   , settings    = require('./settings').getSettings()
   , scanner     = require('./scanner')
-  , consolidate = require('consolidate')
   , path        = require('path')
   ;
 
