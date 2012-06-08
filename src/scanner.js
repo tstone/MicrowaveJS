@@ -1,4 +1,4 @@
-require('./vendor/date')
+require('./vendor/date');
 
 var path        = require('path')
   , fs          = require('fs')

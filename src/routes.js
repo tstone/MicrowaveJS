@@ -70,18 +70,52 @@ exports.routes = function(app, getPostTable, getPostList) {
     // GET :: /tagged/:tag
 
     app.get('/tagged/:tag', middleware.content, function(req, res){
-        var tag = req.params['tag'].toLowerCase()
-          , results = []
-          ;
+        var tag = req.params['tag'].toLowerCase(),
+            postTable = getPostTable(),
+            results = [];
         
         // Search posts
         getPostList().forEach(function(p){
-            var post = getPostTable()[p.slug];
+            var post = postTable[p.slug];
             if (post.tags.indexOf(tag) !== -1) {
                 results.push(post);
             }
         });
         
+        // Render
+        res.render('index', {
+            page: 0,
+            pagination: false,
+            posts: results.map(function(x){
+                return {
+                    title: x.title,
+                    tags: x.tags,
+                    date: x.date.toString(settings.posttimeformat),
+                    url: '/post/' + x.slug,
+                    slug: x.slug
+                };
+            })
+        });
+    });
+
+
+    //
+    // GET :: /search/:keyword
+
+    app.get('/search/:search', middleware.content, function(req, res) {
+        var search = req.params['search'].toLowerCase(),
+            regex = new RegExp(search, 'i'),
+            postTable = getPostTable(),
+            results = [];
+
+        // Search
+        getPostList().forEach(function(p){
+            var post = postTable[p.slug];
+            if (regex.test(post.body)) {
+                results.push(post);
+            }
+        });
+
         // Render
         res.render('index', {
             page: 0,
