@@ -7,7 +7,7 @@ var middleware = {};
 
 middleware.forcehost = exports.forcehost = function(req, res, next) {
 	var settings = req.app.settings;
-	if (settings.forcehost && req.headers.host !== settings.domain) {
+	if (settings.env.production && settings.forcehost && req.headers.host !== settings.domain) {
 		res.writeHead(301, { 'Location': settings.host + req.originalUrl });
 		res.end();
 	} else {
