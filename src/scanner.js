@@ -32,9 +32,18 @@ var parseHeader = function(raw, path) {
 
         header.comments = config.comments;
         header.title = config.title;
-        header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
         header.slug = config.slug;
+
+        // Accept either comma-delimited or YAML array for tags
+        if (config.tags) {
+            if (typeof config.tags === 'string') {
+                config.tags = config.tags.split(',');
+            }
+            header.tags = config.tags.map(function(x){ return x.toLowerCase().trim(); });
+        } else {
+            header.tags = [];
+        }
     }
 
     // Fill in date if it's lacking
