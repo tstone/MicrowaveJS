@@ -84,6 +84,7 @@ exports.routes = function(app, getPostTable, getPostList) {
         
         // Render
         res.render('index', {
+            indexDesc: 'Tagged: <em>' + tag + '</em>',
             page: 0,
             pagination: false,
             posts: results.map(function(x){
@@ -118,6 +119,7 @@ exports.routes = function(app, getPostTable, getPostList) {
 
         // Render
         res.render('index', {
+            indexDesc: 'Search Results: <em>' + req.params['search'] + '</em>',
             page: 0,
             pagination: false,
             posts: results.map(function(x){
@@ -186,7 +188,6 @@ exports.routes = function(app, getPostTable, getPostList) {
         });
     });
 
-
     //
     // GET :: / -OR- /page/:num
 
@@ -205,6 +206,7 @@ exports.routes = function(app, getPostTable, getPostList) {
 
         // Render
         res.render('index', {
+            indexDesc: '',
             page: page,
             pagination: pageLeft || pageRight,
             prev: pageRight ? '/page/' + (page+2) : '',

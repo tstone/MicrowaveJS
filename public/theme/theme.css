@@ -58,6 +58,8 @@ body.index article .date { font-size: 11px; display: block; margin-top: -2px; ma
 body.index article ul.tags { float: right; margin: -15px 0 0 0; }
 body.index article a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
 body.index article a.comments[href^="http"]:after { display: none; }
+body.index .index-desc { margin: 40px 20%; position: relative; font-size: 18px; font-weight: 300; }
+body.index .index-desc em { display: inline-block; margin-left: 3px; }
 
 /* Post Page */
 body.post article { margin: 0 20%; position: relative; font-size: 14px; line-height: 25px; }
