@@ -84,10 +84,11 @@ exports.routes = function(app, getPostTable, getPostList) {
         });
         
         // Render
-        res.render('index', {
-            indexDesc: 'Tagged: <em>' + tag + '</em>',
+        res.render('tagged', {
+            bodyClass: 'index',
             page: 0,
             pagination: false,
+            tag: tag,
             posts: results.map(function(x){
                 return {
                     title: x.title,
@@ -104,26 +105,28 @@ exports.routes = function(app, getPostTable, getPostList) {
     //
     // GET :: /search/:keyword
 
-    app.get('/search/:search', middleware.content, function(req, res) {
-        var search = req.params['search'].toLowerCase(),
-            regex = new RegExp(search, 'i'),
+    app.get('/search/:query', middleware.content, function(req, res) {
+        var query = req.params['query'].toLowerCase(),
+            regex = new RegExp(query, 'i'),
             postTable = getPostTable(),
             results = [];
 
         // Search
         getPostList().forEach(function(p){
             var post = postTable[p.slug];
-            if (regex.test(post.body) || regex.test(post.title) || post.tags.indexOf(search) > -1) {
+            console.log(regex.test(post.title));
+            if (regex.test(post.body) || regex.test(post.title) || post.tags.indexOf(query) > -1) {
                 results.push(post);
             }
         });
 
         // Render
-        res.render('index', {
-            indexDesc: 'Search Results: <em>' + req.params['search'] + '</em>',
+        res.render('search', {
+            bodyClass: 'index',
             page: 0,
             pagination: false,
-            posts: results.map(function(x){
+            query: query,
+            posts: results.map(function(x) {
                 return {
                     title: x.title,
                     tags: x.tags,
@@ -134,6 +137,7 @@ exports.routes = function(app, getPostTable, getPostList) {
             })
         });
     });
+
 
 
     //
@@ -208,7 +212,6 @@ exports.routes = function(app, getPostTable, getPostList) {
 
         // Render
         res.render('index', {
-            indexDesc: '',
             page: page,
             pagination: pageLeft || pageRight,
             prev: pageRight ? '/page/' + (page+2) : '',

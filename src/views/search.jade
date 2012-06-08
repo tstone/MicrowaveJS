@@ -1,0 +1,7 @@
+extends index
+
+block prepend body  
+    h4 Search results for "#{query}"
+
+    if (posts.length == 0)
+        p Nothing found!

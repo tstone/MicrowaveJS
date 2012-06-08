@@ -19,11 +19,10 @@ html(lang="en")
                 h1
                     a(href="/", data-pjax="index/.main")= blogTitle
                 span.desc= blogDesc
-                span.search
-                    input#search-box(type="text",placeholder="search this blog...")
                 a.rss(href="/rss")
                     span.websymbols B
                     | RSS
+                include _searchform
 
             // :: Start Left Sidebar
             aside.left

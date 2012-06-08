@@ -21,7 +21,9 @@ middleware.locals = exports.locals = function(req, res, next) {
 	// Redefine render
 	var render = res.render;
 	res.render = function(view, options, fn) {
-		options.bodyClass = view;
+		if (typeof options.bodyClass === 'undefined') {
+			options.bodyClass = view;
+		}
 		render.apply(res, [view, options, fn]);
 	};
 
