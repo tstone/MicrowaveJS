@@ -192,7 +192,11 @@ var scan = function(app, settings, routes, callback) {
         var now = Date.now();
         files.forEach(function(f){
             var filePath = path.join(__dirname, '../', settings.posts, f)
-              , post = parseBlogPostFile(filePath, f);
+              , stats = fs.statSync(filePath);
+
+            if(stats.isDirectory()) { return; } // skip if file is acutally a directory
+
+            var post = parseBlogPostFile(filePath, f);
             if (postTable[post.slug]){
                 console.warn('An entry for slug "' + post.slug + '" already exists!');
             } else {
