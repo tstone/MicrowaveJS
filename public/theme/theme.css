@@ -95,6 +95,7 @@ body.post .wrapper nav a { text-transform: lowercase; text-decoration: none; col
 body.post .wrapper nav a:hover { color: #D53C2E; }
 body.post aside.left { top: 150px; }
 body.post aside.right { top: 150px; }
+body.post #disqus_thread { margin-top: 10px; }
 
 /* Error Pages */
 body.error .error { margin: 0 20%; }
