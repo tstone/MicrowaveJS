@@ -49,7 +49,8 @@ exports.routes = function(app, getPostTable, getPostList) {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
-                disqusurl: settings.host + url,
+                disqusUrl: settings.host + url,
+                disqusTitle: post.title.replace("'", "\\'"),
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,
@@ -137,7 +138,6 @@ exports.routes = function(app, getPostTable, getPostList) {
             })
         });
     });
-
 
 
     //
