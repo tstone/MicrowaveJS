@@ -7,7 +7,7 @@ var middleware = {};
 
 middleware.forcehost = exports.forcehost = function(req, res, next) {
 	var settings = req.app.settings;
-	if (settings.forcehost && req.headers.host !== settings.domain) {
+	if (settings.env.production && settings.forcehost && req.headers.host !== settings.domain) {
 		res.writeHead(301, { 'Location': settings.host + req.originalUrl });
 		res.end();
 	} else {
@@ -15,12 +15,15 @@ middleware.forcehost = exports.forcehost = function(req, res, next) {
 	}
 };
 
+
 middleware.locals = exports.locals = function(req, res, next) {
 
 	// Redefine render
 	var render = res.render;
 	res.render = function(view, options, fn) {
-		options.bodyClass = view;
+		if (typeof options.bodyClass === 'undefined') {
+			options.bodyClass = view;
+		}
 		render.apply(res, [view, options, fn]);
 	};
 
@@ -30,7 +33,7 @@ middleware.locals = exports.locals = function(req, res, next) {
 
 middleware.pjax = exports.pjax = function(req, res, next) {
 	// Inspect header for Pjax signature
-	if (req.header('X_PJAX"')) {
+	if (req.header('X-PJAX')) {
 		req.pjax = true;
 	}
 
@@ -39,7 +42,7 @@ middleware.pjax = exports.pjax = function(req, res, next) {
 	res.render = function(view, options, fn) {
 		
 		if (req.pjax) {
-			options.layout = false;
+			view = '_' + view;
 		}
 		render.apply(res, [view, options, fn]);
 	};
@@ -53,6 +56,6 @@ middleware.pjax = exports.pjax = function(req, res, next) {
 
 exports.content = [
 	middleware.forcehost,
-	middleware.locals
-	// middleware.pjax
+	middleware.locals,
+	middleware.pjax
 ];

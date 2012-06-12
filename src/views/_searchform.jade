@@ -1,9 +1,7 @@
-- var query
-form(action='/search', method='get')
-	.input.string
-		- if (query != null)
-			input(type="text", name="q", placeholder="search here...", value="#{query}")
-		- else
-			input(type="text", name="q", placeholder="search here...")
-	.form-actions
-		button L
+- var query = query || ''
+
+.search
+    .input.string
+        input#search-box(type="text", name="q", placeholder="search this blog...", value="#{query}")
+    .form-actions
+        button#search-btn L

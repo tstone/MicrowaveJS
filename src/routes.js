@@ -49,13 +49,15 @@ exports.routes = function(app, getPostTable, getPostList) {
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
-                disqusurl: settings.host + url,
+                disqusUrl: settings.host + url,
+                disqusTitle: post.title.replace("'", "\\'"),
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,
                 tags: post.tags,
                 title: post.title,
-                url: url
+                url: url,
+                layout: path.join(__dirname, '/views/layout.jade')
             });
         } else {
             res.statusCode = 404;
@@ -70,22 +72,24 @@ exports.routes = function(app, getPostTable, getPostList) {
     // GET :: /tagged/:tag
 
     app.get('/tagged/:tag', middleware.content, function(req, res){
-        var tag = req.params['tag'].toLowerCase()
-          , results = []
-          ;
+        var tag = req.params['tag'].toLowerCase(),
+            postTable = getPostTable(),
+            results = [];
         
         // Search posts
         getPostList().forEach(function(p){
-            var post = getPostTable()[p.slug];
+            var post = postTable[p.slug];
             if (post.tags.indexOf(tag) !== -1) {
                 results.push(post);
             }
         });
         
         // Render
-        res.render('index', {
+        res.render('tagged', {
+            bodyClass: 'index',
             page: 0,
             pagination: false,
+            tag: tag,
             posts: results.map(function(x){
                 return {
                     title: x.title,
@@ -100,32 +104,30 @@ exports.routes = function(app, getPostTable, getPostList) {
 
 
     //
-    // GET :: /search
+    // GET :: /search/:keyword
 
-    app.get('/search', middleware.content, function(req, res){
-        var query = req.query['q'].toLowerCase()
-          , results = []
-          ;
-        
-        // Search posts
+    app.get('/search/:query', middleware.content, function(req, res) {
+        var query = req.params['query'].toLowerCase(),
+            regex = new RegExp(query, 'i'),
+            postTable = getPostTable(),
+            results = [];
+
+        // Search
         getPostList().forEach(function(p){
-            var post = getPostTable()[p.slug];
-            if (post.body.toLowerCase().indexOf(query) !== -1) {
-                results.push(post);
-            }
-            else if(post.title.toLowerCase().indexOf(query) !== -1) {
-                results.push(post);
-            }
-            else if(post.tags.join(' ').indexOf(query) !== -1) {
+            var post = postTable[p.slug];
+            console.log(regex.test(post.title));
+            if (regex.test(post.body) || regex.test(post.title) || post.tags.indexOf(query) > -1) {
                 results.push(post);
             }
         });
-        
+
         // Render
         res.render('search', {
+            bodyClass: 'index',
             page: 0,
             pagination: false,
-            posts: results.map(function(x){
+            query: query,
+            posts: results.map(function(x) {
                 return {
                     title: x.title,
                     tags: x.tags,
@@ -133,8 +135,7 @@ exports.routes = function(app, getPostTable, getPostList) {
                     url: '/post/' + x.slug,
                     slug: x.slug
                 };
-            }),
-            query: req.query['q']
+            })
         });
     });
 
@@ -196,8 +197,8 @@ exports.routes = function(app, getPostTable, getPostList) {
     //
     // GET :: / -OR- /page/:num
 
-    app.get('/|/page/:num', middleware.content, function(req, res){
-        var page = req.param['nun'] ? parseInt(req.params['num'], 10) - 1 : 0;
+    app.get('/(page/:num)?', middleware.content, function(req, res){
+        var page = req.params['num'] ? parseInt(req.params['num'], 10) - 1 : 0;
         
         // Setup pagination
         var offset = settings.count * page

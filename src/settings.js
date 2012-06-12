@@ -17,7 +17,12 @@ exports.getSettings = function() {
 	}
 
 	// Add on a couple of convenience properties
+	var isProd = (process.env.NODE_ENV || '').toLowerCase() === 'production';
 	settings.domain = settings.host.replace(/http[s]?:\/\//i, '');
+	settings.env = {
+		production: isProd,
+		debug: !isProd
+	};
 
 	return settings;
 };

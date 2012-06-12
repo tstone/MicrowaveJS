@@ -1,4 +1,4 @@
-require('./vendor/date')
+require('./vendor/date');
 
 var path        = require('path')
   , fs          = require('fs')
@@ -32,9 +32,18 @@ var parseHeader = function(raw, path) {
 
         header.comments = config.comments;
         header.title = config.title;
-        header.tags = config.tags ? config.tags.map(function(x) { return x.toLowerCase(); }) : [];
         header.date = Date.parse(config.date);
         header.slug = config.slug;
+
+        // Accept either comma-delimited or YAML array for tags
+        if (config.tags) {
+            if (typeof config.tags === 'string') {
+                config.tags = config.tags.split(',');
+            }
+            header.tags = config.tags.map(function(x){ return x.toLowerCase().trim(); });
+        } else {
+            header.tags = [];
+        }
     }
 
     // Fill in date if it's lacking
@@ -71,12 +80,11 @@ var renderBody = function(raw, format) {
     var addPrettifyHints = function(html) {
         
         // Replace <pre><code> or <code> and look for lang: []
-        var prePattern = new RegExp('(<pre>)?<code>(?:lang:[\\s]*([a-z]+)[\\S\\r\\n]*)?', 'gi');
+        var prePattern = new RegExp('(<pre>)?<code>(?:lang:[\\s]*([a-z]+)[\\s\\r\\n]*)?', 'gi');
         var m = prePattern.exec(html);
         while (m) {
             // Sort out groups
-            var pre = undefined
-              , lang = undefined;
+            var pre = '', lang = '';
             if (m[1] === '<pre>') { pre = m[1]; lang = m[2]; }
             else if (m[1]) { lang = m[1]; }
 
@@ -87,7 +95,7 @@ var renderBody = function(raw, format) {
 
             if (pre) {
                 tag = 'pre';
-                suffix = ' tabIndex="0"><code data-inner="">';
+                suffix = ' tabIndex="0"><code data-inner="1">';
                 classes += ' linenums';
             } else {
                 tag = 'code';
@@ -95,14 +103,10 @@ var renderBody = function(raw, format) {
             if (lang) {
                 classes += ' lang-' + lang;
             }
-            
-            //html = html.replace(m[0], '<pre class="prettyprint linenums lang-' + m[1].toLowerCase() + '" tabIndex="0"><code data-inner="1">');
+
             html = html.replace(m[0], '<' + tag + ' class="' + classes + '"' + suffix);
             m = prePattern.exec(html);
         }
-
-        // Replace <code> only and look for lang: []
-        // html = html.replace(/<code>/gi, '<code class="prettyprint" tabIndex="0">');
 
         // Trim trailing whitespace automatically
         html = html.replace(/\s<\/code>/gi, '</code>');
