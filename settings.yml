@@ -14,8 +14,16 @@ prev:  Older Posts
 posttimeformat: MMMM d, yyyy
 
 # DISQUS Settings
-comments:    true
-disqusname:  testblog
+comments:       true
+disqusname:     testblog
+
+# Sharing
+sharing:            true
+twittersharing:     true
+twittername:        twittername
+facebooksharing:    false
+googlesharing:      false
+hackernewssharing:  true
 
 # Google Analytics Settings
 analytics:        UA-XXXXXXXX-X

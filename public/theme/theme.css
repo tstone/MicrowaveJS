@@ -47,6 +47,7 @@ article .input { vertical-align: top; width: 150px; }
 article button { font-size: 12px; line-height: 21px; width: 24px; }
 article form { margin-top: 15px; position: static; width: 200px; }
 article input { line-height: 19px; margin-top: 1px; }
+article .sharing { margin-top: 20px; }
 
 /* Body */
 .wrapper { width: 960px; margin: 0 auto; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; padding-bottom: 40px; }

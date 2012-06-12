@@ -46,16 +46,17 @@ exports.routes = function(app, getPostTable, getPostList) {
         // Render
         if (post) {
             res.render('post', {
+                absoluteUrl: settings.host + url,
                 body: post.body,
                 comments: typeof post.comments === 'boolean' ? post.comments : settings.comments,
                 date: post.date.toString(settings.posttimeformat),
-                disqusUrl: settings.host + url,
                 disqusTitle: post.title.replace("'", "\\'"),
                 nextPost: nextPost,
                 prevPost: prevPost,
                 slug: slug,
                 tags: post.tags,
                 title: post.title,
+                twitterName: settings.twittername || '',
                 url: url,
                 layout: path.join(__dirname, '/views/layout.jade')
             });

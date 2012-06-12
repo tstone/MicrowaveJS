@@ -24,5 +24,11 @@ exports.getSettings = function() {
 		debug: !isProd
 	};
 
+	// Clean up settings
+	// Remove @ from twitter handle
+	if (settings.twittername && settings.twittername.substr(0, 1) === '@') {
+		settings.twittername = settings.twittername.substr(1);
+	}
+
 	return settings;
 };
