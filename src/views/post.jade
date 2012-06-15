@@ -6,4 +6,10 @@ block body
 
 block scripts    
     script(type="text/javascript")
+        // Syntax highlight code
         prettyPrint();
+
+    if (sharing)
+        script(type="text/javascript")
+            // Start socialite
+            Socialite.load(document.querySelectorAll('article.post')[0]);

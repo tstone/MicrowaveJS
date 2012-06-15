@@ -200,3 +200,9 @@ Just set the date of your post to a future date/time and your post will only sho
 Start your code snippet with `lang: [language]`.  "Lang" is case insensative.  See the example.md blog post for sample syntax for all 3 code insertion formats.  The following languages are supported:
 
 `bsh, c, cc, cpp, cs, csh, cyc, cv, htm, html, java, js, m, mxml, perl, pl, pm, py, rb, sh, xhtml, xml, xsl`
+
+### Internet Explorer Support
+
+You should probably know, the chances of everything in MicrowaveJS working right in IE8 or lower is pretty slim.  Client-side javascript is built to ECMAScript 5.
+
+...change...

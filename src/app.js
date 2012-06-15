@@ -22,7 +22,12 @@ app.configure(function() {
         blogTitle:        settings.title || 'MicrowaveJS Blog',
         comments:         settings.comments,
         disqusName:       settings.disqusname,
-        host:             settings.host
+        facebookSharing:  settings.facebooksharing,
+        googleSharing:    settings.googlesharing,
+        hackerNewsSharing: settings.hackernewssharing,
+        host:             settings.host,
+        sharing:          settings.sharing,
+        twitterSharing:   settings.twittersharing
     });
 });
 

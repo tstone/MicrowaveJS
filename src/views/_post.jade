@@ -17,13 +17,25 @@ article.post
                     a(href="/tagged/#{tag}", data-pjax="index/.main")= tag
 
     | !{body}
+    
+    if (sharing)
+        .sharing
+            if (twitterSharing)
+                a.socialite.twitter-share(href="http://twitter.com/share", data-text="#{title}", data-url="#{absoluteUrl}", data-via="#{twitterName}", rel="nofollow", target="_blank") Share on Twitter
+            if (googleSharing)
+                a.socialite.googleplus-one(href="https://plusone.google.com/_/+1/confirm?hl=en&amp;url=#{absoluteUrl}", data-href="#{absoluteUrl}", rel="nofollow", target="_blank") Share on Google+
+            if (facebookSharing)
+                a.socialite.facebook-like(href="http://www.facebook.com/sharer.php?u=#{absoluteUrl}&amp;t=#{title}", data-href="#{absoluteUrl}", data-send="false", rel="nofollow", target="_blank") Share on Facebook
+            if (hackerNewsSharing)
+                a.socialite.hackernews-share(href="http://news.ycombinator.com/submit", data-url="#{absoluteUrl}", rel="nofollow", target="_blank") Share on Hacker News
+
     #disqus_thread
 
     if (comments)
         script(type="text/javascript")
             var disqus_shortname = '#{disqusName}';
             var disqus_identifier = '#{slug}';
-            var disqus_url = '#{disqusUrl}';
+            var disqus_url = '#{absoluteUrl}';
             var disqus_title = '#{disqusTitle}';
 
             (function() {
