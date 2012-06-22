@@ -77,10 +77,27 @@ namespace('tags', function(){
             print('Tags:');
             print('-----');
 
-            var text = tags.map(function(tag){
-                return tag + ' (' + tagCounts[tag] + ')';
-            }).join(', ').trim();
-            print(text);
+            tags.forEach(function(tag){
+                print(tag + ' (' + tagCounts[tag] + ')');
+            });
+        });
+    });
+
+
+    // This isn't quite working
+    desc('Replace [tag1] with [tag2]');
+    task('replace', function(tag1, tag2){
+        //
+
+        fs.readdir(postDir, function(err, files){
+            files.forEach(function(f){
+                var filePath = path.join(postDir, f),
+                    text = fs.readFileSync(filePath).toString(),
+                    tagPattern = new RegExp('(/*[\\S\\s]*?tags:[\\s]*\\[?[^]]*)' + tag1 + '([^]]*\\]?[\\S\\s]*?\\*/)', 'i');
+
+                text = text.replace(tagPattern, '$1' + tag2 + '$2');
+                console.log(text);
+            });
         });
     });
 
