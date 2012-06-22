@@ -35,7 +35,7 @@
         // http.get
         get: function(url, callback, errback, cache) {
             // Check if this request has been cached before
-            if (cache && http.cache[url]) { callback(cache[url]); return; }
+            if (cache && http.cache[url]) { callback(http.cache[url]); return; }
             try {
                 var xhr = window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest();
                 if (xhr) {
@@ -58,7 +58,7 @@
         // http.pjax
         pjax: function(el, callback) {
             var body = document.getElementsByTagName('body')[0],
-                href = 'http://' + document.domain + el.getAttribute('href'),
+                href = el.getAttribute('href'),
                 fallback = function() {
                     document.location.href = el.getAttribute('href');
                 };
