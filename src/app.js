@@ -13,7 +13,7 @@ app.configure(function() {
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
-    
+
     // Values available to every template
     app.locals({
         analytics:        settings.analytics || '',
@@ -28,5 +28,5 @@ app.configure(function() {
 
 // Scan and start
 scanner.scan(app, settings, require('./routes').routes, function() {
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 80);
 });

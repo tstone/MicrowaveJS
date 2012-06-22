@@ -6,6 +6,13 @@
            Stuff to abstract over IE's lack of standards  */
 
     var dom = {
+        cancelEvent: function(e) {
+            // Cancel the event
+            if (e.preventDefault) { e.preventDefault(); }
+            else { e.returnValue = false; }
+            return false;
+        },
+
         bind: function(el, ev, callback) {
             if (el.addEventListener) {
                 el.addEventListener(ev, callback, false);
@@ -24,7 +31,7 @@
 
         // http.cache
         cache: { },
-        
+
         // http.get
         get: function(url, callback, errback, cache) {
             // Check if this request has been cached before
@@ -41,7 +48,7 @@
                     xhr.open('GET', url, http.async);
                     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                     xhr.setRequestHeader('X-PJAX', 'true');
-                    xhr.send();
+                    xhr.send('');
                 }
             } catch (ex) {
                 errback();
@@ -49,57 +56,17 @@
         },
 
         // http.pjax
-        pjax: function(el) {
+        pjax: function(el, callback) {
             var body = document.getElementsByTagName('body')[0],
-                href = el.getAttribute('href'),
+                href = 'http://' + document.domain + el.getAttribute('href'),
                 fallback = function() {
                     document.location.href = el.getAttribute('href');
                 };
 
             // Hit server via AJAX to get page content
             http.get(href, function(res) {
-                var settings = el.getAttribute('data-pjax').split('/'),
-                    bodyClass = settings[0],
-                    selector = settings[1],
-                    target = document.querySelectorAll(settings[1])[0];
-                
-                if (target) {
-                    
-                    // Extract script tags
-                    var scripts = [];
-                    var regex = new RegExp('<script[^>]*>([\\S\\s]+)</script>', 'gi');
-                    var match = regex.exec(res);
-                    while (match) {
-                        scripts.push(match[1]);
-                        res = res.replace(match[0], '');
-                        match = regex.exec(res);
-                    }
-                    
-                    // Insert content (preserve height to avoid jumpyness)
-                    var h = target.clientHeight || target.offsetHeight;
-                    target.setAttribute('style', 'height: ' + h + 'px;');
-                    body.setAttribute('class', settings[0]);
-                    target.innerHTML = res;
-                    target.setAttribute('style', 'height: auto;');
-                    
-                    // Now re-insert script tags so they'll be executed
-                    scripts.forEach(function(x){
-                        var s = document.createElement('script');
-                        s.text = x;
-                        target.parentNode.insertBefore(s, target.nextSibling);
-                    });
-
-                    // Manually activate syntax highlighting
-                    if (prettyPrint) { prettyPrint(); }
-
-                    // Push state
-                    history.pushState({ bodyClass: bodyClass, selector: selector, html: res }, '', href);
-
-                    // Record state change as a google analytics page view
-                    if (window.gaq) { gaq.push(['_trackPageview']); }
-                } else {
-                    fallback();
-                }
+                var state = callback(res, el);
+                history.pushState(state, '', href);
             }, fallback, true);
         }
     };
@@ -129,20 +96,73 @@
 
     // Map pjax click handlers
     if (document.querySelectorAll && history.pushState) {
+
+        // Listen for body clicks (map -> pjax)
         var body = document.getElementsByTagName('body')[0];
         body.addEventListener('click', function(e) {
             var el = e.target;
             if (el.getAttribute('data-pjax')) {
-                http.pjax(el);
-                return false;
+                http.pjax(el, function(html, el) {
+                    var settings = el.getAttribute('data-pjax').split('/'),
+                        bodyClass = settings[0],
+                        selector = settings[1];
+                    // Manipulate DOM
+                    html = onPjax(bodyClass, selector, html);
+                    // Return state object
+                    return { bodyClass: bodyClass, selector: selector, html: html };
+                });
+
+                return dom.cancelEvent(e);
             } else {
                 return true;
             }
         });
 
+        // PJAX handler
+        var onPjax = function(bodyClass, selector, html) {
+            var target = document.querySelectorAll(selector)[0];
+            if (target) {
+                // Extract script tags
+                var scripts = [];
+                var regex = new RegExp('<script[^>]*>([\\S\\s]+)</script>', 'gi');
+                var match = regex.exec(html);
+                while (match) {
+                    scripts.push(match[1]);
+                    html = html.replace(match[0], '');
+                    match = regex.exec(html);
+                }
+
+                // Insert content (preserve height to avoid jumpyness)
+                var h = target.clientHeight || target.offsetHeight;
+                target.setAttribute('style', 'height: ' + h + 'px;');
+                body.setAttribute('class', bodyClass);
+                target.innerHTML = html;
+                target.setAttribute('style', 'height: auto;');
+
+                // Now re-insert script tags so they'll be executed
+                scripts.forEach(function(x){
+                    var s = document.createElement('script');
+                    s.text = x;
+                    target.parentNode.insertBefore(s, target.nextSibling);
+                });
+
+                // Manually activate syntax highlighting
+                if (prettyPrint) { prettyPrint(); }
+
+                // Record state change as a google analytics page view
+                if (window.gaq) { gaq.push(['_trackPageview']); }
+
+                return html;
+            }
+
+            return '';
+        };
+
         // Handle popstate
         window.addEventListener('popstate', function(e) {
-            console.log(e);
+            if (e.state) {
+                onPjax(e.state.bodyClass, e.state.selector, e.state.html);
+            }
         });
     }
 
