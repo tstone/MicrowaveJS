@@ -33,5 +33,5 @@ app.configure(function() {
 
 // Scan and start
 scanner.scan(app, settings, require('./routes').routes, function() {
-    app.listen(process.env.PORT || 80);
+    app.listen(process.env.PORT || 3000);
 });
