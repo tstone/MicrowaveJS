@@ -1,10 +1,9 @@
 
-var express     = require('express')
-  , app         = express.createServer()
-  , settings    = require('./settings').getSettings()
-  , scanner     = require('./scanner')
-  , path        = require('path')
-  ;
+var express     = require('express'),
+    app         = express.createServer(),
+    settings    = require('./settings'),
+    scanner     = require('./scanner'),
+    path        = require('path');
 
 // Configure Express
 app.settings = settings;
