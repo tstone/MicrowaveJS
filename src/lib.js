@@ -25,8 +25,15 @@ exports.titleize = function(s) {
 exports.filters = {
 	// return posts that have publish dates in the past
 	published: function(posts){
-		return posts.filter(function(x){ 
+		return posts.filter(function(x){
 			return x.date < (new Date());
 		});
 	}
+};
+
+// string
+// Easier multi-line strings
+exports.string = function() {
+    var args = Array.prototype.slice.apply(arguments, [0]);
+    return args.join('\n');
 };

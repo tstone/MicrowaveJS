@@ -22,7 +22,7 @@ var parseHeader = function(raw, path) {
     // Check for YAML configuration data
     if (typeof raw === 'string' && raw.length > 0) {
         var config = yaml.load(raw);
-        
+
         // Convert config to lowercase
         for (var prop in config) {
             if (config.hasOwnProperty(prop)) {
@@ -76,9 +76,9 @@ var parseHeader = function(raw, path) {
 // :: Render Body -> Format blog post in proper HTML
 
 var renderBody = function(raw, format) {
-    
+
     var addPrettifyHints = function(html) {
-        
+
         // Replace <pre><code> or <code> and look for lang: []
         var prePattern = new RegExp('(<pre>)?<code>(?:lang:[\\s]*([a-z]+)[\\s\\r\\n]*)?', 'gi');
         var m = prePattern.exec(html);
@@ -114,7 +114,7 @@ var renderBody = function(raw, format) {
     };
 
     if (format === 'md' || format === 'markdown') {             // Markdown
-        
+
         // Convert github style code into regular markdown
         var i = raw.indexOf('```');
         while (i > -1) {
@@ -255,8 +255,13 @@ var scan = function(app, settings, routes, callback) {
             return postTable;
         };
 
-        routes(app, getPostTable, getPostList);
-        callback(app, getPostTable, getPostList);
+        // Run callbacks
+        if (typeof routes === 'function') {
+            routes(app, getPostTable, getPostList);
+        }
+        if (typeof callback === 'function') {
+            callback(app, getPostTable, getPostList);
+        }
     });
 };
 

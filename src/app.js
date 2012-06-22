@@ -1,10 +1,9 @@
 
-var express     = require('express')
-  , app         = express.createServer()
-  , settings    = require('./settings').getSettings()
-  , scanner     = require('./scanner')
-  , path        = require('path')
-  ;
+var express     = require('express'),
+    app         = express.createServer(),
+    settings    = require('./settings'),
+    scanner     = require('./scanner'),
+    path        = require('path');
 
 // Configure Express
 app.settings = settings;
@@ -13,7 +12,7 @@ app.configure(function() {
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
-    
+
     // Values available to every template
     app.locals({
         analytics:        settings.analytics || '',

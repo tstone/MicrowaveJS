@@ -3,7 +3,7 @@ var path        = require('path')
   , yaml        = require('js-yaml')
   ;
 
-exports.getSettings = function() {
+var getSettings = function() {
 
 	var settingsPath = path.join(__dirname,'../settings.yml');
 	var rawYaml = fs.readFileSync(settingsPath, 'ascii');
@@ -32,3 +32,5 @@ exports.getSettings = function() {
 
 	return settings;
 };
+
+module.exports = getSettings();
