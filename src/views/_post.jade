@@ -1,10 +1,10 @@
 
 nav.post
     if (prevPost)
-        a.prev-post.icon-circle-arrow-left(href=prevPost.url, title="#{prevPost.title} - #{prevPost.date}", data-pjax="post/.main")
-    a.icon-circle-arrow-up(href="/", title="Return to Index", data-pjax="index/.main")
+        a.prev-post.icon-chevron-left(href=prevPost.url, title="#{prevPost.title} - #{prevPost.date}", data-pjax="post/.main")
+    a.icon-chevron-up(href="/", title="Return to Index", data-pjax="index/.main")
     if (nextPost)
-        a.next-post.icon-circle-arrow-right(href=nextPost.url, title="#{nextPost.title} - #{nextPost.date}", data-pjax="post/.main")
+        a.next-post.icon-chevron-right(href=nextPost.url, title="#{nextPost.title} - #{nextPost.date}", data-pjax="post/.main")
 
 article.post
     h1= title
