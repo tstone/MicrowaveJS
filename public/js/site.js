@@ -101,7 +101,8 @@
         var body = document.getElementsByTagName('body')[0];
         body.addEventListener('click', function(e) {
             var el = e.target;
-            if (el.getAttribute('data-pjax')) {
+            // Button 0 = Left Button (leave middle clicks alone)
+            if (e.button === 0 && el.getAttribute('data-pjax')) {
                 http.pjax(el, function(html, el) {
                     var settings = el.getAttribute('data-pjax').split('/'),
                         bodyClass = settings[0],
