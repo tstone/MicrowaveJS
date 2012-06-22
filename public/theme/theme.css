@@ -50,7 +50,7 @@ article input { line-height: 19px; margin-top: 1px; }
 article .sharing { margin-top: 20px; }
 
 /* Body */
-.wrapper { width: 960px; margin: 0 auto; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; padding-bottom: 40px; }
+.wrapper { width: 960px; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; padding-bottom: 40px; }
 .post pre { margin-left: 15px; }
 ul.tags { padding: 0; margin: 8px 0; }
 ul.tags li { display: inline-block; border: solid 1px #eee; padding: 3px 5px; font-size: 11px; margin-right: 4px; color: #ccc; line-height: 14px; }
