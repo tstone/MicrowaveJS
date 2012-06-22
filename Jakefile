@@ -56,7 +56,7 @@ namespace('post', function() {
 namespace('tags', function(){
 
     desc('List all tags used on this blog');
-    task('list', function(){
+    task('list', function(count){
         scanner.scan(this, settings, function(that, getPostTable, getPostList) {
             // Gather all tags
             var tags = [];
@@ -74,12 +74,23 @@ namespace('tags', function(){
             tags.sort();
 
             // Print
-            print('Tags:');
+            if (count) {
+                print('Tags Used ' + count + ' Times:');
+            } else {
+                print('Tags:');
+            }
             print('-----');
 
+            var printed = 0;
             tags.forEach(function(tag){
-                print(tag + ' (' + tagCounts[tag] + ')');
+                var show = count ? tagCounts[tag] >= count : true;
+                if (show) {
+                    print(tag + ' (' + tagCounts[tag] + ')');
+                    printed++;
+                }
             });
+
+            if (printed === 0) { print('none'); }
         });
     });
 
