@@ -88,6 +88,25 @@ The date can be written in any way you like, including the following formats:
 - `MM/DD/YYYY`
 - etc.
 
+Writing a Blog Post with Jake
+-----------------------------
+
+As a convenience, a Jakefile is included which gives you some ways to do things easier, including creating a new blog post.  If you don't already have jake installed, do one of the following...
+
+```
+$ npm install --dev
+## -OR-
+$ npm install -g jake
+```
+
+Once jake is installed, you can create a new blog post by doing...
+
+```
+$ jake post:new["Title of your new post"]
+```
+
+You'll need to put the title in quotes, but a markdown file already named and with a MicrowaveJS header will be added to your `/posts` folder.
+
 Settings
 --------
 
@@ -204,3 +223,17 @@ Start your code snippet with `lang: [language]`.  "Lang" is case insensative.  S
 ### Internet Explorer Support
 
 You should probably know, the chances of everything in MicrowaveJS working right in IE8 or lower is pretty slim.  Client-side javascript is built to ECMAScript 5.
+
+Additional Management Commands
+==============================
+
+MicrowaveJS uses Jake for management commands.  See above for installation instructions.
+
+Listing Tags
+------------
+
+List all tags used within the blog
+
+```
+$ jake tags:list
+```
