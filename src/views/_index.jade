@@ -17,12 +17,12 @@ if (pagination)
     nav.pagination
         if (next)
             a.next(href=next, data-pjax="index/.main")
-                span.websymbols &lt;
+                span.icon-circle-arrow-left
                 | #{nextText}
         if (prev)
             a.prev(href=prev, data-pjax="index/.main")
                 | #{prevText}
-                span.websymbols &gt;
+                span.icon-circle-arrow-right
 
 if (comments)
     script(type="text/javascript")
