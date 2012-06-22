@@ -6,11 +6,17 @@
 
 var path        = require('path'),
     fs          = require('fs'),
-    settings    = require('./src/settings').getSettings(),
+    settings    = require('./src/settings'),
+    scanner     = require('./src/scanner'),
     lib         = require('./src/lib'),
     postDir     = path.join(__dirname, settings.posts);
 
 require('./src/vendor/date');
+console.log('');
+
+var print = function(s) {
+    console.log('  ' + s);
+};
 
 //
 //  POST: Namespace
@@ -37,6 +43,39 @@ namespace('post', function() {
 
         var file = path.join(postDir, slug+'.md');
         fs.writeFileSync(file, post);
+
+        print(file + ' was created!');
+    });
+
+});
+
+
+//
+// TAGS: Namespace
+
+namespace('tags', function(){
+
+    desc('List all tags used on this blog');
+    task('list', function(){
+        scanner.scan(this, settings, function(that, getPostTable, getPostList) {
+            // Gather all tags
+            var tags = [];
+            var posts = getPostTable();
+            for (var slug in posts) {
+                var post = posts[slug];
+                post.tags.forEach(function(tag){
+                    if (tags.indexOf(tag) === -1) { tags.push(tag); }
+                });
+            }
+
+            // Sort by alpha
+            tags.sort();
+
+            // Print
+            print('Tags:');
+            print('-----');
+            print(tags.join(', ').trim());
+        });
     });
 
 });
