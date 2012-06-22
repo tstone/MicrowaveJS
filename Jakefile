@@ -60,11 +60,13 @@ namespace('tags', function(){
         scanner.scan(this, settings, function(that, getPostTable, getPostList) {
             // Gather all tags
             var tags = [];
+            var tagCounts = {};
             var posts = getPostTable();
             for (var slug in posts) {
                 var post = posts[slug];
                 post.tags.forEach(function(tag){
                     if (tags.indexOf(tag) === -1) { tags.push(tag); }
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
                 });
             }
 
@@ -74,7 +76,11 @@ namespace('tags', function(){
             // Print
             print('Tags:');
             print('-----');
-            print(tags.join(', ').trim());
+
+            var text = tags.map(function(tag){
+                return tag + ' (' + tagCounts[tag] + ')';
+            }).join(', ').trim();
+            print(text);
         });
     });
 
