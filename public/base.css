@@ -148,25 +148,7 @@ footer { font-size: 11px; }
 .posts li { list-style-type: none; margin-bottom: 10px; }
 .posts .title { display: block; font-size: 28px; }
 
-nav.post { font-family: 'WebSymbolsRegular'; }
-
-.websymbols { font-family: 'WebSymbolsRegular'; }
-
-
-
-/* ==|== stock font faces ==================================================== */
-
-@font-face {
-  font-family: 'WebSymbolsRegular';
-  src: url('/public/fonts/websymbols-regular/websymbols-regular-webfont.eot');
-  src: url('/public/fonts/websymbols-regular/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/public/fonts/websymbols-regular/websymbols-regular-webfont.woff') format('woff'),
-       url('/public/fonts/websymbols-regular/websymbols-regular-webfont.ttf') format('truetype'),
-       url('/public/fonts/websymbols-regular/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
+nav.post { font-family: 'FontAwesome'; }
 
 
 /* ==|== non-semantic helper classes ========================================
