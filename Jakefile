@@ -10,8 +10,7 @@ var path        = require('path'),
     scanner     = require('./src/scanner'),
     lib         = require('./src/lib'),
     color       = require('ansi-color').set,
-    //googlespell = require('googlespell'),
-    googlespell = require('../googlespell/src/index'),
+    googlespell = require('googlespell'),
     spell       = new googlespell.Checker({ dictionary: path.join(__dirname, 'src/.dictionary') }),
     postDir     = path.join(__dirname, settings.posts);
 
