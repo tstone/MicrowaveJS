@@ -1,7 +1,2 @@
-extends index
 
-block prepend body  
-    h4 Posts tagged with "#{tag}"
-
-    if (posts.length == 0)
-        p Nothing found!
+include _tagged
