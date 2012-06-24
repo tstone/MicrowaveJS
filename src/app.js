@@ -5,7 +5,8 @@ var path        = require('path'),
     app         = express.createServer(),
     settings    = require('./settings'),
     scanner     = require('./scanner'),
-    publicPath  = path.join(__dirname, '../public/')    ;
+    theme       = require('./theme'),
+    publicPath  = path.join(__dirname, '../public/');
 
 
 // Bundled Assets
@@ -26,7 +27,6 @@ app.configure(function() {
         var oneYear = 31557600000;
         app.use('/public', express.static(publicPath, { maxAge: oneYear }));
     } else {
-        console.log(publicPath);
         app.use('/public', express.static(publicPath));
     }
 
@@ -47,6 +47,7 @@ app.configure(function() {
         hackerNewsSharing: settings.hackernewssharing,
         host:             settings.host,
         sharing:          settings.sharing,
+        themeHead:        theme.getThemeHead(),
         twitterSharing:   settings.twittersharing
     });
 });
