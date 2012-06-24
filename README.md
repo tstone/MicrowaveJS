@@ -23,6 +23,7 @@ Out of the box it supports the following features:
 - Easy Google Analytics integration
 - "Schedule" posts (ie. just give them a date in the future)
 - Responsive CSS/mobile-friendly
+- Automatic asset bundling (including theme-specific assets)
 
 Microwave has no editor interface.  Instead you write your blog posts in your own editor of choice, using markdown syntax.  There is a small bit of meta information to include with each post.  That's it.  There's nothing else to do besides write and git push.
 
