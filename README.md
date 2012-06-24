@@ -108,6 +108,15 @@ $ jake post:new["Title of your new post"]
 
 You'll need to put the title in quotes, but a markdown file already named and with a MicrowaveJS header will be added to your `/posts` folder.
 
+
+Spellchecking
+-------------
+
+A very simple spellchecker is included.  It can be used from the command line.
+
+    $ jake spellcheck:latest
+
+
 Settings
 --------
 
