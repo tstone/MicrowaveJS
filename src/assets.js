@@ -11,7 +11,7 @@ module.exports = function(assets) {
     assets.addCss('theme/*.css');
 
     // JS
-    assets.addJs('prettify.js');
+    assets.addJs('js/vendor/*.js');
     assets.addJs('js/site.js');
     assets.addCss('theme/*.js');
 
