@@ -11,7 +11,7 @@ var path        = require('path'),
     lib         = require('./src/lib'),
     color       = require('ansi-color').set,
     googlespell = require('googlespell'),
-    spell       = new googlespell.Checker({ threshold: 0 }),
+    spell       = new googlespell.Checker({ dictionary: path.join(__dirname, 'src/.dictionary') }),
     postDir     = path.join(__dirname, settings.posts);
 
 require('./src/vendor/date');
@@ -122,6 +122,17 @@ namespace('spellcheck', function(){
             spellcheck(file);
         });
 
+    });
+
+    desc('Add a word to the spellchecking dictionary');
+    task('add', function(word){
+        fs.open(path.join(__dirname, 'src/.dictionary'), 'a', 666, function(err, fd) {
+            fs.write(fd, word, null, 'utf8', function() {
+                fs.close(fd, function() {
+                    print(word + ' added to spellchecker dictionary.');
+                });
+            });
+        });
     });
 
 });
