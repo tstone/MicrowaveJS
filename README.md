@@ -114,7 +114,17 @@ Spellchecking
 
 A very simple spellchecker is included.  It can be used from the command line.
 
+    # Check the post you just wrote...
     $ jake spellcheck:latest
+
+    # Or check everything...
+    $ jake spellcheck:all
+
+Often since you're blogging about technical matters, you'll come across a word the spellchecker keeps complaining about which is totally valid.  It's possible to add that word to a local dictionary to be considered 'valid'.
+
+    $ jake spellcheck:add("Cygwin")
+
+Microwave comes pre-configured with a handful of common technical words.  You're welcome to forked the dictionary file (`src/.dictionary`), add additional words, and pull request it.
 
 
 Settings
