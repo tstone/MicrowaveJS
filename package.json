@@ -16,6 +16,6 @@
     "devDependencies": {
         "jake": "*",
         "ansi-color": "*",
-        "googlespell": ">= 0.0.3"
+        "googlespell": ">= 0.0.4"
     }
 }
