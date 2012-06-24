@@ -10,7 +10,8 @@
         "jade": "0.x.x",
         "js-yaml": "0.3.7",
         "sitemap": "0.6.0",
-        "rss": "0.0.x"
+        "rss": "0.0.x",
+        "bundle-up": "0.3.x"
     },
     "devDependencies": {
         "jake": "*"

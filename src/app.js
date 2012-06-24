@@ -1,14 +1,25 @@
 
-var express     = require('express'),
+var path        = require('path'),
+    express     = require('express'),
+    bundleUp    = require('bundle-up'),
     app         = express.createServer(),
     settings    = require('./settings'),
     scanner     = require('./scanner'),
-    path        = require('path');
+    publicPath  = path.join(__dirname, '../public/')    ;
+
+// Configure Bundled Assets
+bundleUp(app, __dirname + '/assets', {
+    staticRoot:     publicPath,
+    staticUrlRoot:  '/public/',
+    bundle:         true,
+    minifyCss:      true,
+    minifyJs:       true
+});
 
 // Configure Express
 app.settings = settings;
 app.configure(function() {
-    app.use('/public', express.static(path.join(__dirname, '../public')));
+    app.use('/public', express['static'](publicPath));      // Linter freaks out @ express.static
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);

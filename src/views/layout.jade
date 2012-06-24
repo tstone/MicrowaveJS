@@ -1,19 +1,20 @@
 doctype 5
 html(lang="en")
     head
-        title= blogTitle        
+        title= blogTitle
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width")
-        link(rel="stylesheet", href="/public/base.css")
-        link(rel="stylesheet", href="/public/theme/theme.css")
-        link(rel="stylesheet", href="/public/theme/prettify-theme.css")
+        //link(rel="stylesheet", href="/public/base.css")
+        //link(rel="stylesheet", href="/public/theme/theme.css")
+        //link(rel="stylesheet", href="/public/theme/prettify-theme.css")
+        != renderStyles()
         script(src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js")
-        
+
         block head
 
         include ../../public/theme/head.html
 
-    body(class=bodyClass)        
+    body(class=bodyClass)
         .wrapper
             header
                 h1
@@ -28,7 +29,7 @@ html(lang="en")
             aside.left
                 include ../../left-sidebar.html
             // :: End Left Sidebar
-            
+
             .main
                 block body
 
@@ -38,9 +39,10 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
-        script(src="/public/prettify.js")
-        script(src="/public/js/site.js")
-        
+        //script(src="/public/prettify.js")
+        //script(src="/public/js/site.js")
+        != renderJs()
+
         block scripts
 
         if (analytics)
