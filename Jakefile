@@ -9,6 +9,7 @@ var path        = require('path'),
     settings    = require('./src/settings'),
     scanner     = require('./src/scanner'),
     lib         = require('./src/lib'),
+    color       = require('ansi-color').set,
     googlespell = require('googlespell'),
     spell       = new googlespell.Checker({ threshold: 0 }),
     postDir     = path.join(__dirname, settings.posts);
@@ -18,6 +19,12 @@ console.log('');
 
 var print = function(s) {
     console.log('  ' + s);
+};
+
+var heading = function(s) {
+    var lines = new Array(s.length + 1).join('-');
+    print(color(s, 'green'));
+    print(lines);
 };
 
 //
@@ -67,12 +74,22 @@ namespace('spellcheck', function(){
         body = body.replace(/<[^>]+>/gi, '');
 
         spell.check(body, function(err, res) {
-            print('Checking "' + post.title + '":');
-            res.suggestions.forEach(function(x, i){
+            print('');
+            heading('Checking "' + post.title + '":');
+
+            if (res.suggestions.length > 0) {
+                res.suggestions.forEach(function(x, i){
+                    var context = x.context.replace('[' + x.word + ']', color('[' + x.word + ']', 'yellow'));
+                    print('');
+                    print((i+1) + '). ' + color('[' + x.word + ']', 'yellow+bold') + '  from "...' + context + '..."');
+                    print(color('    Possibilities: ', 'cyan') + x.words.join(', '));
+                });
+            } else {
                 print('');
-                print((i+1) + '). [' + x.word + ']  From "...' + x.context + '..."');
-                print('    Possibilities: ' + x.words.join(', '));
-            });
+                print('Everything looks good!');
+            }
+
+            print('');
         });
 
     };
@@ -94,6 +111,16 @@ namespace('spellcheck', function(){
         });
 
         spellcheck(latest);
+
+    });
+
+    desc('Spellcheck every post');
+    task('all', function() {
+
+        fs.readdirSync(postDir).forEach(function(f){
+            var file = path.join(postDir, f);
+            spellcheck(file);
+        });
 
     });
 
