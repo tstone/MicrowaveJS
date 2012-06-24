@@ -4,9 +4,6 @@ html(lang="en")
         title= blogTitle
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width")
-        //link(rel="stylesheet", href="/public/base.css")
-        //link(rel="stylesheet", href="/public/theme/theme.css")
-        //link(rel="stylesheet", href="/public/theme/prettify-theme.css")
         != renderStyles()
         script(src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js")
 
@@ -39,8 +36,6 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
-        //script(src="/public/prettify.js")
-        //script(src="/public/js/site.js")
         != renderJs()
 
         block scripts

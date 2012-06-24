@@ -7,19 +7,29 @@ var path        = require('path'),
     scanner     = require('./scanner'),
     publicPath  = path.join(__dirname, '../public/')    ;
 
-// Configure Bundled Assets
+
+// Bundled Assets
 bundleUp(app, __dirname + '/assets', {
     staticRoot:     publicPath,
     staticUrlRoot:  '/public/',
-    bundle:         true,
-    minifyCss:      true,
-    minifyJs:       true
+    bundle:         settings.env.production,
+    minifyCss:      settings.env.production,
+    minifyJs:       settings.env.production
 });
 
 // Configure Express
 app.settings = settings;
 app.configure(function() {
-    app.use('/public', express['static'](publicPath));      // Linter freaks out @ express.static
+
+    // Long cache assets if in production
+    if (settings.env.production) {
+        var oneYear = 31557600000;
+        app.use('/public', express.static(publicPath, { maxAge: oneYear }));
+    } else {
+        console.log(publicPath);
+        app.use('/public', express.static(publicPath));
+    }
+
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
