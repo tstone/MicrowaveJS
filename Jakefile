@@ -10,7 +10,8 @@ var path        = require('path'),
     scanner     = require('./src/scanner'),
     lib         = require('./src/lib'),
     color       = require('ansi-color').set,
-    googlespell = require('googlespell'),
+    //googlespell = require('googlespell'),
+    googlespell = require('../googlespell/src/index'),
     spell       = new googlespell.Checker({ dictionary: path.join(__dirname, 'src/.dictionary') }),
     postDir     = path.join(__dirname, settings.posts);
 
@@ -64,9 +65,17 @@ namespace('post', function() {
 
 namespace('spellcheck', function(){
 
-    var spellcheck = function(file) {
-        var post = scanner.parseBlogPostFile(file),
-            body = post.body;
+    var spellcheckFile = function(file) {
+        var post = scanner.parseBlogPostFile(file);
+        if (post) {
+            spellcheck(post);
+        } else {
+            print("Couldn't find " + file);
+        }
+    };
+
+    var spellcheck = function(post) {
+        var body = post.body;
 
         // Remove code from spellchecking
         body = body.replace(/<code[^>]+>[\s\S]*?<\/code>/gi, '');
@@ -110,7 +119,24 @@ namespace('spellcheck', function(){
             }
         });
 
-        spellcheck(latest);
+        spellcheckFile(latest);
+
+    });
+
+    desc('Spellcheck a specific post');
+    task('post', function(id){
+
+        // Check if this ends in a '.md' (it's a file if so)
+        if (id.toLowerCase().substr(-3) === '.md') {
+            var f = path.join(postDir, id);
+            spellcheckFile(f);
+        } else {
+            scanner.scan(this, settings, function(that, getPostTable, getPostList){
+                var posts = getPostTable();
+                var post = posts[id];
+                spellcheck(post);
+            });
+        }
 
     });
 
@@ -119,7 +145,7 @@ namespace('spellcheck', function(){
 
         fs.readdirSync(postDir).forEach(function(f){
             var file = path.join(postDir, f);
-            spellcheck(file);
+            spellcheckFile(file);
         });
 
     });
