@@ -9,6 +9,8 @@ var path        = require('path'),
     settings    = require('./src/settings'),
     scanner     = require('./src/scanner'),
     lib         = require('./src/lib'),
+    googlespell = require('googlespell'),
+    spell       = new googlespell.Checker({ threshold: 0 }),
     postDir     = path.join(__dirname, settings.posts);
 
 require('./src/vendor/date');
@@ -49,6 +51,53 @@ namespace('post', function() {
 
 });
 
+
+//
+// SPELLCHECK: Namespace
+
+namespace('spellcheck', function(){
+
+    var spellcheck = function(file) {
+        var post = scanner.parseBlogPostFile(file),
+            body = post.body;
+
+        // Remove code from spellchecking
+        body = body.replace(/<code[^>]+>[\s\S]*?<\/code>/gi, '');
+        // Remove all HTML tags
+        body = body.replace(/<[^>]+>/gi, '');
+
+        spell.check(body, function(err, res) {
+            print('Checking "' + post.title + '":');
+            res.suggestions.forEach(function(x, i){
+                print('');
+                print((i+1) + '). [' + x.word + ']  From "...' + x.context + '..."');
+                print('    Possibilities: ' + x.words.join(', '));
+            });
+        });
+
+    };
+
+    desc('Spellcheck the latest post');
+    task('latest', function(){
+
+        // Scan dir for last edited post
+        var lastMod = Date.parse('January 1, 1970'),
+            latest = '';
+        fs.readdirSync(postDir).forEach(function(f){
+            var file = path.join(postDir, f),
+                stat = fs.statSync(file);
+
+            if (stat.mtime > lastMod) {
+                lastMod = stat.mtime;
+                latest = file;
+            }
+        });
+
+        spellcheck(latest);
+
+    });
+
+});
 
 //
 // TAGS: Namespace

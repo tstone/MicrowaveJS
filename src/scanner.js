@@ -267,3 +267,4 @@ var scan = function(app, settings, routes, callback) {
 
 // Exports
 exports.scan = scan;
+exports.parseBlogPostFile = parseBlogPostFile;
