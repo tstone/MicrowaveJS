@@ -176,6 +176,16 @@ window.Socialite=function(a,b,c){"use strict";var d=0,e=[],f={},g={},h=/^($|load
                 onPjax(e.state.bodyClass, e.state.selector, e.state.html);
             }
         });
+
+        // Setup intial state
+        (function() {
+            var body = document.getElementsByTagName('body')[0];
+            history.replaceState({
+                bodyClass: body.getAttribute('class'),
+                selector: '.main',
+                html: document.querySelectorAll('.main')[0].innerHTML
+            }, '', document.location.pathname);
+        }());
     }
 
 }());
