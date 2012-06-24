@@ -8,11 +8,11 @@ module.exports = function(assets) {
 
     // CSS
     assets.addCss('base.css');
-    assets.addCss('theme/**');
+    assets.addCss('theme/*.css');
 
     // JS
     assets.addJs('prettify.js');
     assets.addJs('js/site.js');
-    assets.addCss('theme/**');
+    assets.addCss('theme/*.js');
 
 };
