@@ -122,9 +122,9 @@ A very simple spellchecker is included.  It can be used from the command line.
 
 Often since you're blogging about technical matters, you'll come across a word the spellchecker keeps complaining about which is totally valid.  It's possible to add that word to a local dictionary to be considered 'valid'.
 
-    $ jake spellcheck:add("Cygwin")
+    $ jake spellcheck:add("IcedCoffeeScript")
 
-Microwave comes pre-configured with a handful of common technical words.  You're welcome to forked the dictionary file (`src/.dictionary`), add additional words, and pull request it.
+If you want to manually edit what words are considered valid, check out `/src/.dictionary`.
 
 
 Settings
