@@ -136,7 +136,7 @@ window.Socialite=function(a,b,c){"use strict";var d=0,e=[],f={},g={},h=/^($|load
             if (target) {
                 // Extract script tags
                 var scripts = [];
-                var regex = new RegExp('<script[^>]*>([\\S\\s]+)</script>', 'gi');
+                var regex = new RegExp('<script[^>]*>([\\S\\s]*?)</script>', 'gi');
                 var match = regex.exec(html);
                 while (match) {
                     scripts.push(match[1]);
