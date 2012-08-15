@@ -2,10 +2,11 @@
 var path        = require('path'),
     express     = require('express'),
     bundleUp    = require('bundle-up'),
-    app         = express.createServer(),
+    app         = express(),
     settings    = require('./settings'),
     scanner     = require('./scanner'),
     theme       = require('./theme'),
+    http        = require('http'),
     publicPath  = path.join(__dirname, '../public/');
 
 
@@ -30,6 +31,7 @@ app.configure(function() {
         app.use('/public', express.static(publicPath));
     }
 
+    app.set('port', process.env.PORT || 3000);
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
@@ -54,5 +56,7 @@ app.configure(function() {
 
 // Scan and start
 scanner.scan(app, settings, require('./routes').routes, function() {
-    app.listen(process.env.PORT || 3000);
+    http.createServer(app).listen(app.get('port'), function(){
+        console.log("Express server listening on port " + app.get('port'));
+    });
 });
