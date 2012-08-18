@@ -33,8 +33,19 @@ article.post
 
     if (sharing)
         script(type="text/javascript")
-            // Start socialite
-            Socialite.load(document.querySelectorAll('article.post')[0]);
+            if(window.Socialite === undefined){
+                var head = document.querySelector('head');
+                var s = document.createElement('script');
+                s.src = '/public/js/vendor/socialite.js';
+                s.onload = function(){
+                    Socialite.load(document.querySelector('article.post'));
+                }
+                head.insertBefore(s, document.querySelector('script'));
+            }
+            else {
+                // Start socialite
+                Socialite.load(document.querySelectorAll('article.post')[0]);
+            }
 
     if (comments)
         script(type="text/javascript")
