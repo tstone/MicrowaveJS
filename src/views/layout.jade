@@ -4,12 +4,13 @@ html(lang="en")
         title= blogTitle
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width")
-        != renderStyles()
+
         script(src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.5.3/modernizr.min.js")
 
         block head
 
-        // include ../../public/theme/head.html
+        include ../../public/theme/head.html
+
         | !{themeHead}
 
     body(class=bodyClass)
@@ -37,7 +38,9 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
-        != renderJs()
+        script(src="public/js/vendor/prettify.js")
+        script(src="public/js/vendor/socialite.js")
+        script(src="public/js/site.js")
 
         block scripts
 

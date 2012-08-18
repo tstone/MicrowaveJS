@@ -1,0 +1,197 @@
+/*
+ *  Stock Light theme for Microwave.js
+ *  https://github.com/tstone/MicrowaveJS
+ *
+ *  Inspired by Vignelli theme by Robbie Manson
+ *  http://www.robbiemanson.com/resources/vignelli-minimal-tumblr-theme/
+ */
+
+/* ==|== blog styles ======================================================== */
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { font-family: 'Open Sans', sans-serif; letter-spacing: -0.05em; }
+h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.075em; }
+h1 a, h2 a, h3 a, h4 a { text-decoration: none; }
+a { color: #444; }
+a[href^="http"]:after { display: inline-block; margin-left: 2px; content: "\f08e"; font-family: 'FontAwesome'; font-size: 10px; }
+#dsq-comments a:after { display: none; }
+a:visited { color: #333; }
+a:hover { color: #D53C2E; }
+
+/* Header */
+header {
+	border-bottom: solid 1px #eee; padding: 20px 0;
+	h1 {
+		color: #D53C2E; text-transform: lowercase; width: 20%; float: left; font-size: 16px; margin: 0;
+		a {
+			color: #D53C2E;
+			&:hover { text-decoration: underline; }
+			&:visited { color: #D53C2E; }
+		}
+	}
+	.desc { margin-left: 20%; font-size: 13px; display: block; line-height: 26px; }
+	.search { position: absolute; right: 0; top: 20px; width: 121px; }
+	a.rss { text-transform: lowercase; text-decoration: none; color: #D53C2E; font-size: 12px; position: absolute; top: 25px; right: 130px; }
+	a.rss span { text-transform: none; font-size: 12px; margin-left: 3px; float: right; }
+	a.rss:hover { text-decoration: underline; }
+}
+
+/* Forms */
+input::-webkit-input-placeholder { color: #ddd; }
+input:-moz-placeholder { color: #ddd; }
+input:focus { outline: none; }
+.form-actions { float: left; }
+.input { float: left; }
+button {
+	background-color: #eee; border: 1px solid #eee; border-left: none; border-bottom-right-radius: 4px; border-top-right-radius: 4px; color: #aaa; font-family: 'FontAwesome'; font-weight: bold; margin: 0; padding: 0; text-align: center;
+	&:hover { color: #999; }
+}
+input { border-top-left-radius: 4px; border-bottom-left-radius: 4px; border: 1px solid #eee; color: #888; padding-left: 4px; width: 100%; }
+header {
+	.input { width: 97px; }
+	button { font-size: 13px; font-weight: bold; height: 20px; margin: 3px 0 0; padding: 4px 0 0; width: 24px; }
+	input { font-size: 11px; line-height: 16px; }
+}
+article {
+	.input { vertical-align: top; width: 150px; }
+	button { font-size: 12px; line-height: 21px; width: 24px; }
+	form { margin-top: 15px; position: static; width: 200px; }
+	input { line-height: 19px; margin-top: 1px; }
+	.sharing { margin-top: 20px; }
+}
+
+/* Body */
+.wrapper { width: 960px; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -15px; position: relative; padding-bottom: 40px; }
+.post pre { margin-left: 15px; }
+ul.tags {
+	padding: 0; margin: 8px 0;
+	li {
+		display: inline-block; border: solid 1px #eee; padding: 3px 5px; font-size: 11px; margin-right: 4px; color: #ccc; line-height: 14px;
+		a { color: #ccc; text-decoration: none; }
+	}	
+}
+aside.left { position: absolute; top: 90px; left: 0; width: 16%; }
+aside.right { position: absolute; top: 90px; right: 0; width: 16%; }
+nav.pagination {
+	margin: 30px 20%; min-height: 30px;
+	a {
+		text-decoration: none; color: #777;
+		span { font-size: 16px; line-height: 16px; position: relative; color: #D53C2E; }
+	}
+	a.prev { float: right; }
+	a.next { 
+		span { margin-right: 5px; }
+	}
+	a.prev {
+		span { margin-left: 5px; }
+	}
+}
+
+/* Footer */
+footer {
+	height: 15px; position: absolute; bottom: 10px; right: 0; text-align: right;
+	a[href^="http"]:after { font-size: 8px; }
+}
+
+/* Index Page */
+body.index {
+	h4, p { margin: 20px 20% 0 20%; }
+	article {
+		margin: 20px 20% 0 20%; position: relative; padding-bottom: 20px; border-bottom: solid 1px #eee;
+		h2 { margin-bottom: 0; }
+		.date { font-size: 11px; display: block; margin-top: -2px; margin-bottom: 1px; }
+		ul.tags { float: right; margin: -15px 0 0 0; }
+		a.comments { font-size: 11px; display: block; color: #bbb; min-height: 15px; }
+		a.comments[href^="http"]:after { display: none; }
+	}
+	.index-desc {
+		margin: 40px 20%; position: relative; font-size: 18px; font-weight: 300;
+		em { display: inline-block; margin-left: 3px; }
+	}
+}
+
+/* Post Page */
+body.post {
+	article {
+		margin: 0 20%; position: relative; font-size: 14px; line-height: 25px;
+		h1 { line-height: 38px; }
+		pre { line-height: 18px; }
+		img { width: 100%; }
+		h2 { margin-top: 40px; }
+		h3 { margin-top: 30px; }
+		.date { display: block; position: absolute; top: 10px; left: -33%; font-size: 11px; color: #999; }
+		.tags {
+			position: absolute; top: 25px; left: -33%; margin-left: -1px; width: 15%;
+			li { margin-bottom: 4px; }
+		}
+	}
+	.wrapper nav {
+		position: absolute; top: 101px; right: 0; width: 20%; text-align: right; font-size: 20px; margin-right: 0;
+		a {
+			background-color: #999; border-radius: 14px; color: #ddd; display: inline-block; height: 24px; font-size: 14px; margin-left: 2px; padding: 4px 3px 3px; text-align: center; text-decoration: none; text-transform: lowercase; vertical-align: top; width: 24px;
+			&:hover { background-color: #D53C2E; color: #fff; }
+		}
+		a.icon-chevron-left { padding-left: 2px; padding-right: 4px; }
+		a.icon-chevron-right { padding-left: 4px; padding-right: 2px; }
+		a.icon-chevron-up { padding-bottom: 4px; padding-top: 3px; }
+	}
+	aside.left { top: 150px; }
+	aside.right { top: 150px; }
+	#disqus_thread { margin-top: 10px; }
+}
+
+/* Error Pages */
+body.error .error { margin: 0 20%; }
+
+/* disqus overwrites */
+body.post {
+	#dsq-content {
+		#dsq-messagesx-toolbar-icon { height: auto; width: auto; }
+		.dsq-toolbar-label { line-height: 15px; }
+	}
+}
+#disqus_thread { margin-top: 2em; padding-bottom: 2em; }
+.dsq-brlink { display: none; }
+.dsq-moderate-options,
+#dsq-content .dsq-show-tools.dsq-show-tools-finished .dsq-post-tools,
+#dsq-content .dsq-attach-media .dsq-attach-media-border iframe { box-sizing: content-box; }
+body.post article #disqus_thread img { width: auto; }
+#dsq-popup-message a[href^="http"]:after,
+#disqus_thread a[href^="http"]:after { display: none; }
+
+
+/* ==|== media queries ====================================================== */
+/* Note: Sizes from Skeleton CSS Framwork - https://github.com/dhgamache/Skeleton/blob/master/stylesheets/layout.css */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.wrapper { width: 768px; }
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+	.wrapper { width: 100%; padding: 0 15px; }
+	header {
+		h1 { float: none; width: auto; }
+		.desc { margin-left: 0; line-height: 1em; margin-top: 10px; }
+		a.rss { right: 150px; top: 25px;  }
+		.search { right: 20px; top: 20px; }
+	}
+	body.index article { margin: 20px 0 0 0; }
+	body.post {
+		article {
+			margin: 0;
+			h1 { margin: 15px 0 0 0; }
+			.date { position: static; }
+			.tags { position: static; margin: 10px 0 10px 0; width: auto; }
+		}
+		nav.post { position: static; font-size: 35px; width: auto; }
+		.wrapper nav.post { text-align: center; }
+	}
+	aside.left, aside.right { display: none; }
+	body.search h4 { margin-left: 0; }
+}
