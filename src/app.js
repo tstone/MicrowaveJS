@@ -1,30 +1,20 @@
 
 var path        = require('path'),
     express     = require('express'),
-    bundleUp    = require('bundle-up'),
     app         = express(),
     settings    = require('./settings'),
     scanner     = require('./scanner'),
     theme       = require('./theme'),
     http        = require('http'),
-    publicPath  = path.join(__dirname, '../public/');
-
-
-// Bundled Assets
-bundleUp(app, __dirname + '/assets', {
-    staticRoot:     publicPath,
-    staticUrlRoot:  '/public/',
-    bundle:         settings.env.production,
-    minifyCss:      settings.env.production,
-    minifyJs:       settings.env.production
-});
+    publicPath  = path.join(__dirname, '../public/'),
+    lessMiddleware = require('less-middleware');
 
 // Configure Express
 app.settings = settings;
 app.configure(function() {
-
+    var isProd = settings.env.production;
     // Long cache assets if in production
-    if (settings.env.production) {
+    if (isProd) {
         var oneYear = 31557600000;
         app.use('/public', express.static(publicPath, { maxAge: oneYear }));
     } else {
@@ -32,6 +22,15 @@ app.configure(function() {
     }
 
     app.set('port', process.env.PORT || 3000);
+    app.use(lessMiddleware({
+      src: publicPath,
+      dest: publicPath,
+      compress: isProd,
+      debug: !isProd,
+      force: !isProd
+    }));
+
+    app.use(express.static(publicPath));
     app.set('view engine', 'jade');
     app.set('views', path.join(__dirname, '/views'));
     app.use(app.router);
