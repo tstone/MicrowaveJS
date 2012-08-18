@@ -38,9 +38,10 @@ html(lang="en")
             // :: End Right Sidebar
 
         // :: Scripts
-        script(src="/public/js/vendor/prettify.js")
-        script(src="/public/js/vendor/socialite.js")
-        script(src="/public/js/site.js")
+        != renderJs()
+        //- script(src="/public/js/vendor/prettify.js")
+        //- script(src="/public/js/vendor/socialite.js")
+        //- script(src="/public/js/site.js")
 
         block scripts
 

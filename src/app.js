@@ -7,7 +7,16 @@ var path        = require('path'),
     theme       = require('./theme'),
     http        = require('http'),
     publicPath  = path.join(__dirname, '../public/'),
-    lessMiddleware = require('less-middleware');
+    lessMiddleware = require('less-middleware'),
+    bundleUp    = require('bundle-up');
+
+// Bundled Assets
+bundleUp(app, __dirname + '/assets', {
+    staticRoot    : publicPath,
+    staticUrlRoot : '/public/',
+    bundle        : settings.env.production,
+    minifyJs      : settings.env.production
+});
 
 // Configure Express
 app.settings = settings;
@@ -23,11 +32,11 @@ app.configure(function() {
 
     app.set('port', process.env.PORT || 3000);
     app.use(lessMiddleware({
-      src: publicPath,
-      dest: publicPath,
-      compress: isProd,
-      debug: !isProd,
-      force: !isProd
+      src      : publicPath,
+      dest     : publicPath,
+      compress : isProd,
+      debug    : !isProd,
+      force    : !isProd
     }));
 
     app.use(express.static(publicPath));
