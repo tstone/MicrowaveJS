@@ -1,0 +1,35 @@
+/*
+ * Derived from cyberpunkspike's Tango Light for Komodo
+ * Ported to Prettify by Titus Stone
+ */
+
+.str { color: #8F5902; } /* string */
+.kwd { color: #204A87; font-weight: bold; } /* keyword */
+.com { color: #888A85; font-style: italic; } /* comment */
+.pun { color: #5C3566; } /* operator */
+.pln { color: #4E9A06; } /* identifiers */
+.typ { color: #C4A000; font-weight: bold; } /* type (ksf class) */
+.lit { color: #a40000; } /* literal */
+.tag { color: #204A87; } /* tag */
+.atn { color: #5C3566; } /* tag attribute */
+.atv { color: #8F5902; } /* tag attribute value (string) */
+.dec { color: #a40000; } /* number (litearl) */
+
+.prettyprint { background: #fff; }
+ol.linenums {
+    margin-top: 0; margin-bottom: 0; color: #555753; background-color: #EEEEEC;
+    li {  background-color: #fff; list-style-type: decimal; padding-left: 12px; font-size: 13px; }
+}
+
+@media print {
+    .str { color: #060; }
+    .kwd { color: #006; font-weight: bold; }
+    .com { color: #600; font-style: italic; }
+    .typ { color: #404; font-weight: bold; }
+    .lit { color: #044; }
+    .pun { color: #440; }
+    .pln { color: #000; }
+    .tag { color: #006; font-weight: bold; }
+    .atn { color: #404; }
+    .atv { color: #060; }
+}
