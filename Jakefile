@@ -109,15 +109,6 @@ namespace('spellcheck', function(){
         var lastMod = Date.parse('January 1, 1970'),
             latest = '';
         fs.readdirSync(postDir).forEach(function(f){
-            // var file = path.join(postDir, f),
-            //     stat = fs.statSync(file);
-
-            // if(!fs.statSync(file).isDirectory()){
-            //     if (stat.mtime > lastMod) {
-            //         lastMod = stat.mtime;
-            //         latest = file;
-            //     }
-            // }
             var dirs = [postDir];
             while(dirs.length > 0){
                 fs.readdirSync(dirs[0]).forEach(function(f){
