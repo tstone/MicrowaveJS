@@ -112,9 +112,11 @@ namespace('spellcheck', function(){
             var file = path.join(postDir, f),
                 stat = fs.statSync(file);
 
-            if (stat.mtime > lastMod) {
-                lastMod = stat.mtime;
-                latest = file;
+            if(!fs.statSync(file).isDirectory()){
+                if (stat.mtime > lastMod) {
+                    lastMod = stat.mtime;
+                    latest = file;
+                }
             }
         });
 
@@ -144,7 +146,9 @@ namespace('spellcheck', function(){
 
         fs.readdirSync(postDir).forEach(function(f){
             var file = path.join(postDir, f);
-            spellcheckFile(file);
+            if(!fs.statSync(file).isDirectory()){
+                spellcheckFile(file);
+            }
         });
 
     });
