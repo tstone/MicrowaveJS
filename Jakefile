@@ -109,12 +109,23 @@ namespace('spellcheck', function(){
         var lastMod = Date.parse('January 1, 1970'),
             latest = '';
         fs.readdirSync(postDir).forEach(function(f){
-            var file = path.join(postDir, f),
-                stat = fs.statSync(file);
+            var dirs = [postDir];
+            while(dirs.length > 0){
+                fs.readdirSync(dirs[0]).forEach(function(f){
+                    var file = path.join(dirs[0], f),
+                        stat = fs.statSync(file);
 
-            if (stat.mtime > lastMod) {
-                lastMod = stat.mtime;
-                latest = file;
+                    if(fs.statSync(file).isDirectory()){
+                        dirs.push(file);
+                    }
+                    else {
+                        if (stat.mtime > lastMod) {
+                            lastMod = stat.mtime;
+                            latest = file;
+                        }
+                    }
+                });
+                dirs.shift();
             }
         });
 
@@ -141,12 +152,19 @@ namespace('spellcheck', function(){
 
     desc('Spellcheck every post');
     task('all', function() {
-
-        fs.readdirSync(postDir).forEach(function(f){
-            var file = path.join(postDir, f);
-            spellcheckFile(file);
-        });
-
+        var dirs = [postDir];
+        while(dirs.length > 0){
+            fs.readdirSync(dirs[0]).forEach(function(f){
+                var file = path.join(dirs[0], f);
+                if(fs.statSync(file).isDirectory()){
+                    dirs.push(file);
+                }
+                else {
+                    spellcheckFile(file);
+                }
+            });
+            dirs.shift();
+        }
     });
 
     desc('Add a word to the spellchecking dictionary');
