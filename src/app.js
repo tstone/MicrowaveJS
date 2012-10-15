@@ -4,19 +4,20 @@ var path        = require('path'),
     app         = express(),
     settings    = require('./settings'),
     scanner     = require('./scanner'),
-    theme       = require('./theme'),
     http        = require('http'),
     publicPath  = path.join(__dirname, '../public/'),
     lessMiddleware = require('less-middleware'),
-    bundleUp    = require('bundle-up');
+    bundleUp    = require('bundle-up'),
+    themePath   = path.join(publicPath, 'themes/', settings.theme, '/');
 
 // Bundled Assets
-bundleUp(app, __dirname + '/assets', {
-    staticRoot    : publicPath,
-    staticUrlRoot : '/public/',
-    bundle        : settings.env.production,
-    minifyJs      : settings.env.production
-});
+// TODO: determin if this is needed
+// bundleUp(app, __dirname + '/assets', {
+//     staticRoot    : publicPath,
+//     staticUrlRoot : '/',
+//     bundle        : settings.env.production,
+//     minifyJs      : settings.env.production
+// });
 
 // Configure Express
 app.settings = settings;
@@ -28,6 +29,7 @@ app.configure(function() {
         app.use('/public', express.static(publicPath, { maxAge: oneYear }));
     } else {
         app.use('/public', express.static(publicPath));
+        app.use('/theme', express.static( path.join(publicPath, 'themes/' + settings.theme)));
     }
 
     app.set('port', process.env.PORT || 3000);
@@ -42,7 +44,7 @@ app.configure(function() {
     app.use(express.static(publicPath));
 
     app.set('view engine', 'jade');
-    app.set('views', path.join(__dirname, '/views'));
+    app.set('views', themePath);
     app.use(app.router);
 
     // Values available to every template
@@ -58,7 +60,7 @@ app.configure(function() {
         hackerNewsSharing: settings.hackernewssharing,
         host:             settings.host,
         sharing:          settings.sharing,
-        themeHead:        theme.getThemeHead(),
+        themePath:        'theme/',
         twitterSharing:   settings.twittersharing
     });
 });

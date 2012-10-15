@@ -9,7 +9,12 @@ html(lang="en")
 
         block head
 
-        | !{themeHead}
+        link(href="#{themePath}css/theme.css", rel="stylesheet", type="text/css")
+        link(href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700", rel="stylesheet", type="text/css")
+        
+        script(src="#{themePath}js/vendor/prettify.js")
+        script(src="#{themePath}js/vendor/socialite.js")
+        script(src="#{themePath}js/site.js")
 
     body(class=bodyClass)
         .wrapper
@@ -24,7 +29,7 @@ html(lang="en")
 
             // :: Start Left Sidebar
             aside.left
-                include ../../left-sidebar.html
+                // :: Left Sidebar Content Here
             // :: End Left Sidebar
 
             .main
@@ -32,11 +37,11 @@ html(lang="en")
 
             // :: Start Right Sidebar
             aside.right
-                include ../../right-sidebar.html
+                // :: Right Sidebar Content Here
             // :: End Right Sidebar
 
         // :: Scripts
-        != renderJs()
+        //!= renderJs()
 
         block scripts
 
